@@ -1,0 +1,62 @@
+group 'com.shadyboshra2012.flutter_fawry_pay'
+version '1.0'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath 'com.android.library:fawryplugin-release:1.0.29.2@aar'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        minSdkVersion 19
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+}
+
+dependencies {
+    //materialish library
+    implementation 'com.pnikosis:materialish-progress:1.7'
+    //support design library
+    implementation 'com.android.support:design:28.0.0'
+    //support design library
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.7.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.0'
+    //retrofit logger interceptor
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
+    // google play services base
+    implementation 'com.google.android.gms:play-services-base:17.6.0'
+    //appcompat
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    // fawry plugin aar file
+    implementation('com.android.library:fawryplugin-release:1.0.29.2@aar')
+}

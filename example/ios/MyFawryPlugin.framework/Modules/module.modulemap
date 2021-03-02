@@ -1,0 +1,11 @@
+framework module MyFawryPlugin {
+  umbrella header "MyFawryPlugin.h"
+
+  export *
+  module * { export * }
+}
+
+module MyFawryPlugin.Swift {
+    header "MyFawryPlugin-Swift.h"
+    requires objc
+}
