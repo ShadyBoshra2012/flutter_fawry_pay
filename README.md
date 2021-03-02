@@ -39,6 +39,7 @@ You have to edit `AndroidManifest.xml` file with following.
 
 And download this [file](https://github.com/ShadyBoshra2012/flutter_fawry_pay/blob/master/example/android/app/libs/fawryplugin-release.aar), and put it in `app/libs` folder (If not exist, create it).
 
+
 ### iOS
 
 Under Development.
