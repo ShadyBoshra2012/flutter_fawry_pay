@@ -17,17 +17,17 @@ class FawryResponse {
   static const String _ERROR_MESSAGE_KEY = "error_message";
 
   /// Parameters for payment process.
-  String transactionID;
-  DateTime expiryDate;
+  String? transactionID;
+  DateTime? expiryDate;
 
   /// Parameters for card tokenizer process.
-  String cardToken;
-  DateTime creationDate;
-  String lastFourDigits;
+  String? cardToken;
+  DateTime? creationDate;
+  String? lastFourDigits;
 
   /// Common parameters for all process.
-  Map<String, dynamic> customParam;
-  String errorMessage;
+  Map<String, dynamic>? customParam;
+  String? errorMessage;
 
   FawryResponse({
     this.transactionID,

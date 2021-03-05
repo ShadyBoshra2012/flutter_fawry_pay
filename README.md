@@ -8,6 +8,8 @@ This plugin is for [FawryPay](https://developer.fawrystaging.com/docs-home). It'
 
 > It works now for Android only. iOS under development.
 
+![](https://developer.fawrystaging.com/fawrypay/img/docs/fawry-pay-english.png)
+
 
 ## Getting Started
 
@@ -15,7 +17,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_fawry_pay: ^0.0.1+1
+  flutter_fawry_pay: ^0.0.2
 ```
 
 
@@ -102,7 +104,7 @@ FlutterFawryPay.instance.initialize(
 
 So, it was initialized well, how to start payment? You have TWO ways.
 
-# First way: Native Fawry Button
+### First way: Native Fawry Button
 
 You can use the native button for FawryPay SDK. through this only widget.
 
@@ -110,7 +112,7 @@ You can use the native button for FawryPay SDK. through this only widget.
 FawryButton()
 ```
 
-# Second way: Your custom widget
+### Second way: Your custom widget
 
 You can use your own widget with a function to call with `FlutterFawryPay.instance.startProcess()`.
 

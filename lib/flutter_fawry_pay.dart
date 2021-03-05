@@ -67,13 +67,13 @@ class FlutterFawryPay {
   /// [username] sets the default username if you set `skipCustomerInput = true`,
   /// it should be a phone number.
   /// [email] sets the default email if you set `skipCustomerInput = true`.
-  Future<bool> init({
+  Future<bool?> init({
     style = Style.STYLE1,
     enableLogging = false,
     enableMockups = false,
     skipCustomerInput = false,
-    String username,
-    String email,
+    String? username,
+    String? email,
   }) async {
     // Check if skipCustomerInput is true, but username or email is equals null.
     assert(!skipCustomerInput || (skipCustomerInput && username != null && email != null),
@@ -108,13 +108,13 @@ class FlutterFawryPay {
   /// [language] sets the language of payment, whether English or Arabic, default English.
   /// [environment] sets the environment of payment, whether Test or Live, default Test.
   /// [customParam] sets a map of custom data you want to receive back with result data after payment.
-  Future<bool> initialize({
-    @required String merchantID,
-    @required List<FawryItem> items,
-    String merchantRefNumber,
+  Future<bool?> initialize({
+    required String merchantID,
+    required List<FawryItem> items,
+    String? merchantRefNumber,
     Language language = Language.EN,
     Environment environment = Environment.TEST,
-    Map<String, dynamic> customParam,
+    Map<String, dynamic>? customParam,
   }) async {
     try {
       return await _channel.invokeMethod(_METHOD_INITIALIZE, <String, dynamic>{
@@ -147,18 +147,15 @@ class FlutterFawryPay {
   /// [language] sets the language of payment, whether English or Arabic, default English.
   /// [environment] sets the environment of payment, whether Test or Live, default Test.
   /// [customParam] sets a map of custom data you want to receive back with result data after payment.
-  Future<bool> initializeCardTokenizer({
-    @required String merchantID,
-    @required String customerMobile,
-    @required String customerEmail,
-    String merchantRefNumber,
+  Future<bool?> initializeCardTokenizer({
+    required String merchantID,
+    required String customerMobile,
+    required String customerEmail,
+    String? merchantRefNumber,
     Language language = Language.EN,
     Environment environment = Environment.TEST,
-    Map<String, dynamic> customParam,
+    Map<String, dynamic>? customParam,
   }) async {
-    // Check customerMobile and customerEmail not equals null.
-    assert(customerMobile != null && customerEmail != null, "You should set customerMobile and customerEmail.");
-
     try {
       return await _channel.invokeMethod(_METHOD_INITIALIZE_CARD_TOKENIZER, <String, dynamic>{
         'merchantID': merchantID,
@@ -186,7 +183,7 @@ class FlutterFawryPay {
   /// Throws exception if not completed well.
   Future<FawryResponse> startProcess() async {
     try {
-      Map<dynamic, dynamic> data = await _channel.invokeMethod(_METHOD_START_PAYMENT);
+      Map<dynamic, dynamic> data = await (_channel.invokeMethod(_METHOD_START_PAYMENT) as FutureOr<Map<dynamic, dynamic>>);
       return FawryResponse.fromMap(data);
     } on PlatformException catch (e) {
       if (e.code == _ERROR_START_PAYMENT)
@@ -201,7 +198,7 @@ class FlutterFawryPay {
   ///
   /// Returns `true` if it was rest well.
   /// Throws exception if not.
-  Future<bool> reset() async {
+  Future<bool?> reset() async {
     try {
       return await _channel.invokeMethod(_METHOD_RESET);
     } on PlatformException catch (e) {

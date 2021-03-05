@@ -11,7 +11,7 @@ class FawryButton extends StatelessWidget {
   final double height;
   final double width;
 
-  const FawryButton({Key key, this.height = 50.0, this.width = 200.0}) : super(key: key);
+  const FawryButton({Key? key, this.height = 50.0, this.width = 200.0}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class FawryButton extends StatelessWidget {
               viewType: viewType,
               surfaceFactory: (BuildContext context, PlatformViewController controller) {
                 return AndroidViewSurface(
-                  controller: controller,
+                  controller: controller as AndroidViewController,
                   gestureRecognizers: const <Factory<OneSequenceGestureRecognizer>>{},
                   hitTestBehavior: PlatformViewHitTestBehavior.opaque,
                 );

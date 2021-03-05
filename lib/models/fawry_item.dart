@@ -12,14 +12,14 @@ class FawryItem {
   String description;
   String qty;
   String price;
-  String originalPrice;
-  String height;
-  String length;
-  String weight;
-  String width;
-  String variantCode;
-  List<String> reservationCodes;
-  String earningRuleID;
+  String? originalPrice;
+  String? height;
+  String? length;
+  String? weight;
+  String? width;
+  String? variantCode;
+  List<String>? reservationCodes;
+  String? earningRuleID;
 
   /// FawryItem constructor.
   ///
@@ -28,10 +28,10 @@ class FawryItem {
   /// [qty] sets the quantity of the item.
   /// [price] sets the price for one item.
   FawryItem({
-    @required this.sku,
-    @required this.description,
-    @required this.qty,
-    @required this.price,
+    required this.sku,
+    required this.description,
+    required this.qty,
+    required this.price,
     this.originalPrice,
     this.height,
     this.length,

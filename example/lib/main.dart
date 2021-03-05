@@ -76,7 +76,7 @@ class _MyAppState extends State<MyApp> {
             Center(
               child: Text('$_text'),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () async {
                 _isInitPayment = await FlutterFawryPay.instance.initialize(
                   merchantID: Keys.merchantID,
@@ -92,7 +92,7 @@ class _MyAppState extends State<MyApp> {
               },
               child: Text("Init for Payment"),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () async {
                 _isInitCardToken = await FlutterFawryPay.instance.initializeCardTokenizer(
                   merchantID: Keys.merchantID,
@@ -111,7 +111,7 @@ class _MyAppState extends State<MyApp> {
               },
               child: Text("Init for Card Token"),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () async {
                 FawryResponse response = await FlutterFawryPay.instance.startProcess();
                 setState(() {
@@ -120,7 +120,7 @@ class _MyAppState extends State<MyApp> {
               },
               child: Text("Start Payment"),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () async {
                 _reset = await FlutterFawryPay.instance.reset();
                 setState(() {
