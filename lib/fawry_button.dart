@@ -11,7 +11,8 @@ class FawryButton extends StatelessWidget {
   final double height;
   final double width;
 
-  const FawryButton({Key? key, this.height = 50.0, this.width = 200.0}) : super(key: key);
+  const FawryButton({Key? key, this.height = 50.0, this.width = 200.0})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +28,12 @@ class FawryButton extends StatelessWidget {
       child: (Platform.isAndroid)
           ? PlatformViewLink(
               viewType: viewType,
-              surfaceFactory: (BuildContext context, PlatformViewController controller) {
+              surfaceFactory:
+                  (BuildContext context, PlatformViewController controller) {
                 return AndroidViewSurface(
                   controller: controller as AndroidViewController,
-                  gestureRecognizers: const <Factory<OneSequenceGestureRecognizer>>{},
+                  gestureRecognizers: const <
+                      Factory<OneSequenceGestureRecognizer>>{},
                   hitTestBehavior: PlatformViewHitTestBehavior.opaque,
                 );
               },
@@ -42,16 +45,18 @@ class FawryButton extends StatelessWidget {
                   creationParams: creationParams,
                   creationParamsCodec: StandardMessageCodec(),
                 )
-                  ..addOnPlatformViewCreatedListener(params.onPlatformViewCreated)
+                  ..addOnPlatformViewCreatedListener(
+                      params.onPlatformViewCreated)
                   ..create();
               },
             )
-          : Container()/*UiKitView(
+          : Container() /*UiKitView(
               viewType: viewType,
               layoutDirection: TextDirection.ltr,
               creationParams: creationParams,
               creationParamsCodec: const StandardMessageCodec(),
-            )*/,
+            )*/
+      ,
     );
   }
 }

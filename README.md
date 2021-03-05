@@ -236,7 +236,7 @@ This is a beta version of plugin, so I am very appreciated for any issues or con
 
 ## License
 
-MIT: [http://mit-license.org](http://mit-license.org). 
+MIT: [https://mit-license.org](http://mit-license.org). 
 
 Copyright (c) 2021 Shady Boshra. All rights reserved.
 
