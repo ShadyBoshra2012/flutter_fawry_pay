@@ -46,12 +46,12 @@ class FawryButton extends StatelessWidget {
                   ..create();
               },
             )
-          : Container()/*UiKitView(
+          : UiKitView(
               viewType: viewType,
               layoutDirection: TextDirection.ltr,
               creationParams: creationParams,
               creationParamsCodec: const StandardMessageCodec(),
-            )*/,
+            ),
     );
   }
 }

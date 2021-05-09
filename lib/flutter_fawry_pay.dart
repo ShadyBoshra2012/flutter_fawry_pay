@@ -89,7 +89,8 @@ class FlutterFawryPay {
         'email': email,
       });
     } on PlatformException catch (e) {
-      if (e.code == _ERROR_INIT) throw "Error Occurred: Code: $_ERROR_INIT. Message: ${e.message}. Details: SDK Init Error";
+      if (e.code == _ERROR_INIT)
+        throw "Error Occurred: Code: $_ERROR_INIT. Message: ${e.message}. Details: SDK Init Error";
       throw "Error Occurred: Code: ${e.code}. Message: ${e.message}. Details: ${e.details}";
     } catch (e) {
       throw "Error Occurred: Message: $e";
@@ -151,6 +152,7 @@ class FlutterFawryPay {
     required String merchantID,
     required String customerMobile,
     required String customerEmail,
+    String? customerProfileId,
     String? merchantRefNumber,
     Language language = Language.EN,
     Environment environment = Environment.TEST,
@@ -161,6 +163,7 @@ class FlutterFawryPay {
         'merchantID': merchantID,
         'customerMobile': customerMobile,
         'customerEmail': customerEmail,
+        'customerProfileId': customerProfileId,
         'merchantRefNumber': merchantRefNumber,
         'language': language.toString(),
         'environment': environment.toString(),
@@ -183,7 +186,8 @@ class FlutterFawryPay {
   /// Throws exception if not completed well.
   Future<FawryResponse> startProcess() async {
     try {
-      Map<dynamic, dynamic> data = await (_channel.invokeMethod(_METHOD_START_PAYMENT) as FutureOr<Map<dynamic, dynamic>>);
+      Map<dynamic, dynamic> data =
+          await (_channel.invokeMethod(_METHOD_START_PAYMENT) as FutureOr<Map<dynamic, dynamic>>);
       return FawryResponse.fromMap(data);
     } on PlatformException catch (e) {
       if (e.code == _ERROR_START_PAYMENT)

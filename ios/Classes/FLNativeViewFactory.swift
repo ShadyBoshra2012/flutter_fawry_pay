@@ -7,7 +7,7 @@
 
 import Flutter
 import UIKit
-//import MyFawryPlugin
+import MyFawryPlugin
 
 class FLNativeViewFactory: NSObject, FlutterPlatformViewFactory {
     private var messenger: FlutterBinaryMessenger
@@ -32,6 +32,8 @@ class FLNativeViewFactory: NSObject, FlutterPlatformViewFactory {
 
 class FLNativeView: NSObject, FlutterPlatformView {
     private var _view: UIView
+    
+    private var fawry: Fawry!
 
     init(
         frame: CGRect,
@@ -49,13 +51,33 @@ class FLNativeView: NSObject, FlutterPlatformView {
         return _view
     }
 
+    let fawryButton = UIButton()
+    
     func createNativeView(view _view: UIView){
-//        let FawryPlugin = Fawry.sharedInstance
+        // Get instance of Fawry plugin.
+        fawry = Fawry.sharedInstance
         
-        _view.backgroundColor = UIColor.blue
-//        let fawryButton = UIButton()
-//        FawryPlugin?.applyFawryButtonStyleToButton(button: fawryButton)
-//        fawryButton.frame = CGRect(x: 0, y: 0, width: 180, height: 48.0)
-//        _view.addSubview(fawryButton)
+        // Wrap FawryButton inside the view.
+        ///Adding `fawryButton` to the superview.
+        _view.addSubview(fawryButton)
+        
+        /// Seting up `fawryButton` constraints
+        fawryButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            fawryButton.leadingAnchor.constraint(equalTo: _view.leadingAnchor),
+            fawryButton.trailingAnchor.constraint(equalTo: _view.trailingAnchor),
+            fawryButton.bottomAnchor.constraint(equalTo: _view.bottomAnchor),
+            fawryButton.topAnchor.constraint(equalTo: _view.topAnchor)
+        ])
+        fawry?.applyFawryButtonStyleToButton(button: fawryButton)
+        
+        fawryButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
     }
+    
+    @objc
+    private func didTapButton() {
+        // Call show Fawry SDK function.
+        SwiftFlutterFawryPayPlugin.showFawrySDK()
+    }
+    
 }
