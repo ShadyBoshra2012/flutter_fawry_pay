@@ -80,7 +80,7 @@ public class FlutterFawryPayPlugin implements FlutterPlugin, MethodCallHandler, 
         @Override
         public void paymentOperationSuccess(String trx_id, Object o) {
             final Bundle object = (Bundle) o;
-
+            Log.i("0", trx_id + o.toString());
             try {
                 int requestResult = object.getInt(FawryPluginAppClass.REQUEST_RESULT);
                 if (requestResult == FawryPluginAppClass.SUCCESS_CODE) {

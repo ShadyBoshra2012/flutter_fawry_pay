@@ -83,6 +83,10 @@ class _MyAppState extends State<MyApp> {
                   items: [
                     FawryItem(sku: "1", description: "Item 1", qty: "1", price: "20"),
                   ],
+                  customParam: {
+                    "order_id": "123213",
+                    "price": 231.0,
+                  },
                 );
                 setState(() {
                   if (_isInitPayment) {
