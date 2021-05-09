@@ -1,0 +1,131 @@
+[
+    {
+        "id": 952,
+        "installmentPlan": {
+            "id": 1,
+            "nameAr": "5 months",
+            "nameEn": "5 months",
+            "rate": 5,
+            "noOfMonths": 5.2,
+            "merchantProfileCode": "TEST221075EGP",
+            "minAmount": 10,
+            "maxAmount": 10000,
+            "startDate": 1555891200000,
+            "endDate": 1598832000000,
+            "online": true,
+            "status": {
+                "id": 1,
+                "code": "ACTIVE",
+                "nameAr": "ACTIVE",
+                "nameEn": "ACTIVE"
+            },
+            "accountType": {
+                "id": 1,
+                "nameEn": "MC",
+                "nameAr": "MC",
+                "code": "MC",
+                "bank": {
+                    "id": 1,
+                    "nameEn": "MC",
+                    "nameAr": "MC",
+                    "code": "MC",
+                    "swfCode": "MC"
+                }
+            },
+            "type": "INDIRECT"
+        },
+        "applyTo": "ANY_PRODUCT",
+        "products": [],
+        "productsCodes": [],
+        "variants": [],
+        "categories": [],
+        "requiredItemsValidation": false,
+        "imageUrl": "https://promotest.fawrystaging.com:4001/api/images/6002/installment/1575882477675/963f87fffb6a458ca1d307c9ee26a8bd.jpeg"
+    },
+    {
+        "id": 953,
+        "installmentPlan": {
+            "id": 2,
+            "nameAr": "10 months",
+            "nameEn": "10 months",
+            "rate": 7,
+            "noOfMonths": 10,
+            "merchantProfileCode": "TEST221075EGP",
+            "minAmount": 10,
+            "maxAmount": 10000,
+            "startDate": 1555891200000,
+            "endDate": 1598832000000,
+            "online": true,
+            "status": {
+                "id": 1,
+                "code": "ACTIVE",
+                "nameAr": "ACTIVE",
+                "nameEn": "ACTIVE"
+            },
+            "accountType": {
+                "id": 1,
+                "nameEn": "VC",
+                "nameAr": "VC",
+                "code": "VC",
+                "bank": {
+                    "id": 1,
+                    "nameEn": "VC",
+                    "nameAr": "VC",
+                    "code": "VC",
+                    "swfCode": "VC"
+                }
+            },
+            "type": "INDIRECT"
+        },
+        "applyTo": "ANY_PRODUCT",
+        "products": [],
+        "productsCodes": [],
+        "variants": [],
+        "categories": [],
+        "requiredItemsValidation": false,
+        "imageUrl": "https://promotest.fawrystaging.com:4001/api/images/6002/installment/1575882490737/6ed2f8f771b949529f4eb64e3f8dcb19.png"
+    },
+    {
+        "id": 954,
+        "installmentPlan": {
+            "id": 3,
+            "nameAr": "12 months",
+            "nameEn": "12 months",
+            "rate": 10,
+            "noOfMonths": 12,
+            "merchantProfileCode": "TEST221075EGP",
+            "minAmount": 10,
+            "maxAmount": 10000,
+            "startDate": 1555891200000,
+            "endDate": 1598832000000,
+            "online": true,
+            "status": {
+                "id": 1,
+                "code": "ACTIVE",
+                "nameAr": "ACTIVE",
+                "nameEn": "ACTIVE"
+            },
+            "accountType": {
+                "id": 1,
+                "nameEn": "VC",
+                "nameAr": "VC",
+                "code": "VC",
+                "bank": {
+                    "id": 1,
+                    "nameEn": "VC",
+                    "nameAr": "VC",
+                    "code": "VC",
+                    "swfCode": "VC"
+                }
+            },
+            "type": "INDIRECT"
+        },
+        "applyTo": "ANY_PRODUCT",
+        "products": [],
+        "productsCodes": [],
+        "variants": [],
+        "categories": [],
+        "requiredItemsValidation": false,
+        "imageUrl": "https://promotest.fawrystaging.com:4001/api/images/6002/installment/1575882498783/6e5491be343b4c29a09f0c25079f98bd.png"
+    }
+]

@@ -34,14 +34,12 @@ class FlutterFawryPay {
   /// Methods name which detect which it called from Flutter.
   static const String _METHOD_INIT = "init";
   static const String _METHOD_INITIALIZE = "initialize";
-  static const String _METHOD_INITIALIZE_CARD_TOKENIZER =
-      "initialize_card_tokenizer";
+  static const String _METHOD_INITIALIZE_CARD_TOKENIZER = "initialize_card_tokenizer";
   static const String _METHOD_START_PAYMENT = "start_payment";
   static const String _METHOD_RESET = "reset";
 
   /// Event Channel for stream sending data from Native side.
-  EventChannel _eventChannelCallbackResult =
-      EventChannel("flutterfawrypay/callback_result_stream");
+  EventChannel _eventChannelCallbackResult = EventChannel("flutterfawrypay/callback_result_stream");
 
   /// Error codes returned to Flutter if there's an error.
   static const String _ERROR_INIT = "1";
@@ -78,9 +76,7 @@ class FlutterFawryPay {
     String? email,
   }) async {
     // Check if skipCustomerInput is true, but username or email is equals null.
-    assert(
-        !skipCustomerInput ||
-            (skipCustomerInput && username != null && email != null),
+    assert(!skipCustomerInput || (skipCustomerInput && username != null && email != null),
         "If skipCustomerInput is true, then you should set username and email.");
 
     try {
@@ -93,8 +89,7 @@ class FlutterFawryPay {
         'email': email,
       });
     } on PlatformException catch (e) {
-      if (e.code == _ERROR_INIT)
-        throw "Error Occurred: Code: $_ERROR_INIT. Message: ${e.message}. Details: SDK Init Error";
+      if (e.code == _ERROR_INIT) throw "Error Occurred: Code: $_ERROR_INIT. Message: ${e.message}. Details: SDK Init Error";
       throw "Error Occurred: Code: ${e.code}. Message: ${e.message}. Details: ${e.details}";
     } catch (e) {
       throw "Error Occurred: Message: $e";
@@ -148,7 +143,8 @@ class FlutterFawryPay {
   /// [merchantID] sets the merchantID that you have received from Fawry.
   /// [customerMobile] sets the user phone number.
   /// [customerEmail] sets the user email.
-  /// [merchantRefNumber] sets an optional number consists of 16 random characters and numbers.
+  /// [customerProfileId] sets an optional profile id (Only iOS).
+  /// [merchantRefNumber] sets an optional number consists of 16 random characters and numbers (only Android).
   /// [language] sets the language of payment, whether English or Arabic, default English.
   /// [environment] sets the environment of payment, whether Test or Live, default Test.
   /// [customParam] sets a map of custom data you want to receive back with result data after payment.
@@ -156,17 +152,18 @@ class FlutterFawryPay {
     required String merchantID,
     required String customerMobile,
     required String customerEmail,
+    String? customerProfileId,
     String? merchantRefNumber,
     Language language = Language.EN,
     Environment environment = Environment.TEST,
     Map<String, dynamic>? customParam,
   }) async {
     try {
-      return await _channel
-          .invokeMethod(_METHOD_INITIALIZE_CARD_TOKENIZER, <String, dynamic>{
+      return await _channel.invokeMethod(_METHOD_INITIALIZE_CARD_TOKENIZER, <String, dynamic>{
         'merchantID': merchantID,
         'customerMobile': customerMobile,
         'customerEmail': customerEmail,
+        'customerProfileId': customerProfileId,
         'merchantRefNumber': merchantRefNumber,
         'language': language.toString(),
         'environment': environment.toString(),
@@ -189,9 +186,7 @@ class FlutterFawryPay {
   /// Throws exception if not completed well.
   Future<FawryResponse> startProcess() async {
     try {
-      Map<dynamic, dynamic> data =
-          await (_channel.invokeMethod(_METHOD_START_PAYMENT)
-              as FutureOr<Map<dynamic, dynamic>>);
+      Map<dynamic, dynamic> data = await (_channel.invokeMethod(_METHOD_START_PAYMENT) as FutureOr<Map<dynamic, dynamic>>);
       return FawryResponse.fromMap(data);
     } on PlatformException catch (e) {
       if (e.code == _ERROR_START_PAYMENT)

@@ -1,0 +1,1514 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3.2 effective-4.1.50 (swiftlang-1200.0.45 clang-1200.0.32.28)
+// swift-module-flags: -target arm64-apple-ios11.0 -enable-objc-interop -enable-library-evolution -swift-version 4 -enforce-exclusivity=checked -O -module-name MyFawryPlugin
+import CommonCrypto
+import Dispatch
+import Foundation
+import MobileCoreServices
+@_exported import MyFawryPlugin
+import Swift
+import SystemConfiguration
+import UIKit
+public enum SCLAlertViewStyle {
+  case success, error, notice, warning, info, edit, wait, question
+  public var defaultColorInt: Swift.UInt {
+    get
+  }
+  public static func == (a: MyFawryPlugin.SCLAlertViewStyle, b: MyFawryPlugin.SCLAlertViewStyle) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public enum SCLAnimationStyle {
+  case noAnimation, topToBottom, bottomToTop, leftToRight, rightToLeft
+  public static func == (a: MyFawryPlugin.SCLAnimationStyle, b: MyFawryPlugin.SCLAnimationStyle) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public enum SCLActionType {
+  case none, selector, closure
+  public static func == (a: MyFawryPlugin.SCLActionType, b: MyFawryPlugin.SCLActionType) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public enum SCLAlertButtonLayout {
+  case horizontal, vertical
+  public static func == (a: MyFawryPlugin.SCLAlertButtonLayout, b: MyFawryPlugin.SCLAlertButtonLayout) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+@objc @_inheritsConvenienceInitializers open class SCLButton : UIKit.UIButton {
+  public struct ShowTimeoutConfiguration {
+    public init(prefix: Swift.String = "", suffix: Swift.String = "")
+  }
+  @objc dynamic public init()
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc deinit
+}
+open class SCLAlertViewResponder {
+  public init(alertview: MyFawryPlugin.SCLAlertView)
+  open func setTitle(_ title: Swift.String)
+  open func setSubTitle(_ subTitle: Swift.String?)
+  open func close()
+  open func setDismissBlock(_ dismissBlock: @escaping MyFawryPlugin.DismissBlock)
+  @objc deinit
+}
+public typealias DismissBlock = () -> Swift.Void
+@objc @_inheritsConvenienceInitializers open class SCLAlertView : UIKit.UIViewController {
+  public struct SCLAppearance {
+    public struct Margin {
+      public var titleTop: CoreGraphics.CGFloat
+      public var textViewBottom: CoreGraphics.CGFloat
+      public var buttonSpacing: CoreGraphics.CGFloat
+      public var textFieldSpacing: CoreGraphics.CGFloat
+      public var bottom: CoreGraphics.CGFloat
+      public var horizontal: CoreGraphics.CGFloat
+      public init(titleTop: CoreGraphics.CGFloat = 30, textViewBottom: CoreGraphics.CGFloat = 12, buttonSpacing: CoreGraphics.CGFloat = 10, textFieldSpacing: CoreGraphics.CGFloat = 15, bottom: CoreGraphics.CGFloat = 14, horizontal: CoreGraphics.CGFloat = 12)
+    }
+    public init(kDefaultShadowOpacity: CoreGraphics.CGFloat = 0.7, kCircleTopPosition: CoreGraphics.CGFloat = 0.0, kCircleBackgroundTopPosition: CoreGraphics.CGFloat = 6.0, kCircleHeight: CoreGraphics.CGFloat = 56.0, kCircleIconHeight: CoreGraphics.CGFloat = 20.0, kTitleHeight: CoreGraphics.CGFloat = 25.0, kWindowWidth: CoreGraphics.CGFloat = 240.0, kWindowHeight: CoreGraphics.CGFloat = 178.0, kTextHeight: CoreGraphics.CGFloat = 90.0, kTextFieldHeight: CoreGraphics.CGFloat = 30.0, kTextViewdHeight: CoreGraphics.CGFloat = 80.0, kButtonHeight: CoreGraphics.CGFloat = 35.0, kTitleFont: UIKit.UIFont = UIFont.systemFont(ofSize: 20), kTitleMinimumScaleFactor: CoreGraphics.CGFloat = 1.0, kTextFont: UIKit.UIFont = UIFont.systemFont(ofSize: 14), kButtonFont: UIKit.UIFont = UIFont.boldSystemFont(ofSize: 14), showCloseButton: Swift.Bool = true, showCircularIcon: Swift.Bool = true, shouldAutoDismiss: Swift.Bool = true, contentViewCornerRadius: CoreGraphics.CGFloat = 5.0, fieldCornerRadius: CoreGraphics.CGFloat = 3.0, buttonCornerRadius: CoreGraphics.CGFloat = 3.0, hideWhenBackgroundViewIsTapped: Swift.Bool = false, circleBackgroundColor: UIKit.UIColor = UIColor.white, contentViewColor: UIKit.UIColor = UIColorFromRGB(0xFFFFFF), contentViewBorderColor: UIKit.UIColor = UIColorFromRGB(0xCCCCCC), titleColor: UIKit.UIColor = UIColorFromRGB(0x4D4D4D), subTitleColor: UIKit.UIColor = UIColorFromRGB(0x4D4D4D), margin: MyFawryPlugin.SCLAlertView.SCLAppearance.Margin = Margin(), dynamicAnimatorActive: Swift.Bool = false, disableTapGesture: Swift.Bool = false, buttonsLayout: MyFawryPlugin.SCLAlertButtonLayout = .vertical, activityIndicatorStyle: UIKit.UIActivityIndicatorViewStyle = .white)
+  }
+  public struct SCLTimeoutConfiguration {
+    public typealias ActionType = () -> Swift.Void
+    public init(timeoutValue: Foundation.TimeInterval, timeoutAction: @escaping MyFawryPlugin.SCLAlertView.SCLTimeoutConfiguration.ActionType)
+  }
+  open var iconTintColor: UIKit.UIColor?
+  open var customSubview: UIKit.UIView?
+  public init(appearance: MyFawryPlugin.SCLAlertView.SCLAppearance)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc required dynamic public init()
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc override dynamic open func viewWillLayoutSubviews()
+  @objc override dynamic open func viewDidAppear(_ animated: Swift.Bool)
+  @objc override dynamic open func viewDidDisappear(_ animated: Swift.Bool)
+  @objc override dynamic open func touchesEnded(_ touches: Swift.Set<UIKit.UITouch>, with event: UIKit.UIEvent?)
+  open func addTextField(_ title: Swift.String? = nil) -> UIKit.UITextField
+  open func addTextView() -> UIKit.UITextView
+  @discardableResult
+  open func addButton(_ title: Swift.String, backgroundColor: UIKit.UIColor? = nil, textColor: UIKit.UIColor? = nil, showTimeout: MyFawryPlugin.SCLButton.ShowTimeoutConfiguration? = nil, action: @escaping () -> Swift.Void) -> MyFawryPlugin.SCLButton
+  @discardableResult
+  open func addButton(_ title: Swift.String, backgroundColor: UIKit.UIColor? = nil, textColor: UIKit.UIColor? = nil, showTimeout: MyFawryPlugin.SCLButton.ShowTimeoutConfiguration? = nil, target: Swift.AnyObject, selector: ObjectiveC.Selector) -> MyFawryPlugin.SCLButton
+  @discardableResult
+  open func showCustom(_ title: Swift.String, subTitle: Swift.String? = nil, color: UIKit.UIColor, closeButtonTitle: Swift.String? = nil, timeout: MyFawryPlugin.SCLAlertView.SCLTimeoutConfiguration? = nil, colorTextButton: Swift.UInt = 0xFFFFFF, circleIconImage: UIKit.UIImage? = nil, animationStyle: MyFawryPlugin.SCLAnimationStyle = .topToBottom) -> MyFawryPlugin.SCLAlertViewResponder
+  @discardableResult
+  open func showSuccess(_ title: Swift.String, subTitle: Swift.String? = nil, closeButtonTitle: Swift.String? = nil, timeout: MyFawryPlugin.SCLAlertView.SCLTimeoutConfiguration? = nil, colorStyle: Swift.UInt = SCLAlertViewStyle.success.defaultColorInt, colorTextButton: Swift.UInt = 0xFFFFFF, circleIconImage: UIKit.UIImage? = nil, animationStyle: MyFawryPlugin.SCLAnimationStyle = .topToBottom) -> MyFawryPlugin.SCLAlertViewResponder
+  @discardableResult
+  open func showError(_ title: Swift.String, subTitle: Swift.String? = nil, closeButtonTitle: Swift.String? = nil, timeout: MyFawryPlugin.SCLAlertView.SCLTimeoutConfiguration? = nil, colorStyle: Swift.UInt = SCLAlertViewStyle.error.defaultColorInt, colorTextButton: Swift.UInt = 0xFFFFFF, circleIconImage: UIKit.UIImage? = nil, animationStyle: MyFawryPlugin.SCLAnimationStyle = .topToBottom) -> MyFawryPlugin.SCLAlertViewResponder
+  @discardableResult
+  open func showNotice(_ title: Swift.String, subTitle: Swift.String? = nil, closeButtonTitle: Swift.String? = nil, timeout: MyFawryPlugin.SCLAlertView.SCLTimeoutConfiguration? = nil, colorStyle: Swift.UInt = SCLAlertViewStyle.notice.defaultColorInt, colorTextButton: Swift.UInt = 0xFFFFFF, circleIconImage: UIKit.UIImage? = nil, animationStyle: MyFawryPlugin.SCLAnimationStyle = .topToBottom) -> MyFawryPlugin.SCLAlertViewResponder
+  @discardableResult
+  open func showWarning(_ title: Swift.String, subTitle: Swift.String? = nil, closeButtonTitle: Swift.String? = nil, timeout: MyFawryPlugin.SCLAlertView.SCLTimeoutConfiguration? = nil, colorStyle: Swift.UInt = SCLAlertViewStyle.warning.defaultColorInt, colorTextButton: Swift.UInt = 0x000000, circleIconImage: UIKit.UIImage? = nil, animationStyle: MyFawryPlugin.SCLAnimationStyle = .topToBottom) -> MyFawryPlugin.SCLAlertViewResponder
+  @discardableResult
+  open func showInfo(_ title: Swift.String, subTitle: Swift.String? = nil, closeButtonTitle: Swift.String? = nil, timeout: MyFawryPlugin.SCLAlertView.SCLTimeoutConfiguration? = nil, colorStyle: Swift.UInt = SCLAlertViewStyle.info.defaultColorInt, colorTextButton: Swift.UInt = 0xFFFFFF, circleIconImage: UIKit.UIImage? = nil, animationStyle: MyFawryPlugin.SCLAnimationStyle = .topToBottom) -> MyFawryPlugin.SCLAlertViewResponder
+  @discardableResult
+  open func showWait(_ title: Swift.String, subTitle: Swift.String? = nil, closeButtonTitle: Swift.String? = nil, timeout: MyFawryPlugin.SCLAlertView.SCLTimeoutConfiguration? = nil, colorStyle: Swift.UInt? = SCLAlertViewStyle.wait.defaultColorInt, colorTextButton: Swift.UInt = 0xFFFFFF, circleIconImage: UIKit.UIImage? = nil, animationStyle: MyFawryPlugin.SCLAnimationStyle = .topToBottom) -> MyFawryPlugin.SCLAlertViewResponder
+  @discardableResult
+  open func showEdit(_ title: Swift.String, subTitle: Swift.String? = nil, closeButtonTitle: Swift.String? = nil, timeout: MyFawryPlugin.SCLAlertView.SCLTimeoutConfiguration? = nil, colorStyle: Swift.UInt = SCLAlertViewStyle.info.defaultColorInt, colorTextButton: Swift.UInt = 0x135B77, circleIconImage: UIKit.UIImage? = nil, animationStyle: MyFawryPlugin.SCLAnimationStyle = .bottomToTop) -> MyFawryPlugin.SCLAlertViewResponder
+  @discardableResult
+  open func showTitle(_ title: Swift.String, subTitle: Swift.String? = nil, style: MyFawryPlugin.SCLAlertViewStyle, closeButtonTitle: Swift.String? = nil, timeout: MyFawryPlugin.SCLAlertView.SCLTimeoutConfiguration? = nil, colorStyle: Swift.UInt? = 0x000000, colorTextButton: Swift.UInt = 0xFFFFFF, circleIconImage: UIKit.UIImage? = nil, animationStyle: MyFawryPlugin.SCLAnimationStyle = .topToBottom) -> MyFawryPlugin.SCLAlertViewResponder
+  @discardableResult
+  open func showTitle(_ title: Swift.String, subTitle: Swift.String? = nil, timeout: MyFawryPlugin.SCLAlertView.SCLTimeoutConfiguration?, completeText: Swift.String?, style: MyFawryPlugin.SCLAlertViewStyle, colorStyle: Swift.UInt? = 0x000000, colorTextButton: Swift.UInt? = 0xFFFFFF, circleIconImage: UIKit.UIImage? = nil, animationStyle: MyFawryPlugin.SCLAnimationStyle = .topToBottom) -> MyFawryPlugin.SCLAlertViewResponder
+  @objc open func updateShowTimeout()
+  @objc open func hideView()
+  @objc open func hideViewTimeout()
+  open func isShowing() -> Swift.Bool
+  @objc deinit
+}
+public func UIColorFromRGB(_ rgbValue: Swift.UInt) -> UIKit.UIColor
+extension NSNotification.Name {
+  public struct Task {
+    public static let DidResume: Foundation.Notification.Name
+    public static let DidSuspend: Foundation.Notification.Name
+    public static let DidCancel: Foundation.Notification.Name
+    public static let DidComplete: Foundation.Notification.Name
+  }
+}
+extension Notification {
+  public struct Key {
+    public static let Task: Swift.String
+  }
+}
+open class MultipartFormData {
+  open var contentType: Swift.String {
+    get
+    set
+  }
+  public var contentLength: Swift.UInt64 {
+    get
+  }
+  final public let boundary: Swift.String
+  public init()
+  public func append(_ data: Foundation.Data, withName name: Swift.String)
+  public func append(_ data: Foundation.Data, withName name: Swift.String, mimeType: Swift.String)
+  public func append(_ data: Foundation.Data, withName name: Swift.String, fileName: Swift.String, mimeType: Swift.String)
+  public func append(_ fileURL: Foundation.URL, withName name: Swift.String)
+  public func append(_ fileURL: Foundation.URL, withName name: Swift.String, fileName: Swift.String, mimeType: Swift.String)
+  public func append(_ stream: Foundation.InputStream, withLength length: Swift.UInt64, name: Swift.String, fileName: Swift.String, mimeType: Swift.String)
+  public func append(_ stream: Foundation.InputStream, withLength length: Swift.UInt64, headers: MyFawryPlugin.HTTPHeaders)
+  public func encode() throws -> Foundation.Data
+  public func writeEncodedData(to fileURL: Foundation.URL) throws
+  @objc deinit
+}
+public enum Currancy : Swift.String {
+  case EGP
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@objc open class DatePickerDialog : UIKit.UIView {
+  public typealias DatePickerCallback = (Foundation.Date?) -> Swift.Void
+  open var datePicker: UIKit.UIDatePicker!
+  public init(textColor: UIKit.UIColor = UIColor.black, buttonColor: UIKit.UIColor = UIColor.blue, font: UIKit.UIFont = .boldSystemFont(ofSize: 15), locale: Foundation.Locale? = nil, showCancelButton: Swift.Bool = true)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  open func show(_ title: Swift.String, doneButtonTitle: Swift.String = "Done", cancelButtonTitle: Swift.String = "Cancel", defaultDate: Foundation.Date = Date(), minimumDate: Foundation.Date? = nil, maximumDate: Foundation.Date? = nil, datePickerMode: UIKit.UIDatePickerMode = .dateAndTime, callback: @escaping MyFawryPlugin.DatePickerDialog.DatePickerCallback)
+  @objc deinit
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+}
+@objc public class Item : MyFawryPlugin.FawryBaseModelObject {
+  public var productSKU: Swift.String!
+  public var productDescription: Swift.String!
+  public var price: Swift.Double!
+  public var originalPrice: Swift.Double!
+  public var quantity: Swift.Int!
+  public var width: Swift.Int!
+  public var height: Swift.Int!
+  public var length: Swift.Int!
+  public var weight: Swift.Double!
+  public var variantCode: Swift.String!
+  public var reservationCodes: [Swift.String]!
+  public var earningRuleId: Swift.String!
+  public init(productSKU: Swift.String, productDescription: Swift.String, quantity: Swift.Int, price: Swift.Double, originalPrice: Swift.Double? = nil, width: Swift.Int? = nil, height: Swift.Int? = nil, length: Swift.Int? = nil, weight: Swift.Double? = nil, variantCode: Swift.String? = nil, reservationCodes: [Swift.String]? = nil, earningRuleId: Swift.String? = nil)
+  public init(productSKUParam: Swift.String, productDescriptionParam: Swift.String, priceParam: Swift.Double, originalPriceParam: Swift.Double, quantityParam: Swift.Int, widthParam: Swift.Int, heightParam: Swift.Int, lengthParam: Swift.Int, weightParam: Swift.Double, variantCode: Swift.String, reservationCodes: [Swift.String], earningRuleId: Swift.String)
+  override public func convertAttributesToJson() -> [Swift.String : Swift.AnyObject]
+  @objc override dynamic public init()
+  override public init(json: MyFawryPlugin.JSON)
+  @objc deinit
+}
+@objc public class ThemeStyle : ObjectiveC.NSObject {
+  public var primaryColor: UIKit.UIColor
+  public var primaryDarkColor: UIKit.UIColor
+  public var secondaryColor: UIKit.UIColor
+  public var secondaryDarkColor: UIKit.UIColor
+  public init(primaryColor: UIKit.UIColor, primaryDarkColor: UIKit.UIColor, secondaryColor: UIKit.UIColor, secondaryDarkColor: UIKit.UIColor)
+  @objc deinit
+  @objc override dynamic public init()
+}
+public enum Result<Value> {
+  case success(Value)
+  case failure(Swift.Error)
+  public var isSuccess: Swift.Bool {
+    get
+  }
+  public var isFailure: Swift.Bool {
+    get
+  }
+  public var value: Value? {
+    get
+  }
+  public var error: Swift.Error? {
+    get
+  }
+}
+extension Result : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension Result : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension Result {
+  public init(value: () throws -> Value)
+  public func unwrap() throws -> Value
+  public func map<T>(_ transform: (Value) -> T) -> MyFawryPlugin.Result<T>
+  public func flatMap<T>(_ transform: (Value) throws -> T) -> MyFawryPlugin.Result<T>
+  public func mapError<T>(_ transform: (Swift.Error) -> T) -> MyFawryPlugin.Result<Value> where T : Swift.Error
+  public func flatMapError<T>(_ transform: (Swift.Error) throws -> T) -> MyFawryPlugin.Result<Value> where T : Swift.Error
+  @discardableResult
+  public func withValue(_ closure: (Value) -> Swift.Void) -> MyFawryPlugin.Result<Value>
+  @discardableResult
+  public func withError(_ closure: (Swift.Error) -> Swift.Void) -> MyFawryPlugin.Result<Value>
+  @discardableResult
+  public func ifSuccess(_ closure: () -> Swift.Void) -> MyFawryPlugin.Result<Value>
+  @discardableResult
+  public func ifFailure(_ closure: () -> Swift.Void) -> MyFawryPlugin.Result<Value>
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class Fawry : ObjectiveC.NSObject {
+  public class var sharedInstance: MyFawryPlugin.Fawry? {
+    get
+  }
+  public var customerMobileNumber: Swift.String?
+  public var customerEmailAddress: Swift.String?
+  public var customerCIF: Swift.String?
+  public var customerName: Swift.String?
+  public var customerTypeCode: Swift.String?
+  public var customerBirthDate: Swift.String?
+  public var customerId: Swift.String?
+  public var otherShippingAddressesList: Foundation.NSArray?
+  public var skipCustomerInput: Swift.Bool?
+  public func dispose()
+  public func initialize(serverURL: Swift.String, styleParam: MyFawryPlugin.ThemeStyle?, merchantIDParam: Swift.String, merchantRefNum: Swift.String?, languageParam: Swift.String, GUIDParam: Swift.String, customeParameterParam: Swift.AnyObject?, currancyParam: MyFawryPlugin.Currancy, items: [MyFawryPlugin.Item])
+  public func initialize(serverURL: Swift.String, styleParam: MyFawryPlugin.ThemeStyle?, merchantIDParam: Swift.String, merchantRefNum: Swift.String?, languageParam: Swift.String, GUIDParam: Swift.String, customeParameterParam: Swift.AnyObject?, currancyParam: MyFawryPlugin.Currancy, items: [MyFawryPlugin.Item], orderExpiryInHours: Swift.Int?, secureKey: Swift.String?, signature: Swift.String?)
+  public func initialize(serverURL: Swift.String, styleParam: MyFawryPlugin.ThemeStyle?, merchantIDParam: Swift.String, merchantRefNum: Swift.String?, languageParam: Swift.String, GUIDParam: Swift.String, customeParameterParam: Swift.AnyObject?, currancyParam: MyFawryPlugin.Currancy, items: [MyFawryPlugin.Item], paymentMethodType: MyFawryPlugin.PaymentMethodType)
+  public func initialize(serverURL: Swift.String, styleParam: MyFawryPlugin.ThemeStyle?, merchantIDParam: Swift.String, merchantRefNum: Swift.String?, languageParam: Swift.String, GUIDParam: Swift.String, customeParameterParam: Swift.AnyObject?, currancyParam: MyFawryPlugin.Currancy, items: [MyFawryPlugin.Item], paymentMethodType: MyFawryPlugin.PaymentMethodType, orderExpiryInHours: Swift.Int?, secureKey: Swift.String?, signature: Swift.String?)
+  public func initializeCardTokenizer(serverURL: Swift.String, styleParam: MyFawryPlugin.ThemeStyle?, merchantIDParam: Swift.String, languageParam: Swift.String, GUIDParam: Swift.String, customerMobileNumber: Swift.String, customerEmailAddress: Swift.String, customerProfileId: Swift.String, currancyParam: MyFawryPlugin.Currancy) throws
+  public func showSDK(onViewController: UIKit.UIViewController, completionBlock: @escaping (Swift.AnyObject?, MyFawryPlugin.FawryStatusCode) -> Swift.Void)
+  public func getSupportedPaymentMethods(onViewController: UIKit.UIViewController, serverURL: Swift.String, merchantIDParam: Swift.String, languageParam: Swift.String, completionBlock: @escaping ([MyFawryPlugin.PaymentMethodType]) -> Swift.Void)
+  public func paymentOperationSuccess(onViewController: UIKit.UIViewController, completionBlock: @escaping (Swift.AnyObject?, MyFawryPlugin.FawryStatusCode) -> Swift.Void)
+  public func paymentOperationFailure(onViewController: UIKit.UIViewController, completionBlock: @escaping (Swift.AnyObject?, MyFawryPlugin.FawryStatusCode) -> Swift.Void)
+  public func applyFawryButtonStyleToButton(button: UIKit.UIButton)
+  public func applyFawryButtonStyleToButton(button: UIKit.UIButton, buttonImage: UIKit.UIImage)
+  public func applyFawryButtonStyleToCreditCardButton(button: UIKit.UIButton)
+  public func applyFawryButtonStyleToCreditCardButton(button: UIKit.UIButton, buttonImage: UIKit.UIImage)
+  public class func randomAlphaNumeric(count: Swift.Int) -> Swift.String
+  @objc deinit
+}
+public protocol DataResponseSerializerProtocol {
+  associatedtype SerializedObject
+  var serializeResponse: (Foundation.URLRequest?, Foundation.HTTPURLResponse?, Foundation.Data?, Swift.Error?) -> MyFawryPlugin.Result<Self.SerializedObject> { get }
+}
+public struct DataResponseSerializer<Value> : MyFawryPlugin.DataResponseSerializerProtocol {
+  public typealias SerializedObject = Value
+  public var serializeResponse: (Foundation.URLRequest?, Foundation.HTTPURLResponse?, Foundation.Data?, Swift.Error?) -> MyFawryPlugin.Result<Value>
+  public init(serializeResponse: @escaping (Foundation.URLRequest?, Foundation.HTTPURLResponse?, Foundation.Data?, Swift.Error?) -> MyFawryPlugin.Result<Value>)
+}
+public protocol DownloadResponseSerializerProtocol {
+  associatedtype SerializedObject
+  var serializeResponse: (Foundation.URLRequest?, Foundation.HTTPURLResponse?, Foundation.URL?, Swift.Error?) -> MyFawryPlugin.Result<Self.SerializedObject> { get }
+}
+public struct DownloadResponseSerializer<Value> : MyFawryPlugin.DownloadResponseSerializerProtocol {
+  public typealias SerializedObject = Value
+  public var serializeResponse: (Foundation.URLRequest?, Foundation.HTTPURLResponse?, Foundation.URL?, Swift.Error?) -> MyFawryPlugin.Result<Value>
+  public init(serializeResponse: @escaping (Foundation.URLRequest?, Foundation.HTTPURLResponse?, Foundation.URL?, Swift.Error?) -> MyFawryPlugin.Result<Value>)
+}
+extension DataRequest {
+  @discardableResult
+  public func response(queue: Dispatch.DispatchQueue? = nil, completionHandler: @escaping (MyFawryPlugin.DefaultDataResponse) -> Swift.Void) -> Self
+  @discardableResult
+  public func response<T>(queue: Dispatch.DispatchQueue? = nil, responseSerializer: T, completionHandler: @escaping (MyFawryPlugin.DataResponse<T.SerializedObject>) -> Swift.Void) -> Self where T : MyFawryPlugin.DataResponseSerializerProtocol
+}
+extension DownloadRequest {
+  @discardableResult
+  public func response(queue: Dispatch.DispatchQueue? = nil, completionHandler: @escaping (MyFawryPlugin.DefaultDownloadResponse) -> Swift.Void) -> Self
+  @discardableResult
+  public func response<T>(queue: Dispatch.DispatchQueue? = nil, responseSerializer: T, completionHandler: @escaping (MyFawryPlugin.DownloadResponse<T.SerializedObject>) -> Swift.Void) -> Self where T : MyFawryPlugin.DownloadResponseSerializerProtocol
+}
+extension Request {
+  public static func serializeResponseData(response: Foundation.HTTPURLResponse?, data: Foundation.Data?, error: Swift.Error?) -> MyFawryPlugin.Result<Foundation.Data>
+}
+extension DataRequest {
+  public static func dataResponseSerializer() -> MyFawryPlugin.DataResponseSerializer<Foundation.Data>
+  @discardableResult
+  public func responseData(queue: Dispatch.DispatchQueue? = nil, completionHandler: @escaping (MyFawryPlugin.DataResponse<Foundation.Data>) -> Swift.Void) -> Self
+}
+extension DownloadRequest {
+  public static func dataResponseSerializer() -> MyFawryPlugin.DownloadResponseSerializer<Foundation.Data>
+  @discardableResult
+  public func responseData(queue: Dispatch.DispatchQueue? = nil, completionHandler: @escaping (MyFawryPlugin.DownloadResponse<Foundation.Data>) -> Swift.Void) -> Self
+}
+extension Request {
+  public static func serializeResponseString(encoding: Swift.String.Encoding?, response: Foundation.HTTPURLResponse?, data: Foundation.Data?, error: Swift.Error?) -> MyFawryPlugin.Result<Swift.String>
+}
+extension DataRequest {
+  public static func stringResponseSerializer(encoding: Swift.String.Encoding? = nil) -> MyFawryPlugin.DataResponseSerializer<Swift.String>
+  @discardableResult
+  public func responseString(queue: Dispatch.DispatchQueue? = nil, encoding: Swift.String.Encoding? = nil, completionHandler: @escaping (MyFawryPlugin.DataResponse<Swift.String>) -> Swift.Void) -> Self
+}
+extension DownloadRequest {
+  public static func stringResponseSerializer(encoding: Swift.String.Encoding? = nil) -> MyFawryPlugin.DownloadResponseSerializer<Swift.String>
+  @discardableResult
+  public func responseString(queue: Dispatch.DispatchQueue? = nil, encoding: Swift.String.Encoding? = nil, completionHandler: @escaping (MyFawryPlugin.DownloadResponse<Swift.String>) -> Swift.Void) -> Self
+}
+extension Request {
+  public static func serializeResponseJSON(options: Foundation.JSONSerialization.ReadingOptions, response: Foundation.HTTPURLResponse?, data: Foundation.Data?, error: Swift.Error?) -> MyFawryPlugin.Result<Any>
+}
+extension DataRequest {
+  public static func jsonResponseSerializer(options: Foundation.JSONSerialization.ReadingOptions = .allowFragments) -> MyFawryPlugin.DataResponseSerializer<Any>
+  @discardableResult
+  public func responseJSON(queue: Dispatch.DispatchQueue? = nil, options: Foundation.JSONSerialization.ReadingOptions = .allowFragments, completionHandler: @escaping (MyFawryPlugin.DataResponse<Any>) -> Swift.Void) -> Self
+}
+extension DownloadRequest {
+  public static func jsonResponseSerializer(options: Foundation.JSONSerialization.ReadingOptions = .allowFragments) -> MyFawryPlugin.DownloadResponseSerializer<Any>
+  @discardableResult
+  public func responseJSON(queue: Dispatch.DispatchQueue? = nil, options: Foundation.JSONSerialization.ReadingOptions = .allowFragments, completionHandler: @escaping (MyFawryPlugin.DownloadResponse<Any>) -> Swift.Void) -> Self
+}
+extension Request {
+  public static func serializeResponsePropertyList(options: Foundation.PropertyListSerialization.ReadOptions, response: Foundation.HTTPURLResponse?, data: Foundation.Data?, error: Swift.Error?) -> MyFawryPlugin.Result<Any>
+}
+extension DataRequest {
+  public static func propertyListResponseSerializer(options: Foundation.PropertyListSerialization.ReadOptions = []) -> MyFawryPlugin.DataResponseSerializer<Any>
+  @discardableResult
+  public func responsePropertyList(queue: Dispatch.DispatchQueue? = nil, options: Foundation.PropertyListSerialization.ReadOptions = [], completionHandler: @escaping (MyFawryPlugin.DataResponse<Any>) -> Swift.Void) -> Self
+}
+extension DownloadRequest {
+  public static func propertyListResponseSerializer(options: Foundation.PropertyListSerialization.ReadOptions = []) -> MyFawryPlugin.DownloadResponseSerializer<Any>
+  @discardableResult
+  public func responsePropertyList(queue: Dispatch.DispatchQueue? = nil, options: Foundation.PropertyListSerialization.ReadOptions = [], completionHandler: @escaping (MyFawryPlugin.DownloadResponse<Any>) -> Swift.Void) -> Self
+}
+@objc @_hasMissingDesignatedInitializers public class cardTokenizer : MyFawryPlugin.FawryBaseModelObject {
+  public var token: Swift.String?
+  public var creationDate: Swift.Int?
+  public var lastFourDigits: Swift.String?
+  public var brand: Swift.String?
+  override public func convertAttributesToJson() -> [Swift.String : Swift.AnyObject]
+  @objc deinit
+  @objc override dynamic public init()
+}
+public struct ValidationError : Swift.Error {
+  public var localizedDescription: Swift.String {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class FawryBaseModelObject : ObjectiveC.NSObject {
+  @objc override dynamic public init()
+  public init(json: MyFawryPlugin.JSON)
+  public func convertAttributesToJson() -> [Swift.String : Swift.AnyObject]
+  public func getFawryItemTitle() -> Swift.String
+  public func getFawryItemImage() -> UIKit.UIImage
+  @objc deinit
+}
+open class SessionManager {
+  public enum MultipartFormDataEncodingResult {
+    case success(request: MyFawryPlugin.UploadRequest, streamingFromDisk: Swift.Bool, streamFileURL: Foundation.URL?)
+    case failure(Swift.Error)
+  }
+  public static let `default`: MyFawryPlugin.SessionManager
+  public static let defaultHTTPHeaders: MyFawryPlugin.HTTPHeaders
+  public static let multipartFormDataEncodingMemoryThreshold: Swift.UInt64
+  final public let session: Foundation.URLSession
+  final public let delegate: MyFawryPlugin.SessionDelegate
+  open var startRequestsImmediately: Swift.Bool
+  open var adapter: MyFawryPlugin.RequestAdapter?
+  open var retrier: MyFawryPlugin.RequestRetrier? {
+    get
+    set
+  }
+  open var backgroundCompletionHandler: (() -> Swift.Void)?
+  public init(configuration: Foundation.URLSessionConfiguration = URLSessionConfiguration.default, delegate: MyFawryPlugin.SessionDelegate = SessionDelegate(), serverTrustPolicyManager: MyFawryPlugin.ServerTrustPolicyManager? = nil)
+  public init?(session: Foundation.URLSession, delegate: MyFawryPlugin.SessionDelegate, serverTrustPolicyManager: MyFawryPlugin.ServerTrustPolicyManager? = nil)
+  @objc deinit
+  @discardableResult
+  open func request(_ url: MyFawryPlugin.URLConvertible, method: MyFawryPlugin.HTTPMethod = .get, parameters: MyFawryPlugin.Parameters? = nil, encoding: MyFawryPlugin.ParameterEncoding = URLEncoding.default, headers: MyFawryPlugin.HTTPHeaders? = nil) -> MyFawryPlugin.DataRequest
+  open func request(_ urlRequest: MyFawryPlugin.URLRequestConvertible) -> MyFawryPlugin.DataRequest
+  @discardableResult
+  open func download(_ url: MyFawryPlugin.URLConvertible, method: MyFawryPlugin.HTTPMethod = .get, parameters: MyFawryPlugin.Parameters? = nil, encoding: MyFawryPlugin.ParameterEncoding = URLEncoding.default, headers: MyFawryPlugin.HTTPHeaders? = nil, to destination: MyFawryPlugin.DownloadRequest.DownloadFileDestination? = nil) -> MyFawryPlugin.DownloadRequest
+  @discardableResult
+  open func download(_ urlRequest: MyFawryPlugin.URLRequestConvertible, to destination: MyFawryPlugin.DownloadRequest.DownloadFileDestination? = nil) -> MyFawryPlugin.DownloadRequest
+  @discardableResult
+  open func download(resumingWith resumeData: Foundation.Data, to destination: MyFawryPlugin.DownloadRequest.DownloadFileDestination? = nil) -> MyFawryPlugin.DownloadRequest
+  @discardableResult
+  open func upload(_ fileURL: Foundation.URL, to url: MyFawryPlugin.URLConvertible, method: MyFawryPlugin.HTTPMethod = .post, headers: MyFawryPlugin.HTTPHeaders? = nil) -> MyFawryPlugin.UploadRequest
+  @discardableResult
+  open func upload(_ fileURL: Foundation.URL, with urlRequest: MyFawryPlugin.URLRequestConvertible) -> MyFawryPlugin.UploadRequest
+  @discardableResult
+  open func upload(_ data: Foundation.Data, to url: MyFawryPlugin.URLConvertible, method: MyFawryPlugin.HTTPMethod = .post, headers: MyFawryPlugin.HTTPHeaders? = nil) -> MyFawryPlugin.UploadRequest
+  @discardableResult
+  open func upload(_ data: Foundation.Data, with urlRequest: MyFawryPlugin.URLRequestConvertible) -> MyFawryPlugin.UploadRequest
+  @discardableResult
+  open func upload(_ stream: Foundation.InputStream, to url: MyFawryPlugin.URLConvertible, method: MyFawryPlugin.HTTPMethod = .post, headers: MyFawryPlugin.HTTPHeaders? = nil) -> MyFawryPlugin.UploadRequest
+  @discardableResult
+  open func upload(_ stream: Foundation.InputStream, with urlRequest: MyFawryPlugin.URLRequestConvertible) -> MyFawryPlugin.UploadRequest
+  open func upload(multipartFormData: @escaping (MyFawryPlugin.MultipartFormData) -> Swift.Void, usingThreshold encodingMemoryThreshold: Swift.UInt64 = SessionManager.multipartFormDataEncodingMemoryThreshold, to url: MyFawryPlugin.URLConvertible, method: MyFawryPlugin.HTTPMethod = .post, headers: MyFawryPlugin.HTTPHeaders? = nil, encodingCompletion: ((MyFawryPlugin.SessionManager.MultipartFormDataEncodingResult) -> Swift.Void)?)
+  open func upload(multipartFormData: @escaping (MyFawryPlugin.MultipartFormData) -> Swift.Void, usingThreshold encodingMemoryThreshold: Swift.UInt64 = SessionManager.multipartFormDataEncodingMemoryThreshold, with urlRequest: MyFawryPlugin.URLRequestConvertible, encodingCompletion: ((MyFawryPlugin.SessionManager.MultipartFormDataEncodingResult) -> Swift.Void)?)
+  @available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+  @discardableResult
+  open func stream(withHostName hostName: Swift.String, port: Swift.Int) -> MyFawryPlugin.StreamRequest
+  @available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+  @discardableResult
+  open func stream(with netService: Foundation.NetService) -> MyFawryPlugin.StreamRequest
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class FawryPluginStartup : ObjectiveC.NSObject {
+  public static let sharedInstance: MyFawryPlugin.FawryPluginStartup
+  public func startPlugin(onViewController: UIKit.UIViewController, accountTokenKey: Swift.String, items: [MyFawryPlugin.Item], currancy: MyFawryPlugin.Currancy)
+  @objc deinit
+}
+public struct DefaultDataResponse {
+  public let request: Foundation.URLRequest?
+  public let response: Foundation.HTTPURLResponse?
+  public let data: Foundation.Data?
+  public let error: Swift.Error?
+  public let timeline: MyFawryPlugin.Timeline
+  public init(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, data: Foundation.Data?, error: Swift.Error?, timeline: MyFawryPlugin.Timeline = Timeline(), metrics: Swift.AnyObject? = nil)
+}
+public struct DataResponse<Value> {
+  public let request: Foundation.URLRequest?
+  public let response: Foundation.HTTPURLResponse?
+  public let data: Foundation.Data?
+  public let result: MyFawryPlugin.Result<Value>
+  public let timeline: MyFawryPlugin.Timeline
+  public var value: Value? {
+    get
+  }
+  public var error: Swift.Error? {
+    get
+  }
+  public init(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, data: Foundation.Data?, result: MyFawryPlugin.Result<Value>, timeline: MyFawryPlugin.Timeline = Timeline())
+}
+extension DataResponse : Swift.CustomStringConvertible, Swift.CustomDebugStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension DataResponse {
+  public func map<T>(_ transform: (Value) -> T) -> MyFawryPlugin.DataResponse<T>
+  public func flatMap<T>(_ transform: (Value) throws -> T) -> MyFawryPlugin.DataResponse<T>
+}
+public struct DefaultDownloadResponse {
+  public let request: Foundation.URLRequest?
+  public let response: Foundation.HTTPURLResponse?
+  public let temporaryURL: Foundation.URL?
+  public let destinationURL: Foundation.URL?
+  public let resumeData: Foundation.Data?
+  public let error: Swift.Error?
+  public let timeline: MyFawryPlugin.Timeline
+  public init(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, temporaryURL: Foundation.URL?, destinationURL: Foundation.URL?, resumeData: Foundation.Data?, error: Swift.Error?, timeline: MyFawryPlugin.Timeline = Timeline(), metrics: Swift.AnyObject? = nil)
+}
+public struct DownloadResponse<Value> {
+  public let request: Foundation.URLRequest?
+  public let response: Foundation.HTTPURLResponse?
+  public let temporaryURL: Foundation.URL?
+  public let destinationURL: Foundation.URL?
+  public let resumeData: Foundation.Data?
+  public let result: MyFawryPlugin.Result<Value>
+  public let timeline: MyFawryPlugin.Timeline
+  public var value: Value? {
+    get
+  }
+  public var error: Swift.Error? {
+    get
+  }
+  public init(request: Foundation.URLRequest?, response: Foundation.HTTPURLResponse?, temporaryURL: Foundation.URL?, destinationURL: Foundation.URL?, resumeData: Foundation.Data?, result: MyFawryPlugin.Result<Value>, timeline: MyFawryPlugin.Timeline = Timeline())
+}
+extension DownloadResponse : Swift.CustomStringConvertible, Swift.CustomDebugStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension DownloadResponse {
+  public func map<T>(_ transform: (Value) -> T) -> MyFawryPlugin.DownloadResponse<T>
+  public func flatMap<T>(_ transform: (Value) throws -> T) -> MyFawryPlugin.DownloadResponse<T>
+}
+@available(iOS 10.0, OSX 10.12, tvOS 10.0, *)
+extension DefaultDataResponse {
+  public var metrics: Foundation.URLSessionTaskMetrics? {
+    get
+  }
+}
+@available(iOS 10.0, OSX 10.12, tvOS 10.0, *)
+extension DataResponse {
+  public var metrics: Foundation.URLSessionTaskMetrics? {
+    get
+  }
+}
+@available(iOS 10.0, OSX 10.12, tvOS 10.0, *)
+extension DefaultDownloadResponse {
+  public var metrics: Foundation.URLSessionTaskMetrics? {
+    get
+  }
+}
+@available(iOS 10.0, OSX 10.12, tvOS 10.0, *)
+extension DownloadResponse {
+  public var metrics: Foundation.URLSessionTaskMetrics? {
+    get
+  }
+}
+@objc @_hasMissingDesignatedInitializers open class TaskDelegate : ObjectiveC.NSObject {
+  final public let queue: Foundation.OperationQueue
+  public var data: Foundation.Data? {
+    get
+  }
+  public var error: Swift.Error?
+  @objc deinit
+  @objc override dynamic public init()
+}
+public protocol RequestAdapter {
+  func adapt(_ urlRequest: Foundation.URLRequest) throws -> Foundation.URLRequest
+}
+public typealias RequestRetryCompletion = (Swift.Bool, Foundation.TimeInterval) -> Swift.Void
+public protocol RequestRetrier {
+  func should(_ manager: MyFawryPlugin.SessionManager, retry request: MyFawryPlugin.Request, with error: Swift.Error, completion: @escaping MyFawryPlugin.RequestRetryCompletion)
+}
+public typealias HTTPHeaders = [Swift.String : Swift.String]
+@_hasMissingDesignatedInitializers open class Request {
+  public typealias ProgressHandler = (Foundation.Progress) -> Swift.Void
+  open var delegate: MyFawryPlugin.TaskDelegate {
+    get
+  }
+  open var task: Foundation.URLSessionTask? {
+    get
+  }
+  final public let session: Foundation.URLSession
+  open var request: Foundation.URLRequest? {
+    get
+  }
+  open var response: Foundation.HTTPURLResponse? {
+    get
+  }
+  open var retryCount: Swift.UInt {
+    get
+  }
+  @discardableResult
+  open func authenticate(user: Swift.String, password: Swift.String, persistence: Foundation.URLCredential.Persistence = .forSession) -> Self
+  @discardableResult
+  open func authenticate(usingCredential credential: Foundation.URLCredential) -> Self
+  public static func authorizationHeader(user: Swift.String, password: Swift.String) -> (key: Swift.String, value: Swift.String)?
+  open func resume()
+  open func suspend()
+  open func cancel()
+  @objc deinit
+}
+extension Request : Swift.CustomStringConvertible {
+  open var description: Swift.String {
+    get
+  }
+}
+extension Request : Swift.CustomDebugStringConvertible {
+  open var debugDescription: Swift.String {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers open class DataRequest : MyFawryPlugin.Request {
+  override open var request: Foundation.URLRequest? {
+    get
+  }
+  open var progress: Foundation.Progress {
+    get
+  }
+  @discardableResult
+  open func stream(closure: ((Foundation.Data) -> Swift.Void)? = nil) -> Self
+  @discardableResult
+  open func downloadProgress(queue: Dispatch.DispatchQueue = DispatchQueue.main, closure: @escaping MyFawryPlugin.DataRequest.ProgressHandler) -> Self
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers open class DownloadRequest : MyFawryPlugin.Request {
+  public struct DownloadOptions : Swift.OptionSet {
+    public let rawValue: Swift.UInt
+    public static let createIntermediateDirectories: MyFawryPlugin.DownloadRequest.DownloadOptions
+    public static let removePreviousFile: MyFawryPlugin.DownloadRequest.DownloadOptions
+    public init(rawValue: Swift.UInt)
+    public typealias Element = MyFawryPlugin.DownloadRequest.DownloadOptions
+    public typealias ArrayLiteralElement = MyFawryPlugin.DownloadRequest.DownloadOptions
+    public typealias RawValue = Swift.UInt
+  }
+  public typealias DownloadFileDestination = (Foundation.URL, Foundation.HTTPURLResponse) -> (destinationURL: Foundation.URL, options: MyFawryPlugin.DownloadRequest.DownloadOptions)
+  override open var request: Foundation.URLRequest? {
+    get
+  }
+  open var resumeData: Foundation.Data? {
+    get
+  }
+  open var progress: Foundation.Progress {
+    get
+  }
+  override open func cancel()
+  @discardableResult
+  open func downloadProgress(queue: Dispatch.DispatchQueue = DispatchQueue.main, closure: @escaping MyFawryPlugin.DownloadRequest.ProgressHandler) -> Self
+  open class func suggestedDownloadDestination(for directory: Foundation.FileManager.SearchPathDirectory = .documentDirectory, in domain: Foundation.FileManager.SearchPathDomainMask = .userDomainMask) -> MyFawryPlugin.DownloadRequest.DownloadFileDestination
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers open class UploadRequest : MyFawryPlugin.DataRequest {
+  override open var request: Foundation.URLRequest? {
+    get
+  }
+  open var uploadProgress: Foundation.Progress {
+    get
+  }
+  @discardableResult
+  open func uploadProgress(queue: Dispatch.DispatchQueue = DispatchQueue.main, closure: @escaping MyFawryPlugin.UploadRequest.ProgressHandler) -> Self
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+open class StreamRequest : MyFawryPlugin.Request {
+  @objc deinit
+}
+public enum ThemesStyle {
+  case style1
+  case style2
+  public static func == (a: MyFawryPlugin.ThemesStyle, b: MyFawryPlugin.ThemesStyle) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public enum SDKTarget {
+  case fawryPayment
+  case cardTokenizer
+  public static func == (a: MyFawryPlugin.SDKTarget, b: MyFawryPlugin.SDKTarget) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public enum PaymentMethodType {
+  case All
+  case FAWRY_KIOSK
+  case CREDIT_CARD
+  public static func == (a: MyFawryPlugin.PaymentMethodType, b: MyFawryPlugin.PaymentMethodType) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+}
+public enum FawryStatusCode : Swift.Int {
+  case TransactionCompleted
+  case MerchantInfoError
+  case BillUploadError
+  case AnonymusPayError
+  case MigsRequestError
+  case EmptyItemsList
+  case UserCancledWithoutReason
+  case GeneralError
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+}
+public struct Timeline {
+  public let requestStartTime: CoreFoundation.CFAbsoluteTime
+  public let initialResponseTime: CoreFoundation.CFAbsoluteTime
+  public let requestCompletedTime: CoreFoundation.CFAbsoluteTime
+  public let serializationCompletedTime: CoreFoundation.CFAbsoluteTime
+  public let latency: Foundation.TimeInterval
+  public let requestDuration: Foundation.TimeInterval
+  public let serializationDuration: Foundation.TimeInterval
+  public let totalDuration: Foundation.TimeInterval
+  public init(requestStartTime: CoreFoundation.CFAbsoluteTime = 0.0, initialResponseTime: CoreFoundation.CFAbsoluteTime = 0.0, requestCompletedTime: CoreFoundation.CFAbsoluteTime = 0.0, serializationCompletedTime: CoreFoundation.CFAbsoluteTime = 0.0)
+}
+extension Timeline : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension Timeline : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+public enum PopoverOption {
+  case arrowSize(CoreGraphics.CGSize)
+  case animationIn(Foundation.TimeInterval)
+  case animationOut(Foundation.TimeInterval)
+  case cornerRadius(CoreGraphics.CGFloat)
+  case sideEdge(CoreGraphics.CGFloat)
+  case blackOverlayColor(UIKit.UIColor)
+  case overlayBlur(UIKit.UIBlurEffectStyle)
+  case type(MyFawryPlugin.PopoverType)
+  case color(UIKit.UIColor)
+  case dismissOnBlackOverlayTap(Swift.Bool)
+  case showBlackOverlay(Swift.Bool)
+  case springDamping(CoreGraphics.CGFloat)
+  case initialSpringVelocity(CoreGraphics.CGFloat)
+}
+@objc public enum PopoverType : Swift.Int {
+  case up
+  case down
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc open class Popover : UIKit.UIView {
+  open var arrowSize: CoreGraphics.CGSize
+  open var animationIn: Swift.Double
+  open var animationOut: Swift.Double
+  open var cornerRadius: CoreGraphics.CGFloat
+  open var sideEdge: CoreGraphics.CGFloat
+  open var popoverType: MyFawryPlugin.PopoverType
+  open var blackOverlayColor: UIKit.UIColor
+  open var overlayBlur: UIKit.UIBlurEffect?
+  open var popoverColor: UIKit.UIColor
+  open var dismissOnBlackOverlayTap: Swift.Bool
+  open var showBlackOverlay: Swift.Bool
+  open var highlightFromView: Swift.Bool
+  open var highlightCornerRadius: CoreGraphics.CGFloat
+  open var springDamping: CoreGraphics.CGFloat
+  open var initialSpringVelocity: CoreGraphics.CGFloat
+  open var willShowHandler: (() -> ())?
+  open var willDismissHandler: (() -> ())?
+  open var didShowHandler: (() -> ())?
+  open var didDismissHandler: (() -> ())?
+  public var blackOverlay: UIKit.UIControl {
+    get
+  }
+  @objc dynamic public init()
+  public init(showHandler: (() -> ())?, dismissHandler: (() -> ())?)
+  public init(options: [MyFawryPlugin.PopoverOption]?, showHandler: (() -> ())? = nil, dismissHandler: (() -> ())? = nil)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic open func layoutSubviews()
+  open func showAsDialog(_ contentView: UIKit.UIView)
+  open func showAsDialog(_ contentView: UIKit.UIView, inView: UIKit.UIView)
+  open func show(_ contentView: UIKit.UIView, fromView: UIKit.UIView)
+  open func show(_ contentView: UIKit.UIView, fromView: UIKit.UIView, inView: UIKit.UIView)
+  open func show(_ contentView: UIKit.UIView, point: CoreGraphics.CGPoint)
+  open func show(_ contentView: UIKit.UIView, point: CoreGraphics.CGPoint, inView: UIKit.UIView)
+  @objc override dynamic open func accessibilityPerformEscape() -> Swift.Bool
+  @objc open func dismiss()
+  @objc override dynamic open func draw(_ rect: CoreGraphics.CGRect)
+  @objc deinit
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+}
+public enum AFError : Swift.Error {
+  public enum ParameterEncodingFailureReason {
+    case missingURL
+    case jsonEncodingFailed(error: Swift.Error)
+    case propertyListEncodingFailed(error: Swift.Error)
+  }
+  public enum MultipartEncodingFailureReason {
+    case bodyPartURLInvalid(url: Foundation.URL)
+    case bodyPartFilenameInvalid(in: Foundation.URL)
+    case bodyPartFileNotReachable(at: Foundation.URL)
+    case bodyPartFileNotReachableWithError(atURL: Foundation.URL, error: Swift.Error)
+    case bodyPartFileIsDirectory(at: Foundation.URL)
+    case bodyPartFileSizeNotAvailable(at: Foundation.URL)
+    case bodyPartFileSizeQueryFailedWithError(forURL: Foundation.URL, error: Swift.Error)
+    case bodyPartInputStreamCreationFailed(for: Foundation.URL)
+    case outputStreamCreationFailed(for: Foundation.URL)
+    case outputStreamFileAlreadyExists(at: Foundation.URL)
+    case outputStreamURLInvalid(url: Foundation.URL)
+    case outputStreamWriteFailed(error: Swift.Error)
+    case inputStreamReadFailed(error: Swift.Error)
+  }
+  public enum ResponseValidationFailureReason {
+    case dataFileNil
+    case dataFileReadFailed(at: Foundation.URL)
+    case missingContentType(acceptableContentTypes: [Swift.String])
+    case unacceptableContentType(acceptableContentTypes: [Swift.String], responseContentType: Swift.String)
+    case unacceptableStatusCode(code: Swift.Int)
+  }
+  public enum ResponseSerializationFailureReason {
+    case inputDataNil
+    case inputDataNilOrZeroLength
+    case inputFileNil
+    case inputFileReadFailed(at: Foundation.URL)
+    case stringSerializationFailed(encoding: Swift.String.Encoding)
+    case jsonSerializationFailed(error: Swift.Error)
+    case propertyListSerializationFailed(error: Swift.Error)
+  }
+  case invalidURL(url: MyFawryPlugin.URLConvertible)
+  case parameterEncodingFailed(reason: MyFawryPlugin.AFError.ParameterEncodingFailureReason)
+  case multipartEncodingFailed(reason: MyFawryPlugin.AFError.MultipartEncodingFailureReason)
+  case responseValidationFailed(reason: MyFawryPlugin.AFError.ResponseValidationFailureReason)
+  case responseSerializationFailed(reason: MyFawryPlugin.AFError.ResponseSerializationFailureReason)
+}
+extension AFError {
+  public var isInvalidURLError: Swift.Bool {
+    get
+  }
+  public var isParameterEncodingError: Swift.Bool {
+    get
+  }
+  public var isMultipartEncodingError: Swift.Bool {
+    get
+  }
+  public var isResponseValidationError: Swift.Bool {
+    get
+  }
+  public var isResponseSerializationError: Swift.Bool {
+    get
+  }
+}
+extension AFError {
+  public var urlConvertible: MyFawryPlugin.URLConvertible? {
+    get
+  }
+  public var url: Foundation.URL? {
+    get
+  }
+  public var underlyingError: Swift.Error? {
+    get
+  }
+  public var acceptableContentTypes: [Swift.String]? {
+    get
+  }
+  public var responseContentType: Swift.String? {
+    get
+  }
+  public var responseCode: Swift.Int? {
+    get
+  }
+  public var failedStringEncoding: Swift.String.Encoding? {
+    get
+  }
+}
+extension AFError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+public protocol URLConvertible {
+  func asURL() throws -> Foundation.URL
+}
+extension String : MyFawryPlugin.URLConvertible {
+  public func asURL() throws -> Foundation.URL
+}
+extension URL : MyFawryPlugin.URLConvertible {
+  public func asURL() throws -> Foundation.URL
+}
+extension URLComponents : MyFawryPlugin.URLConvertible {
+  public func asURL() throws -> Foundation.URL
+}
+public protocol URLRequestConvertible {
+  func asURLRequest() throws -> Foundation.URLRequest
+}
+extension URLRequestConvertible {
+  public var urlRequest: Foundation.URLRequest? {
+    get
+  }
+}
+extension URLRequest : MyFawryPlugin.URLRequestConvertible {
+  public func asURLRequest() throws -> Foundation.URLRequest
+}
+extension URLRequest {
+  public init(url: MyFawryPlugin.URLConvertible, method: MyFawryPlugin.HTTPMethod, headers: MyFawryPlugin.HTTPHeaders? = nil) throws
+}
+@discardableResult
+public func request(_ url: MyFawryPlugin.URLConvertible, method: MyFawryPlugin.HTTPMethod = .get, parameters: MyFawryPlugin.Parameters? = nil, encoding: MyFawryPlugin.ParameterEncoding = URLEncoding.default, headers: MyFawryPlugin.HTTPHeaders? = nil) -> MyFawryPlugin.DataRequest
+@discardableResult
+public func request(_ urlRequest: MyFawryPlugin.URLRequestConvertible) -> MyFawryPlugin.DataRequest
+@discardableResult
+public func download(_ url: MyFawryPlugin.URLConvertible, method: MyFawryPlugin.HTTPMethod = .get, parameters: MyFawryPlugin.Parameters? = nil, encoding: MyFawryPlugin.ParameterEncoding = URLEncoding.default, headers: MyFawryPlugin.HTTPHeaders? = nil, to destination: MyFawryPlugin.DownloadRequest.DownloadFileDestination? = nil) -> MyFawryPlugin.DownloadRequest
+@discardableResult
+public func download(_ urlRequest: MyFawryPlugin.URLRequestConvertible, to destination: MyFawryPlugin.DownloadRequest.DownloadFileDestination? = nil) -> MyFawryPlugin.DownloadRequest
+@discardableResult
+public func download(resumingWith resumeData: Foundation.Data, to destination: MyFawryPlugin.DownloadRequest.DownloadFileDestination? = nil) -> MyFawryPlugin.DownloadRequest
+@discardableResult
+public func upload(_ fileURL: Foundation.URL, to url: MyFawryPlugin.URLConvertible, method: MyFawryPlugin.HTTPMethod = .post, headers: MyFawryPlugin.HTTPHeaders? = nil) -> MyFawryPlugin.UploadRequest
+@discardableResult
+public func upload(_ fileURL: Foundation.URL, with urlRequest: MyFawryPlugin.URLRequestConvertible) -> MyFawryPlugin.UploadRequest
+@discardableResult
+public func upload(_ data: Foundation.Data, to url: MyFawryPlugin.URLConvertible, method: MyFawryPlugin.HTTPMethod = .post, headers: MyFawryPlugin.HTTPHeaders? = nil) -> MyFawryPlugin.UploadRequest
+@discardableResult
+public func upload(_ data: Foundation.Data, with urlRequest: MyFawryPlugin.URLRequestConvertible) -> MyFawryPlugin.UploadRequest
+@discardableResult
+public func upload(_ stream: Foundation.InputStream, to url: MyFawryPlugin.URLConvertible, method: MyFawryPlugin.HTTPMethod = .post, headers: MyFawryPlugin.HTTPHeaders? = nil) -> MyFawryPlugin.UploadRequest
+@discardableResult
+public func upload(_ stream: Foundation.InputStream, with urlRequest: MyFawryPlugin.URLRequestConvertible) -> MyFawryPlugin.UploadRequest
+public func upload(multipartFormData: @escaping (MyFawryPlugin.MultipartFormData) -> Swift.Void, usingThreshold encodingMemoryThreshold: Swift.UInt64 = SessionManager.multipartFormDataEncodingMemoryThreshold, to url: MyFawryPlugin.URLConvertible, method: MyFawryPlugin.HTTPMethod = .post, headers: MyFawryPlugin.HTTPHeaders? = nil, encodingCompletion: ((MyFawryPlugin.SessionManager.MultipartFormDataEncodingResult) -> Swift.Void)?)
+public func upload(multipartFormData: @escaping (MyFawryPlugin.MultipartFormData) -> Swift.Void, usingThreshold encodingMemoryThreshold: Swift.UInt64 = SessionManager.multipartFormDataEncodingMemoryThreshold, with urlRequest: MyFawryPlugin.URLRequestConvertible, encodingCompletion: ((MyFawryPlugin.SessionManager.MultipartFormDataEncodingResult) -> Swift.Void)?)
+@available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+@discardableResult
+public func stream(withHostName hostName: Swift.String, port: Swift.Int) -> MyFawryPlugin.StreamRequest
+@available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+@discardableResult
+public func stream(with netService: Foundation.NetService) -> MyFawryPlugin.StreamRequest
+public enum HTTPMethod : Swift.String {
+  case options
+  case get
+  case head
+  case post
+  case put
+  case patch
+  case delete
+  case trace
+  case connect
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+}
+public typealias Parameters = [Swift.String : Any]
+public protocol ParameterEncoding {
+  func encode(_ urlRequest: MyFawryPlugin.URLRequestConvertible, with parameters: MyFawryPlugin.Parameters?) throws -> Foundation.URLRequest
+}
+public struct URLEncoding : MyFawryPlugin.ParameterEncoding {
+  public enum Destination {
+    case methodDependent, queryString, httpBody
+    public static func == (a: MyFawryPlugin.URLEncoding.Destination, b: MyFawryPlugin.URLEncoding.Destination) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public static var `default`: MyFawryPlugin.URLEncoding {
+    get
+  }
+  public static var methodDependent: MyFawryPlugin.URLEncoding {
+    get
+  }
+  public static var queryString: MyFawryPlugin.URLEncoding {
+    get
+  }
+  public static var httpBody: MyFawryPlugin.URLEncoding {
+    get
+  }
+  public let destination: MyFawryPlugin.URLEncoding.Destination
+  public init(destination: MyFawryPlugin.URLEncoding.Destination = .methodDependent)
+  public func encode(_ urlRequest: MyFawryPlugin.URLRequestConvertible, with parameters: MyFawryPlugin.Parameters?) throws -> Foundation.URLRequest
+  public func queryComponents(fromKey key: Swift.String, value: Any) -> [(Swift.String, Swift.String)]
+  public func escape(_ string: Swift.String) -> Swift.String
+}
+public struct JSONEncoding : MyFawryPlugin.ParameterEncoding {
+  public static var `default`: MyFawryPlugin.JSONEncoding {
+    get
+  }
+  public static var prettyPrinted: MyFawryPlugin.JSONEncoding {
+    get
+  }
+  public let options: Foundation.JSONSerialization.WritingOptions
+  public init(options: Foundation.JSONSerialization.WritingOptions = [])
+  public func encode(_ urlRequest: MyFawryPlugin.URLRequestConvertible, with parameters: MyFawryPlugin.Parameters?) throws -> Foundation.URLRequest
+  public func encode(_ urlRequest: MyFawryPlugin.URLRequestConvertible, withJSONObject jsonObject: Any? = nil) throws -> Foundation.URLRequest
+}
+public struct PropertyListEncoding : MyFawryPlugin.ParameterEncoding {
+  public static var `default`: MyFawryPlugin.PropertyListEncoding {
+    get
+  }
+  public static var xml: MyFawryPlugin.PropertyListEncoding {
+    get
+  }
+  public static var binary: MyFawryPlugin.PropertyListEncoding {
+    get
+  }
+  public let format: Foundation.PropertyListSerialization.PropertyListFormat
+  public let options: Foundation.PropertyListSerialization.WriteOptions
+  public init(format: Foundation.PropertyListSerialization.PropertyListFormat = .xml, options: Foundation.PropertyListSerialization.WriteOptions = 0)
+  public func encode(_ urlRequest: MyFawryPlugin.URLRequestConvertible, with parameters: MyFawryPlugin.Parameters?) throws -> Foundation.URLRequest
+}
+extension Request {
+  public enum ValidationResult {
+    case success
+    case failure(Swift.Error)
+  }
+}
+extension DataRequest {
+  public typealias Validation = (Foundation.URLRequest?, Foundation.HTTPURLResponse, Foundation.Data?) -> MyFawryPlugin.Request.ValidationResult
+  @discardableResult
+  public func validate(_ validation: @escaping MyFawryPlugin.DataRequest.Validation) -> Self
+  @discardableResult
+  public func validate<S>(statusCode acceptableStatusCodes: S) -> Self where S : Swift.Sequence, S.Element == Swift.Int
+  @discardableResult
+  public func validate<S>(contentType acceptableContentTypes: S) -> Self where S : Swift.Sequence, S.Element == Swift.String
+  @discardableResult
+  public func validate() -> Self
+}
+extension DownloadRequest {
+  public typealias Validation = (Foundation.URLRequest?, Foundation.HTTPURLResponse, Foundation.URL?, Foundation.URL?) -> MyFawryPlugin.Request.ValidationResult
+  @discardableResult
+  public func validate(_ validation: @escaping MyFawryPlugin.DownloadRequest.Validation) -> Self
+  @discardableResult
+  public func validate<S>(statusCode acceptableStatusCodes: S) -> Self where S : Swift.Sequence, S.Element == Swift.Int
+  @discardableResult
+  public func validate<S>(contentType acceptableContentTypes: S) -> Self where S : Swift.Sequence, S.Element == Swift.String
+  @discardableResult
+  public func validate() -> Self
+}
+@objc @_inheritsConvenienceInitializers open class SessionDelegate : ObjectiveC.NSObject {
+  open var sessionDidBecomeInvalidWithError: ((Foundation.URLSession, Swift.Error?) -> Swift.Void)?
+  open var sessionDidReceiveChallenge: ((Foundation.URLSession, Foundation.URLAuthenticationChallenge) -> (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?))?
+  open var sessionDidReceiveChallengeWithCompletion: ((Foundation.URLSession, Foundation.URLAuthenticationChallenge, @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void) -> Swift.Void)?
+  open var sessionDidFinishEventsForBackgroundURLSession: ((Foundation.URLSession) -> Swift.Void)?
+  open var taskWillPerformHTTPRedirection: ((Foundation.URLSession, Foundation.URLSessionTask, Foundation.HTTPURLResponse, Foundation.URLRequest) -> Foundation.URLRequest?)?
+  open var taskWillPerformHTTPRedirectionWithCompletion: ((Foundation.URLSession, Foundation.URLSessionTask, Foundation.HTTPURLResponse, Foundation.URLRequest, @escaping (Foundation.URLRequest?) -> Swift.Void) -> Swift.Void)?
+  open var taskDidReceiveChallenge: ((Foundation.URLSession, Foundation.URLSessionTask, Foundation.URLAuthenticationChallenge) -> (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?))?
+  open var taskDidReceiveChallengeWithCompletion: ((Foundation.URLSession, Foundation.URLSessionTask, Foundation.URLAuthenticationChallenge, @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void) -> Swift.Void)?
+  open var taskNeedNewBodyStream: ((Foundation.URLSession, Foundation.URLSessionTask) -> Foundation.InputStream?)?
+  open var taskNeedNewBodyStreamWithCompletion: ((Foundation.URLSession, Foundation.URLSessionTask, @escaping (Foundation.InputStream?) -> Swift.Void) -> Swift.Void)?
+  open var taskDidSendBodyData: ((Foundation.URLSession, Foundation.URLSessionTask, Swift.Int64, Swift.Int64, Swift.Int64) -> Swift.Void)?
+  open var taskDidComplete: ((Foundation.URLSession, Foundation.URLSessionTask, Swift.Error?) -> Swift.Void)?
+  open var dataTaskDidReceiveResponse: ((Foundation.URLSession, Foundation.URLSessionDataTask, Foundation.URLResponse) -> Foundation.URLSession.ResponseDisposition)?
+  open var dataTaskDidReceiveResponseWithCompletion: ((Foundation.URLSession, Foundation.URLSessionDataTask, Foundation.URLResponse, @escaping (Foundation.URLSession.ResponseDisposition) -> Swift.Void) -> Swift.Void)?
+  open var dataTaskDidBecomeDownloadTask: ((Foundation.URLSession, Foundation.URLSessionDataTask, Foundation.URLSessionDownloadTask) -> Swift.Void)?
+  open var dataTaskDidReceiveData: ((Foundation.URLSession, Foundation.URLSessionDataTask, Foundation.Data) -> Swift.Void)?
+  open var dataTaskWillCacheResponse: ((Foundation.URLSession, Foundation.URLSessionDataTask, Foundation.CachedURLResponse) -> Foundation.CachedURLResponse?)?
+  open var dataTaskWillCacheResponseWithCompletion: ((Foundation.URLSession, Foundation.URLSessionDataTask, Foundation.CachedURLResponse, @escaping (Foundation.CachedURLResponse?) -> Swift.Void) -> Swift.Void)?
+  open var downloadTaskDidFinishDownloadingToURL: ((Foundation.URLSession, Foundation.URLSessionDownloadTask, Foundation.URL) -> Swift.Void)?
+  open var downloadTaskDidWriteData: ((Foundation.URLSession, Foundation.URLSessionDownloadTask, Swift.Int64, Swift.Int64, Swift.Int64) -> Swift.Void)?
+  open var downloadTaskDidResumeAtOffset: ((Foundation.URLSession, Foundation.URLSessionDownloadTask, Swift.Int64, Swift.Int64) -> Swift.Void)?
+  @available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+  open var streamTaskReadClosed: ((Foundation.URLSession, Foundation.URLSessionStreamTask) -> Swift.Void)? {
+    get
+    set
+  }
+  @available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+  open var streamTaskWriteClosed: ((Foundation.URLSession, Foundation.URLSessionStreamTask) -> Swift.Void)? {
+    get
+    set
+  }
+  @available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+  open var streamTaskBetterRouteDiscovered: ((Foundation.URLSession, Foundation.URLSessionStreamTask) -> Swift.Void)? {
+    get
+    set
+  }
+  @available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+  open var streamTaskDidBecomeInputAndOutputStreams: ((Foundation.URLSession, Foundation.URLSessionStreamTask, Foundation.InputStream, Foundation.OutputStream) -> Swift.Void)? {
+    get
+    set
+  }
+  open subscript(task: Foundation.URLSessionTask) -> MyFawryPlugin.Request? {
+    get
+    set
+  }
+  @objc override dynamic public init()
+  @objc override dynamic open func responds(to selector: ObjectiveC.Selector) -> Swift.Bool
+  @objc deinit
+}
+extension SessionDelegate : Foundation.URLSessionDelegate {
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, didBecomeInvalidWithError error: Swift.Error?)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, didReceive challenge: Foundation.URLAuthenticationChallenge, completionHandler: @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void)
+  @objc dynamic open func urlSessionDidFinishEvents(forBackgroundURLSession session: Foundation.URLSession)
+}
+extension SessionDelegate : Foundation.URLSessionTaskDelegate {
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, willPerformHTTPRedirection response: Foundation.HTTPURLResponse, newRequest request: Foundation.URLRequest, completionHandler: @escaping (Foundation.URLRequest?) -> Swift.Void)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didReceive challenge: Foundation.URLAuthenticationChallenge, completionHandler: @escaping (Foundation.URLSession.AuthChallengeDisposition, Foundation.URLCredential?) -> Swift.Void)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, needNewBodyStream completionHandler: @escaping (Foundation.InputStream?) -> Swift.Void)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didSendBodyData bytesSent: Swift.Int64, totalBytesSent: Swift.Int64, totalBytesExpectedToSend: Swift.Int64)
+  @available(iOS 10.0, OSX 10.12, tvOS 10.0, *)
+  @objc(URLSession:task:didFinishCollectingMetrics:) dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didFinishCollecting metrics: Foundation.URLSessionTaskMetrics)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, task: Foundation.URLSessionTask, didCompleteWithError error: Swift.Error?)
+}
+extension SessionDelegate : Foundation.URLSessionDataDelegate {
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didReceive response: Foundation.URLResponse, completionHandler: @escaping (Foundation.URLSession.ResponseDisposition) -> Swift.Void)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didBecome downloadTask: Foundation.URLSessionDownloadTask)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, didReceive data: Foundation.Data)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, dataTask: Foundation.URLSessionDataTask, willCacheResponse proposedResponse: Foundation.CachedURLResponse, completionHandler: @escaping (Foundation.CachedURLResponse?) -> Swift.Void)
+}
+extension SessionDelegate : Foundation.URLSessionDownloadDelegate {
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didFinishDownloadingTo location: Foundation.URL)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didWriteData bytesWritten: Swift.Int64, totalBytesWritten: Swift.Int64, totalBytesExpectedToWrite: Swift.Int64)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, downloadTask: Foundation.URLSessionDownloadTask, didResumeAtOffset fileOffset: Swift.Int64, expectedTotalBytes: Swift.Int64)
+}
+@available(iOS 9.0, OSX 10.11, tvOS 9.0, *)
+extension SessionDelegate : Foundation.URLSessionStreamDelegate {
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, readClosedFor streamTask: Foundation.URLSessionStreamTask)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, writeClosedFor streamTask: Foundation.URLSessionStreamTask)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, betterRouteDiscoveredFor streamTask: Foundation.URLSessionStreamTask)
+  @objc dynamic open func urlSession(_ session: Foundation.URLSession, streamTask: Foundation.URLSessionStreamTask, didBecome inputStream: Foundation.InputStream, outputStream: Foundation.OutputStream)
+}
+open class ServerTrustPolicyManager {
+  final public let policies: [Swift.String : MyFawryPlugin.ServerTrustPolicy]
+  public init(policies: [Swift.String : MyFawryPlugin.ServerTrustPolicy])
+  open func serverTrustPolicy(forHost host: Swift.String) -> MyFawryPlugin.ServerTrustPolicy?
+  @objc deinit
+}
+public enum ServerTrustPolicy {
+  case performDefaultEvaluation(validateHost: Swift.Bool)
+  case performRevokedEvaluation(validateHost: Swift.Bool, revocationFlags: CoreFoundation.CFOptionFlags)
+  case pinCertificates(certificates: [Security.SecCertificate], validateCertificateChain: Swift.Bool, validateHost: Swift.Bool)
+  case pinPublicKeys(publicKeys: [Security.SecKey], validateCertificateChain: Swift.Bool, validateHost: Swift.Bool)
+  case disableEvaluation
+  case customEvaluation((Security.SecTrust, Swift.String) -> Swift.Bool)
+  public static func certificates(in bundle: Foundation.Bundle = Bundle.main) -> [Security.SecCertificate]
+  public static func publicKeys(in bundle: Foundation.Bundle = Bundle.main) -> [Security.SecKey]
+  public func evaluate(_ serverTrust: Security.SecTrust, forHost host: Swift.String) -> Swift.Bool
+}
+extension Collection {
+  public func chunk(n: Self.IndexDistance) -> [Self.SubSequence]
+}
+@objc @_hasMissingDesignatedInitializers public class CardTokenizerInfo : MyFawryPlugin.FawryBaseModelObject {
+  public var statusDescription: Swift.String?
+  public var statusCode: Swift.Int?
+  public var type: Swift.String?
+  public var card: MyFawryPlugin.cardTokenizer?
+  override public func convertAttributesToJson() -> [Swift.String : Swift.AnyObject]
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class NetworkReachabilityManager {
+  public enum NetworkReachabilityStatus {
+    case unknown
+    case notReachable
+    case reachable(MyFawryPlugin.NetworkReachabilityManager.ConnectionType)
+  }
+  public enum ConnectionType {
+    case ethernetOrWiFi
+    case wwan
+    public static func == (a: MyFawryPlugin.NetworkReachabilityManager.ConnectionType, b: MyFawryPlugin.NetworkReachabilityManager.ConnectionType) -> Swift.Bool
+    public var hashValue: Swift.Int {
+      get
+    }
+    public func hash(into hasher: inout Swift.Hasher)
+  }
+  public typealias Listener = (MyFawryPlugin.NetworkReachabilityManager.NetworkReachabilityStatus) -> Swift.Void
+  public var isReachable: Swift.Bool {
+    get
+  }
+  public var isReachableOnWWAN: Swift.Bool {
+    get
+  }
+  public var isReachableOnEthernetOrWiFi: Swift.Bool {
+    get
+  }
+  public var networkReachabilityStatus: MyFawryPlugin.NetworkReachabilityManager.NetworkReachabilityStatus {
+    get
+  }
+  public var listenerQueue: Dispatch.DispatchQueue
+  public var listener: MyFawryPlugin.NetworkReachabilityManager.Listener?
+  convenience public init?(host: Swift.String)
+  convenience public init?()
+  @objc deinit
+  @discardableResult
+  public func startListening() -> Swift.Bool
+  public func stopListening()
+}
+extension NetworkReachabilityManager.NetworkReachabilityStatus : Swift.Equatable {
+}
+public func == (lhs: MyFawryPlugin.NetworkReachabilityManager.NetworkReachabilityStatus, rhs: MyFawryPlugin.NetworkReachabilityManager.NetworkReachabilityStatus) -> Swift.Bool
+public let ErrorDomain: Swift.String
+public let ErrorUnsupportedType: Swift.Int
+public let ErrorIndexOutOfBounds: Swift.Int
+public let ErrorWrongType: Swift.Int
+public let ErrorNotExist: Swift.Int
+public let ErrorInvalidJSON: Swift.Int
+public enum Type : Swift.Int {
+  case number
+  case string
+  case bool
+  case array
+  case dictionary
+  case null
+  case unknown
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public struct JSON {
+  public init(data: Foundation.Data, options opt: Foundation.JSONSerialization.ReadingOptions = .allowFragments, error: Foundation.NSErrorPointer = nil)
+  public static func parse(_ string: Swift.String) -> MyFawryPlugin.JSON
+  public init(_ object: Any)
+  public init(_ jsonArray: [MyFawryPlugin.JSON])
+  public init(_ jsonDictionary: [Swift.String : MyFawryPlugin.JSON])
+  public var object: Any {
+    get
+    set
+  }
+  public var type: MyFawryPlugin.`Type` {
+    get
+  }
+  public var error: Foundation.NSError? {
+    get
+  }
+  @available(*, unavailable, renamed: "null")
+  public static var nullJSON: MyFawryPlugin.JSON {
+    get
+  }
+  public static var null: MyFawryPlugin.JSON {
+    get
+  }
+}
+public enum JSONIndex : Swift.Comparable {
+  case array(Swift.Int)
+  case dictionary(Swift.DictionaryIndex<Swift.String, MyFawryPlugin.JSON>)
+  case null
+}
+public func == (lhs: MyFawryPlugin.JSONIndex, rhs: MyFawryPlugin.JSONIndex) -> Swift.Bool
+public func < (lhs: MyFawryPlugin.JSONIndex, rhs: MyFawryPlugin.JSONIndex) -> Swift.Bool
+extension JSON : Swift.Collection {
+  public typealias Index = MyFawryPlugin.JSONIndex
+  public var startIndex: MyFawryPlugin.JSON.Index {
+    get
+  }
+  public var endIndex: MyFawryPlugin.JSON.Index {
+    get
+  }
+  public func index(after i: MyFawryPlugin.JSON.Index) -> MyFawryPlugin.JSON.Index
+  public subscript(position: MyFawryPlugin.JSON.Index) -> (Swift.String, MyFawryPlugin.JSON) {
+    get
+  }
+  public typealias Element = (Swift.String, MyFawryPlugin.JSON)
+  public typealias Iterator = Swift.IndexingIterator<MyFawryPlugin.JSON>
+  public typealias SubSequence = Swift.Slice<MyFawryPlugin.JSON>
+  public typealias Indices = Swift.DefaultIndices<MyFawryPlugin.JSON>
+}
+public enum JSONKey {
+  case index(Swift.Int)
+  case key(Swift.String)
+}
+public protocol JSONSubscriptType {
+  var jsonKey: MyFawryPlugin.JSONKey { get }
+}
+extension Int : MyFawryPlugin.JSONSubscriptType {
+  public var jsonKey: MyFawryPlugin.JSONKey {
+    get
+  }
+}
+extension String : MyFawryPlugin.JSONSubscriptType {
+  public var jsonKey: MyFawryPlugin.JSONKey {
+    get
+  }
+}
+extension JSON {
+  public subscript(path: [MyFawryPlugin.JSONSubscriptType]) -> MyFawryPlugin.JSON {
+    get
+    set
+  }
+  public subscript(path: MyFawryPlugin.JSONSubscriptType...) -> MyFawryPlugin.JSON {
+    get
+    set
+  }
+}
+extension JSON : Swift.ExpressibleByStringLiteral {
+  public init(stringLiteral value: Swift.StringLiteralType)
+  public init(extendedGraphemeClusterLiteral value: Swift.StringLiteralType)
+  public init(unicodeScalarLiteral value: Swift.StringLiteralType)
+  public typealias StringLiteralType = Swift.StringLiteralType
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.StringLiteralType
+  public typealias UnicodeScalarLiteralType = Swift.StringLiteralType
+}
+extension JSON : Swift.ExpressibleByIntegerLiteral {
+  public init(integerLiteral value: Swift.IntegerLiteralType)
+  public typealias IntegerLiteralType = Swift.IntegerLiteralType
+}
+extension JSON : Swift.ExpressibleByBooleanLiteral {
+  public init(booleanLiteral value: Swift.BooleanLiteralType)
+  public typealias BooleanLiteralType = Swift.BooleanLiteralType
+}
+extension JSON : Swift.ExpressibleByFloatLiteral {
+  public init(floatLiteral value: Swift.FloatLiteralType)
+  public typealias FloatLiteralType = Swift.FloatLiteralType
+}
+extension JSON : Swift.ExpressibleByDictionaryLiteral {
+  public init(dictionaryLiteral elements: (Swift.String, Any)...)
+  public typealias Key = Swift.String
+  public typealias Value = Any
+}
+extension JSON : Swift.ExpressibleByArrayLiteral {
+  public init(arrayLiteral elements: Any...)
+  public typealias ArrayLiteralElement = Any
+}
+extension JSON : Swift.ExpressibleByNilLiteral {
+  public init(nilLiteral: ())
+}
+extension JSON : Swift.RawRepresentable {
+  public init?(rawValue: Any)
+  public var rawValue: Any {
+    get
+  }
+  public func rawData(options opt: Foundation.JSONSerialization.WritingOptions = JSONSerialization.WritingOptions(rawValue: 0)) throws -> Foundation.Data
+  public func rawString(_ encoding: Swift.String.Encoding = String.Encoding.utf8, options opt: Foundation.JSONSerialization.WritingOptions = .prettyPrinted) -> Swift.String?
+  public typealias RawValue = Any
+}
+extension JSON : Swift.CustomStringConvertible, Swift.CustomDebugStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension JSON {
+  public var array: [MyFawryPlugin.JSON]? {
+    get
+  }
+  public var arrayValue: [MyFawryPlugin.JSON] {
+    get
+  }
+  public var arrayObject: [Any]? {
+    get
+    set
+  }
+}
+extension JSON {
+  public var dictionary: [Swift.String : MyFawryPlugin.JSON]? {
+    get
+  }
+  public var dictionaryValue: [Swift.String : MyFawryPlugin.JSON] {
+    get
+  }
+  public var dictionaryObject: [Swift.String : Any]? {
+    get
+    set
+  }
+}
+extension JSON {
+  public var bool: Swift.Bool? {
+    get
+    set
+  }
+  public var boolValue: Swift.Bool {
+    get
+    set
+  }
+}
+extension JSON {
+  public var string: Swift.String? {
+    get
+    set
+  }
+  public var stringValue: Swift.String {
+    get
+    set
+  }
+}
+extension JSON {
+  public var number: Foundation.NSNumber? {
+    get
+    set
+  }
+  public var numberValue: Foundation.NSNumber {
+    get
+    set
+  }
+}
+extension JSON {
+  public var null: Foundation.NSNull? {
+    get
+    set
+  }
+  public func exists() -> Swift.Bool
+}
+extension JSON {
+  public var URL: Foundation.URL? {
+    get
+    set
+  }
+}
+extension JSON {
+  public var double: Swift.Double? {
+    get
+    set
+  }
+  public var doubleValue: Swift.Double {
+    get
+    set
+  }
+  public var float: Swift.Float? {
+    get
+    set
+  }
+  public var floatValue: Swift.Float {
+    get
+    set
+  }
+  public var int: Swift.Int? {
+    get
+    set
+  }
+  public var intValue: Swift.Int {
+    get
+    set
+  }
+  public var uInt: Swift.UInt? {
+    get
+    set
+  }
+  public var uIntValue: Swift.UInt {
+    get
+    set
+  }
+  public var int8: Swift.Int8? {
+    get
+    set
+  }
+  public var int8Value: Swift.Int8 {
+    get
+    set
+  }
+  public var uInt8: Swift.UInt8? {
+    get
+    set
+  }
+  public var uInt8Value: Swift.UInt8 {
+    get
+    set
+  }
+  public var int16: Swift.Int16? {
+    get
+    set
+  }
+  public var int16Value: Swift.Int16 {
+    get
+    set
+  }
+  public var uInt16: Swift.UInt16? {
+    get
+    set
+  }
+  public var uInt16Value: Swift.UInt16 {
+    get
+    set
+  }
+  public var int32: Swift.Int32? {
+    get
+    set
+  }
+  public var int32Value: Swift.Int32 {
+    get
+    set
+  }
+  public var uInt32: Swift.UInt32? {
+    get
+    set
+  }
+  public var uInt32Value: Swift.UInt32 {
+    get
+    set
+  }
+  public var int64: Swift.Int64? {
+    get
+    set
+  }
+  public var int64Value: Swift.Int64 {
+    get
+    set
+  }
+  public var uInt64: Swift.UInt64? {
+    get
+    set
+  }
+  public var uInt64Value: Swift.UInt64 {
+    get
+    set
+  }
+}
+extension JSON : Swift.Comparable {
+}
+public func == (lhs: MyFawryPlugin.JSON, rhs: MyFawryPlugin.JSON) -> Swift.Bool
+public func <= (lhs: MyFawryPlugin.JSON, rhs: MyFawryPlugin.JSON) -> Swift.Bool
+public func >= (lhs: MyFawryPlugin.JSON, rhs: MyFawryPlugin.JSON) -> Swift.Bool
+public func > (lhs: MyFawryPlugin.JSON, rhs: MyFawryPlugin.JSON) -> Swift.Bool
+public func < (lhs: MyFawryPlugin.JSON, rhs: MyFawryPlugin.JSON) -> Swift.Bool
+extension MyFawryPlugin.SCLAlertViewStyle : Swift.Equatable {}
+extension MyFawryPlugin.SCLAlertViewStyle : Swift.Hashable {}
+extension MyFawryPlugin.SCLAnimationStyle : Swift.Equatable {}
+extension MyFawryPlugin.SCLAnimationStyle : Swift.Hashable {}
+extension MyFawryPlugin.SCLActionType : Swift.Equatable {}
+extension MyFawryPlugin.SCLActionType : Swift.Hashable {}
+extension MyFawryPlugin.SCLAlertButtonLayout : Swift.Equatable {}
+extension MyFawryPlugin.SCLAlertButtonLayout : Swift.Hashable {}
+extension MyFawryPlugin.Currancy : Swift.Equatable {}
+extension MyFawryPlugin.Currancy : Swift.Hashable {}
+extension MyFawryPlugin.Currancy : Swift.RawRepresentable {}
+extension MyFawryPlugin.ThemesStyle : Swift.Equatable {}
+extension MyFawryPlugin.ThemesStyle : Swift.Hashable {}
+extension MyFawryPlugin.SDKTarget : Swift.Equatable {}
+extension MyFawryPlugin.SDKTarget : Swift.Hashable {}
+extension MyFawryPlugin.PaymentMethodType : Swift.Equatable {}
+extension MyFawryPlugin.PaymentMethodType : Swift.Hashable {}
+extension MyFawryPlugin.FawryStatusCode : Swift.Equatable {}
+extension MyFawryPlugin.FawryStatusCode : Swift.Hashable {}
+extension MyFawryPlugin.FawryStatusCode : Swift.RawRepresentable {}
+extension MyFawryPlugin.PopoverType : Swift.Equatable {}
+extension MyFawryPlugin.PopoverType : Swift.Hashable {}
+extension MyFawryPlugin.PopoverType : Swift.RawRepresentable {}
+extension MyFawryPlugin.HTTPMethod : Swift.Equatable {}
+extension MyFawryPlugin.HTTPMethod : Swift.Hashable {}
+extension MyFawryPlugin.HTTPMethod : Swift.RawRepresentable {}
+extension MyFawryPlugin.URLEncoding.Destination : Swift.Equatable {}
+extension MyFawryPlugin.URLEncoding.Destination : Swift.Hashable {}
+extension MyFawryPlugin.NetworkReachabilityManager.ConnectionType : Swift.Equatable {}
+extension MyFawryPlugin.NetworkReachabilityManager.ConnectionType : Swift.Hashable {}
+extension MyFawryPlugin.`Type` : Swift.Equatable {}
+extension MyFawryPlugin.`Type` : Swift.Hashable {}
+extension MyFawryPlugin.`Type` : Swift.RawRepresentable {}

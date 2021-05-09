@@ -42,13 +42,10 @@ class FawryResponse {
   factory FawryResponse.fromMap(Map<dynamic, dynamic> data) {
     return FawryResponse(
       transactionID: data[_TRX_ID_KEY],
-      expiryDate: (data[_EXPIRY_DATE_KEY] != null)
-          ? DateTime.fromMillisecondsSinceEpoch(data[_EXPIRY_DATE_KEY])
-          : null,
+      expiryDate: (data[_EXPIRY_DATE_KEY] != null) ? DateTime.fromMillisecondsSinceEpoch(data[_EXPIRY_DATE_KEY]) : null,
       cardToken: data[_CARD_TOKEN_KEY],
-      creationDate: (data[_CARD_CREATION_DATE_KEY] != null)
-          ? DateTime.fromMillisecondsSinceEpoch(data[_CARD_CREATION_DATE_KEY])
-          : null,
+      creationDate:
+          (data[_CARD_CREATION_DATE_KEY] != null) ? DateTime.fromMillisecondsSinceEpoch(data[_CARD_CREATION_DATE_KEY]) : null,
       lastFourDigits: data[_CARD_LAST_FOUR_DIGITS_KEY],
       customParam: data[_CUSTOM_PARAMS],
       errorMessage: data[_ERROR_MESSAGE_KEY],

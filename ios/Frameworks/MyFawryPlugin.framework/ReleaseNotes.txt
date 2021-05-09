@@ -1,0 +1,328 @@
+"Fawry Payment Plugin SDK" - "iOS"
+Release Notes
+
+
+===========================================================================
+Version "3.10.4" : Released at "20-10-2020" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : Fix missing fees when pre-select default pay method.
+
+===========================================================================
+Version "3.10.3" : Released at "22-09-2020" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : New callback method for fetching supported payment methods.
+-Hamdy : New init method with default selected payment method.
+-Hamdy : Navigate to confirmation if selected payment method (Fawry_Kiosk).
+-Hamdy : Navigate to payment to enter card data without showing select payment method view if selected payment method (Credit_Card).
+-Hamdy : Customize app UI with 4 main colors and any client will override these colors and set his own colors.
+-Hamdy : Allow user to customize fawry button icon with image.
+
+
+
+
+
+===========================================================================
+Version "3.10.2" : Released at "15-09-2020" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : Replace UIWebView with WKWebView.
+
+===========================================================================
+Version "3.10.1" : Released at "16-07-2020" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : Force light mode in ios 13.
+
+===========================================================================
+Version "3.9.8" : Released at "10-06-2020" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : Promotion init (coupon validation,redeemtion - instant discount)
+
+
+===========================================================================
+Version "3.9.7" : Released at "10-06-2020" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : Fix present screen as full screen not as card mode in ios 13.
+
+===========================================================================
+Version "3.9.6" : Released at "10-04-2020" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : Support percentage fees and accumulate percentage & fixed fees.
+
+===========================================================================
+Version "3.9.5" : Released at "25-12-2019" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : Support Bill request with CIF in customer data.
+
+===========================================================================
+Version "3.9.4" : Released at "17-12-2019" by "Hamdy" - "Mina.Nabil@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Mina : add Original Price in item list.
+-Mina : Make item init more dynamic user will only onput required data.
+-Mina : add skip userinput flag in case it's true user will not pass by stepone screen and will contaniut direct to payment step.
+===========================================================================
+
+===========================================================================
+Version "3.9.3" : Released at "10-09-2019" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : add reservation code, varient code to item properties.
+
+===========================================================================
+Version "3.9.2" : Released at "29-07-2019" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : Add extra callback methods at receipt step
+
+
+===========================================================================
+Version "3.9" : Released at "30-05-2019" by "Hamdy" - "ahmed.hamdy@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : Upgrade to swift 4 and export using xcode 10.2
+
+
+===========================================================================
+Version "3.8" : Released at "05-11-2018" by "Hamdy" - "ahmed.hamdy@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : Fix constraints of payment and confirmation view for ipad.
+
+
+
+===========================================================================
+Version "3.7" : Released at "19-07-2018" by "Hamdy" - "ahmed.hamdy@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : Fix archiving issue full bitcode.
+-Hamdy : Fixing too many symbols error when uploading framework to appstore.
+
+
+===========================================================================
+Version "3.6" : Released at "10-07-2018" by "Hamdy" - "ahmed.hamdy@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : Export fawryplugin from xcode 9.4
+
+===========================================================================
+Version "3.5" : Released at "11-03-2018" by "Hamdy" - "ahmed.hamdy@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy: Add server url as a parameter to both Fawry_Payment and Card_Tokenizer at initialization.
+-Hamdy: Add server url text field to the Test client view.
+
+===========================================================================
+Version "3.4" : Released at "21-02-2018" by "Hamdy" - "ahmed.hamdy@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy: Add Merchant Reference Number (merchantRefNum) to Fawry payment plugin.
+
+===========================================================================
+Version "3.3" : Released at "21-01-2018" by "Hamdy" - "ahmed.hamdy@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy: Fix card tokenization:pop up of "card token" and "last four digits" appears the same with every new token generated
+-Hamdy: Fix App suddenly close
+-Hamdy: Fix IOS :create order quantity equal zero succeeds
+
+===========================================================================
+Version "3.2" : Released at "21-01-2018" by "Hamdy" - "ahmed.hamdy@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy: Fix create order with negative price succeeds
+-Hamdy: Fix App suddenly close when enter data in one or two of the field "name, price, quantity"
+===========================================================================
+
+===========================================================================
+Version "3.1" : Released at "18-01-2018" by "Hamdy" - "ahmed.hamdy@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy: Fix address font size
+-Hamdy: Fix keyboard hides the view in shipping view page
+-Hamdy: Add mobile validation message
+===========================================================================
+
+===========================================================================
+Version "3.0" : Released at "17-01-2018" by "Hamdy" - "ahmed.hamdy@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy: Payment Plugin: infinite loop when swap between card tokinizer or payment plugin requests.
+-Hamdy: Payment Plugin - with Shipping option show delivery type by description not code
+-Hamdy: card tokenization:"customer mobile" field does not accept international mobile starts with"002" or "+2"
+-Hamdy: Init payment plugin:"mobile number" field does not accept international mobile starts with "+2" or "002"
+-Hamdy: Create order: order amount appear in the receipt bigger than item amount
+-Hamdy: governorate drop down list keeps loading governorates
+-Hamdy: Card tokenization: add card fails
+
+===========================================================================
+
+===========================================================================
+Version "2.9" : Released at "15-01-2018" by "Hamdy" - "ahmed.hamdy@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy: Fix content size.
+-Hamdy: increase the font size for fields labels and screen title to be like Android
+-Hamdy: Card Tokenizer: can't remove test parameter data in home screen in order to proceed with testing
+-Hamdy: Card Tokenizer: show the added credit card four digits below the token in the token pop-up for the successful
+-Hamdy: Card Tokenizer: automatically focus on fields
+-Hamdy: Card Tokenizer: naming Changes
+-Hamdy: Card Tokenizer: back button not working
+-Hamdy: Card Tokenizer: Click on Fawry button with out click turn on Card Tokenizer - App Crash
+
+===========================================================================
+===========================================================================
+Version "2.8" : Released at "15-01-2018" by "Hamdy" - "ahmed.hamdy@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy: Add Header Title.
+-Hamdy: Change Expiry date text from (Expiry Date) to (YY/MM)
+-Hamdy: Change Button Name to Submit
+
+===========================================================================
+
+===========================================================================
+Version "2.7" : Released at "15-01-2018" by "Hamdy" - "ahmed.hamdy@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy: Adding Card Tokenizer Service.
+
+===========================================================================
+
+===========================================================================
+Version "2.6" : Released at "28-11-2017" by "Hussein" - "husseing@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Husseing: Receipt table scrolling is now disabled.
+-Husseing: Click here button in receipt screen alignment has been fixed.
+-Husseing: modified the steps for dispose function.
+===========================================================================
+
+Version "2.5" : Released at "27-11-2017" by "Hussein" - "husseing@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Husseing: Remove white space from receipt screen.
+-Husseing: validation message trimmed in city and Area fields.
+-Husseing: City, Area, and delivery type fields fonts should be bigger.
+-Husseing: [Receipt] Receipt screen UI design issues.
+-Husseing: [Confirmation] A calculated field is returning incorrect results.
+-Hussseing: [Ar\Confirmation] Total Amount appears in English in Arabic version in confirmation screen
+-Husseing: Fixed receipt screen labels alignment issues in arabic.
+-Husseing: did some refactoring to the code.
+
+===========================================================================
+
+
+Version "2.4" : Released at "23-11-2017" by "Hussein" - "husseing@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Husseing: hints color in all screens should be dark grey.
+-Husseing: all mandatory text fields should have *.
+-Husseing: [Login] no validation on mobile number field.
+-Husseing: [Validation error messages] validation messages should be place under the Labels .
+-Husseing: validation error message in all screens.
+-Husseing: [Receipt] Receipt screen issues
+-Husseing: [Receipt] All validation messages should fit the screen
+-Husseing: [Receipt] validation messages appear trimmed in courier and delivery type in shipping screen
+-Husseing: [Receipt] i can continue the transaction without selecting shipping type
+-Husseing: [Receipt] [confirmation] font of payment method, address and receiver are small
+-Husseing: [Receipt] [Confirmation] add courier name behind delivery type in confirmation screen
+-Husseing: [Receipt] [Confirmation] [Card details] add validation on expiry date filed, it accepts old date
+-Husseing: [Receipt] [Confirmation] [Receipt] Receipt screen UI design issues
+-Husseing: [Receipt] App crash while enter mobile number
+-Husseing: change button name from "Continue" to "Confirm" in confirmation screen
+-Husseing: Remove separators from receipt screen
+
+===========================================================================
+
+
+Version "2.3" : Released at "22-11-2017" by "Hussein" - "husseing@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Husseing: card details digits should be in English.
+-Husseing: Receipt screen using credit card changes.
+-Husseing: Remove separators from receipt screen.
+-Husseing: change button name from "Continue" to "Confirm" in confirmation screen .
+-Husseing: All validation messages should fit the screen.
+-Husseing: all mandatory text fields should have *.
+===========================================================================
+
+Version "2.2" : Released at "21-11-2017" by "Hussein" - "husseing@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Husseing: App loading forever after click on governorate filed.
+-Husseing: Mobile number field accepts more than 11 digits.
+-Husseing: remove "Btn" from cancel dialog box.
+-Husseing: validation message box is increasing after each click on continue button.
+-Husseing: Quantity field shouldn't accept decimal.
+-Husseing: Change from "notification" to "Login".
+-Husseing: App crash while enter Arabic text and numbers.
+-Husseing: Unable to enter a decimal digits.
+===========================================================================
+
+
+Version "2.1" : Released at "14-11-2017" by "Hussein" - "husseing@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Husseing: Adjusted language switch in plugin.
+===========================================================================
+Version "2.0" : Released at "13-11-2017" by "Hussein" - "husseing@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Husseing: Solved some crashes
+-Husseing: when selecting country, city field is reset automatically.
+===========================================================================
+
+Version "1.9" : Released at "09-11-2017" by "Hussein" - "husseing@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Husseing: SDK multilanguage is now supported.
+-Husseing: [Receipt] Fawry order number shouldn't be EGP
+-Husseing: Add link to "Click here" for fawry locators in receipt screen
+-Husseing: [Receipt] Receipt screen issues
+-Husseing: [Payment] remove select a payment method label
+-Husseing: [Confirmation] app error "connection error" while confirm payment without using shipping
+-Husseing: [Payment] hide fixed fees from payment screen and confirmation
+-Husseing: [order amount] incorrect calculations in order amount and total amount
+-Husseing: [Shipping] city and area fields should be rest automatically after change governorate
+-Husseing: [Shipping] app error while selecting courier, cannot complete all payment
+-Husseing: [Login] no validation on mobile number field
+===========================================================================
+
+Version "1.8" : Released at "23-10-2017" by "Hussein" - "husseing@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Husseing: SDK input items are now dynamic.
+===========================================================================
+Version "1.6" : Released at "08-10-2017" by "Hussein" - "husseing@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Husseing: Fixed Migs request.
+===========================================================================
+Version "1.5" : Released at "02-10-2017" by "Hussein" - "husseing@emeint.net" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Husseing: [Fawry/IOS/After Confirmation Screen] Add "@Delivery" to the text "Pay your number" at the bottom of the screen
+-Husseing: [Fawry/IOS/Payment Screen] "Shipping Cost" missed from the screen please add it to match the design
+-Husseing: [Fawry/IOS/Shipping Cost] The application doesn't add the shipping cost to the Total any way
+-Husseing: [Fawry/IOS/General] The application shouldn't be accessed until you have chosen an item at least
+-Husseing: [Fawry/IOS/AramixNormal] With aramexnormal payment method should be @Fawry or Credit Card it --> Pay@Delivery shouldn't be in the list
+-Husseing: [Fawry/IOS/After Confirmation] User after confirmation mustn't go back please remove back sign from the header as it responds + Change "Pay@delivery" to "Shipping Cost"
+-Husseing: [Fawry/IOS/Payment Screen] Change "Pay@delivery" to "Shipping Cost" to match the design
+-Husseing: [Fawry/IOS/Payment Screen] A Crash happens while trying to enter "Courier" value
+-Husseing: [Fawry/IOS/Shipping Screen] "City", "area", "Courier" and "Delivery Type" values displayed with arabic language
+-Husseing: [Fawry/IOS/Shipping Screen] Change title "Shipping" to "Payment" + Change sections title color degree "Shipping Info", "Shipping Type" to match the design
+-Husseing: [Fawry/IOS/Confirmation] Remove "Order amount" and "Fixed Fees" from the screen and add "Total amount" under "Payment method" like the design + Change "Continue" word color to match the design
+
+-Husseing: [Fawry/IOS/Payment Screen] If you entered credit card or CVV Code characters the error message need to be handled
+
+-Husseing: [Fawry/IOS/Payment Screen] After entering credit card number or CVV Code you can't dismiss the keyboard, please fix it
+
+-Husseing: [Fawry/IOS/Payment Screen] Crash happens with credit card
+-Husseing: [Fawry/IOS/Login Screen] Change "Continue" word color to match the design + Replace "Back" with back sign + Add hint for mobile number format as it require Country code or make it required a normal number

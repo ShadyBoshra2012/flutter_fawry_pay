@@ -81,7 +81,7 @@ class _MyAppState extends State<MyApp> {
                 _isInitPayment = await FlutterFawryPay.instance.initialize(
                   merchantID: Keys.merchantID,
                   items: [
-                    FawryItem(sku: "1", description: "Item 1", qty: "1", price: "20"),
+                    FawryItem(sku: "1", description: "Item 1", qty: 1, price: 20.0),
                   ],
                   customParam: {
                     "order_id": "123213",
