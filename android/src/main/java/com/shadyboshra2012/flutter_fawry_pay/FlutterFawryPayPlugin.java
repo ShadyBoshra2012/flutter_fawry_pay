@@ -237,19 +237,14 @@ public class FlutterFawryPayPlugin implements FlutterPlugin, MethodCallHandler, 
 
     @Override
     public void onDetachedFromActivityForConfigChanges() {
-        // TODO: the Activity your plugin was attached to was destroyed to change configuration.
         // This call will be followed by onReattachedToActivityForConfigChanges().
     }
 
     @Override
-    public void onReattachedToActivityForConfigChanges(ActivityPluginBinding activityPluginBinding) {
-        // TODO: your plugin is now attached to a new Activity after a configuration change.
-    }
+    public void onReattachedToActivityForConfigChanges(ActivityPluginBinding activityPluginBinding) { }
 
     @Override
-    public void onDetachedFromActivity() {
-        // TODO: your plugin is no longer associated with an Activity. Clean up references.
-    }
+    public void onDetachedFromActivity() { }
 
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {

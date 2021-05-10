@@ -1,11 +1,15 @@
-## 0.0.2
+# 0.0.3
 
-Migrate null-safety.
+- **BREAKING**: Change types of FawryItem in fawry_item.dart file.
 
-## 0.0.1+1
+# 0.0.2
 
-Add README.
+- Migrate null-safety.
 
-## 0.0.1
+# 0.0.1+1
 
-First beta version.
+- Add README.
+
+# 0.0.1
+
+- First beta version.

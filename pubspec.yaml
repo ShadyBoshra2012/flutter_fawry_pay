@@ -1,6 +1,6 @@
 name: flutter_fawry_pay
 description: This plugin is for FawryPay. It's implemented the native SDKs to work on Flutter environment.
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/ShadyBoshra2012/flutter_fawry_pay
 
 environment:

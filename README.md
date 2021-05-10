@@ -6,7 +6,9 @@
 
 This plugin is for [FawryPay](https://developer.fawrystaging.com/docs-home). It's implemented the native SDKs to work on Flutter environment.
 
-> It works now for Android only. iOS under development.
+> It works for Android fine. iOS works fine on **Real Device** only (FawryPay Requirements).
+
+Contribution: [Eng. Ahmed Mahmoud](https://github.com/AhmedAbouelkher)
 
 ![](https://developer.fawrystaging.com/fawrypay/img/docs/fawry-pay-english.png)
 
@@ -17,7 +19,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_fawry_pay: ^0.0.2
+  flutter_fawry_pay: ^0.0.3
 ```
 
 
@@ -44,7 +46,7 @@ And download this [file](https://github.com/ShadyBoshra2012/flutter_fawry_pay/bl
 
 ### iOS
 
-Under Development.
+No actions needed, just work on Real Device only. Need xCode 12.x and SWIFT 5.3.x. 
 
 
 ## Usage
@@ -83,7 +85,7 @@ Let's now make our first payment initialize, you must set your merchantID that t
 FlutterFawryPay.instance.initialize(
   merchantID: Keys.merchantID,
   items: [
-    FawryItem(sku: "1", description: "Item 1", qty: "1", price: "20"),
+    FawryItem(sku: "1", description: "Item 1", qty: 1, price: 20.0),
   ],
 );
 ```
@@ -97,7 +99,7 @@ FlutterFawryPay.instance.initialize(
   environment: Environment.LIVE,
   merchantID: Keys.merchantID,
   items: [
-    FawryItem(sku: "1", description: "Item 1", qty: "1", price: "20"),
+    FawryItem(sku: "1", description: "Item 1", qty: 1, price: 20.0),
   ],
 );
 ```
@@ -125,7 +127,7 @@ RaisedButton(
 )
 ```
 
-There's a bonus function in FawryPay is CardTokenizer, you can use it like this way:
+There's a function in FawryPay is CardTokenizer, you can use it like this way:
 
 > Note that: there's error in native FawryPay SDK for android to retrieve again customParam.
 
@@ -141,7 +143,7 @@ FlutterFawryPay.instance.initializeCardTokenizer(
 );
 ```
 
-Last function you can use is reset the initialization, doing that:
+Last function you can use is reset the initialization (Android only), doing that:
 
 ```dart
 FlutterFawryPay.instance.reset();
@@ -153,16 +155,16 @@ FlutterFawryPay.instance.reset();
 class FawryItem {
   String sku;
   String description;
-  String qty;
-  String price;
-  String originalPrice;
-  String height;
-  String length;
-  String weight;
-  String width;
-  String variantCode;
-  List<String> reservationCodes;
-  String earningRuleID;
+  int qty;
+  double price;
+  double? originalPrice;
+  int? height;
+  int? length;
+  double? weight;
+  int? width;
+  String? variantCode;
+  List<String>? reservationCodes;
+  String? earningRuleID;
 }
 
 class FawryResponse {
@@ -214,14 +216,10 @@ FawryPay iOS SDK: https://developer.fawrystaging.com/docs/sdks/ios-sdk
 
 ## Supported By ❤
 
+[Eng. Ahmed Mahmoud](https://github.com/AhmedAbouelkher) (Works on iOS development)
 [Eng. Ahmed Hamouda](https://github.com/ahmadali17)
 [Eng. Mohamed Ghoneim](https://www.facebook.com/mohamed.Ghoneim.97/)
 
-
-## ToDo
-
-- [x]  Android.
-- [ ]  iOS.
 
 
 ## Issues or Contributions
