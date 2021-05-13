@@ -19,7 +19,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_fawry_pay: ^0.0.3
+  flutter_fawry_pay: ^0.0.3+1
 ```
 
 
@@ -217,7 +217,9 @@ FawryPay iOS SDK: https://developer.fawrystaging.com/docs/sdks/ios-sdk
 ## Supported By ❤
 
 [Eng. Ahmed Mahmoud](https://github.com/AhmedAbouelkher) (Works on iOS development)
+
 [Eng. Ahmed Hamouda](https://github.com/ahmadali17)
+
 [Eng. Mohamed Ghoneim](https://www.facebook.com/mohamed.Ghoneim.97/)
 
 
@@ -234,7 +236,7 @@ This is a beta version of plugin, so I am very appreciated for any issues or con
 
 ## License
 
-MIT: [https://mit-license.org](http://mit-license.org). 
+MIT: [https://mit-license.org](https://mit-license.org). 
 
 Copyright (c) 2021 Shady Boshra. All rights reserved.
 
