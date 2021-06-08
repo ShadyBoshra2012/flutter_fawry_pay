@@ -35,7 +35,8 @@ class _MyAppState extends State<MyApp> {
     try {
       _isFawryPayInit = await FlutterFawryPay.instance.init(
         style: Style.STYLE1,
-        skipCustomerInput: true, // If set to true, you must set username and email.
+        skipCustomerInput:
+            true, // If set to true, you must set username and email.
         username: "01234567890", // Must be phone number.
         email: "abc@test.com",
       );
@@ -81,7 +82,8 @@ class _MyAppState extends State<MyApp> {
                 _isInitPayment = await FlutterFawryPay.instance.initialize(
                   merchantID: Keys.merchantID,
                   items: [
-                    FawryItem(sku: "1", description: "Item 1", qty: 1, price: 20.0),
+                    FawryItem(
+                        sku: "1", description: "Item 1", qty: 1, price: 20.0),
                   ],
                   customParam: {
                     "order_id": "123213",
@@ -98,7 +100,8 @@ class _MyAppState extends State<MyApp> {
             ),
             ElevatedButton(
               onPressed: () async {
-                _isInitCardToken = await FlutterFawryPay.instance.initializeCardTokenizer(
+                _isInitCardToken =
+                    await FlutterFawryPay.instance.initializeCardTokenizer(
                   merchantID: Keys.merchantID,
                   customerMobile: "01234567890",
                   customerEmail: "abc@test.com",
@@ -117,7 +120,8 @@ class _MyAppState extends State<MyApp> {
             ),
             ElevatedButton(
               onPressed: () async {
-                FawryResponse response = await FlutterFawryPay.instance.startProcess();
+                FawryResponse response =
+                    await FlutterFawryPay.instance.startProcess();
                 setState(() {
                   _text = "Your result: $response";
                 });

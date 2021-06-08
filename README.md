@@ -19,7 +19,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_fawry_pay: ^0.0.3+1
+  flutter_fawry_pay: ^0.0.4
 ```
 
 
@@ -28,20 +28,30 @@ dependencies:
 You have to edit `AndroidManifest.xml` file with following.
 
 ```manifest
-<manifest ...
-    xmlns:tools="http://schemas.android.com/tools" 
-    ... />
-    ...
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" />
     <application
-        ...
-        tools:replace="android:theme,android:label,android:name" 
-        ... >
-    ...
+        tools:replace="android:theme,android:label,android:name">
     </appliaction>
 </manifest>
 ```
 
 And download this [file](https://github.com/ShadyBoshra2012/flutter_fawry_pay/blob/master/example/android/app/libs/fawryplugin-release.aar), and put it in `app/libs` folder (If not exist, create it).
+
+
+#### In Release Mode
+
+Please add these two lines in app/gradle
+
+```groovy
+buildTypes {
+    release {
+        // ....
+        shrinkResources false
+        minifyEnabled false
+    }
+}
+```
 
 
 ### iOS
