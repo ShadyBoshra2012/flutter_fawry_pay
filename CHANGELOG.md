@@ -1,3 +1,7 @@
+# 0.0.4
+
+- Add notes to README for Android Release.
+
 # 0.0.3+1
 
 - Change README.
