@@ -1,28 +1,48 @@
+/*
+ * Copyright (c) 2021 Shady Boshra.
+ * IN: https://LinkedIn.com/in/ShadyBoshra2012
+ * GitHub: https://github.com/ShadyBoshra2012
+ * Mostaql: https://mostaql.com/u/ShadyBoshra2012
+ */
+
 import 'dart:async';
 
-import 'package:flutter/services.dart';
-import 'package:flutter_fawry_pay/enums/environment.dart';
-import 'package:flutter_fawry_pay/models/fawry_response.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'enums/display_mode.dart';
+import 'enums/environment.dart';
 import 'enums/language.dart';
 import 'enums/style.dart';
-import 'flutter_fawry_pay_platform_interface.dart';
+import 'method_channel_flutter_fawry_pay.dart';
 import 'models/fawry_item.dart';
+import 'models/fawry_response.dart';
 
-/// An implementation of [FlutterFawryPayPlatform] that uses method channels.
-class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
-  /// The channel name which it's the bridge between Dart and JAVA or SWIFT.
-  static const String _CHANNEL_NAME = "shadyboshra2012/flutterfawrypay";
+/// The interface that implementations of flutter_fawry_pay must implement.
+///
+/// Platform implementations should extend this class rather than implement it as `flutter_fawry_pay`
+/// does not consider newly added methods to be breaking changes. Extending this class
+/// (using `extends`) ensures that the subclass will get the default implementation, while
+/// platform implementations that `implements` this interface will be broken by newly added
+/// [FlutterFawryPayPlatform] methods.
+abstract class FlutterFawryPayPlatform extends PlatformInterface {
+  /// Constructs a FlutterFawryPayPlatform.
+  FlutterFawryPayPlatform() : super(token: _token);
 
-  /// Methods name which detect which it called from Flutter.
-  static const String _METHOD_INIT = "init";
-  static const String _METHOD_INITIALIZE = "initialize";
-  static const String _METHOD_INITIALIZE_CARD_TOKENIZER = "initialize_card_tokenizer";
-  static const String _METHOD_START_PAYMENT = "start_payment";
-  static const String _METHOD_RESET = "reset";
+  static final Object _token = Object();
 
-  static const MethodChannel _channel = MethodChannel(_CHANNEL_NAME);
+  static FlutterFawryPayPlatform _instance = MethodChannelFlutterFawryPay();
+
+  /// The default instance of [FlutterFawryPayPlatform] to use.
+  ///
+  /// Defaults to [MethodChannelFlutterFawryPay].
+  static FlutterFawryPayPlatform get instance => _instance;
+
+  /// Platform-specific plugins should set this with their own platform-specific
+  /// class that extends [FlutterFawryPayPlatform] when they register themselves.
+  static set instance(FlutterFawryPayPlatform instance) {
+    PlatformInterface.verifyToken(instance, _token);
+    _instance = instance;
+  }
 
   /// Init FawryPay SDK services.
   ///
@@ -40,9 +60,8 @@ class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
   /// [username] sets the default username if you set `skipCustomerInput = true`,
   /// it should be a phone number.
   /// [email] sets the default email if you set `skipCustomerInput = true`.
-  /// [customerName] optional sets customer name (Only Web).
+  /// [webCustomerName] optional sets customer name (Only Web).
   /// [environment] sets the environment.
-  @override
   Future<bool?> init({
     Style style = Style.STYLE1,
     bool enableLogging = false,
@@ -53,16 +72,7 @@ class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
     String? webCustomerName,
     Environment environment = Environment.TEST,
   }) {
-    return _channel.invokeMethod(_METHOD_INIT, <String, dynamic>{
-      'style': style.toString(),
-      'enableLogging': enableLogging,
-      'enableMockups': enableMockups,
-      'skipCustomerInput': skipCustomerInput,
-      'username': username,
-      'email': email,
-      'webCustomerName': webCustomerName,
-      'environment': environment.toString(),
-    }).then((value) => value ?? false);
+    throw UnimplementedError('init() has not been implemented.');
   }
 
   /// Initialize FawryPay payment charge.
@@ -82,7 +92,6 @@ class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
   /// [returnUrl] sets return url which will go back after payment completed (Only Web & Must include if using Cards).
   /// [authCaptureModePayment] sets auth capture mode payment (Only Web).
   /// [customParam] sets a map of custom data you want to receive back with result data after payment.
-  @override
   Future<bool?> initialize({
     required String merchantID,
     required List<FawryItem> items,
@@ -96,19 +105,7 @@ class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
     bool? authCaptureModePayment,
     Map<String, dynamic>? customParam,
   }) {
-    return _channel.invokeMethod(_METHOD_INITIALIZE, <String, dynamic>{
-      'merchantID': merchantID,
-      'items': items.map((e) => e.toJSON()).toList(),
-      'merchantRefNumber': merchantRefNumber,
-      'customerProfileId': customerProfileId,
-      'language': language.toString(),
-      'environment': environment.toString(),
-      'webDisplayMode': webDisplayMode.toString(),
-      'paymentExpiry': paymentExpiry,
-      'returnUrl': returnUrl,
-      'authCaptureModePayment': authCaptureModePayment,
-      'customParam': customParam,
-    }).then((value) => value ?? false);
+    throw UnimplementedError('initialize() has not been implemented.');
   }
 
   /// Initialize Card Tokenizer.
@@ -135,16 +132,8 @@ class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
     Environment environment = Environment.TEST,
     Map<String, dynamic>? customParam,
   }) {
-    return _channel.invokeMethod(_METHOD_INITIALIZE_CARD_TOKENIZER, <String, dynamic>{
-      'merchantID': merchantID,
-      'customerMobile': customerMobile,
-      'customerEmail': customerEmail,
-      'customerProfileId': customerProfileId,
-      'merchantRefNumber': merchantRefNumber,
-      'language': language.toString(),
-      'environment': environment.toString(),
-      'customParam': customParam,
-    }).then((value) => value ?? false);
+    throw UnimplementedError(
+        'initializeCardTokenizer() has not been implemented.');
   }
 
   /// Start FawryPay SDK process.
@@ -153,18 +142,21 @@ class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
   /// or initialized for card tokenizer.
   /// Returns a `FawryResponse` type of the resulted data.
   /// Throws exception if not completed well.
-  @override
-  Future<FawryResponse> startProcess() async {
-    Map<dynamic, dynamic> data = await (_channel.invokeMethod(_METHOD_START_PAYMENT));
-    return FawryResponse.fromMap(data);
+  Future<FawryResponse> startProcess() {
+    throw UnimplementedError('startProcess() has not been implemented.');
   }
 
   /// Reset FawryPay SDK Payment.
   ///
   /// Returns `true` if it was rest well.
   /// Throws exception if not.
-  @override
-  Future<bool?> reset() {
-    return _channel.invokeMethod(_METHOD_RESET).then((value) => value ?? false);
+  Future<bool?> reset() async {
+    throw UnimplementedError('reset() has not been implemented.');
+  }
+
+  /// Stream to return resulted data.
+  Stream callbackResultStream() {
+    throw UnimplementedError(
+        'callbackResultStream() has not been implemented.');
   }
 }
