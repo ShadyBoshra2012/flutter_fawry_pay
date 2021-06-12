@@ -1,14 +1,21 @@
+/*
+ * Copyright (c) 2021 Shady Boshra.
+ * IN: https://LinkedIn.com/in/ShadyBoshra2012
+ * GitHub: https://github.com/ShadyBoshra2012
+ * Mostaql: https://mostaql.com/u/ShadyBoshra2012
+ */
+
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_fawry_pay/enums/environment.dart';
-import 'package:flutter_fawry_pay/models/fawry_response.dart';
 
 import 'enums/display_mode.dart';
+import 'enums/environment.dart';
 import 'enums/language.dart';
 import 'enums/style.dart';
 import 'flutter_fawry_pay_platform_interface.dart';
 import 'models/fawry_item.dart';
+import 'models/fawry_response.dart';
 
 /// An implementation of [FlutterFawryPayPlatform] that uses method channels.
 class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
