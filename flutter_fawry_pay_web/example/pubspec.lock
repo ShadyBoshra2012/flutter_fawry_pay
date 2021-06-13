@@ -43,6 +43,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.15.0"
+  cupertino_icons:
+    dependency: "direct main"
+    description:
+      name: cupertino_icons
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.3"
   fake_async:
     dependency: transitive
     description:
@@ -56,7 +63,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_fawry_pay_platform_interface:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: flutter_fawry_pay_platform_interface
       url: "https://pub.dartlang.org"
@@ -65,9 +72,9 @@ packages:
   flutter_fawry_pay_web:
     dependency: "direct main"
     description:
-      name: flutter_fawry_pay_web
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: ".."
+      relative: true
+    source: path
     version: "0.0.1"
   flutter_test:
     dependency: "direct dev"

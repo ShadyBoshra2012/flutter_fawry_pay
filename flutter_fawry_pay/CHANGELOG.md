@@ -1,3 +1,8 @@
+# 0.0.5
+
+- Add Web plugin.
+- Migrate to Platform Interface.
+
 # 0.0.4
 
 - Add notes to README for Android Release.

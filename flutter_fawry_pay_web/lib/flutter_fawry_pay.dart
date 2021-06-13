@@ -6,24 +6,22 @@
  */
 
 import 'dart:async';
+import 'dart:html';
+import 'dart:ui' as ui;
 
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_fawry_pay/flutter_fawry_pay.dart';
 import 'package:flutter_fawry_pay_platform_interface/fawry_button.dart'
     as fawry_button_parent;
 import 'package:flutter_fawry_pay_platform_interface/flutter_fawry_pay_platform_interface.dart';
 import 'package:flutter_fawry_pay_platform_interface/models/fawry_item.dart';
 import 'package:flutter_fawry_pay_platform_interface/models/fawry_response.dart';
+import 'package:flutter_fawry_pay_web/flutter_fawry_pay_web.dart';
 
 export 'package:flutter_fawry_pay_platform_interface/flutter_fawry_pay_platform_interface.dart';
 export 'package:flutter_fawry_pay_platform_interface/models/fawry_item.dart';
 export 'package:flutter_fawry_pay_platform_interface/models/fawry_response.dart';
 
-part 'package:flutter_fawry_pay/fawry_button.dart';
+part 'package:flutter_fawry_pay_web/fawry_button.dart';
 
 class FlutterFawryPay extends FlutterFawryPayPlatform {
   /// Singleton constructor.
@@ -31,10 +29,6 @@ class FlutterFawryPay extends FlutterFawryPayPlatform {
 
   /// Instance of FlutterFawryPay singleton.
   static FlutterFawryPay instance = FlutterFawryPay._();
-
-  /// Event Channel for stream sending data from Native side.
-  EventChannel _eventChannelCallbackResult =
-      EventChannel("flutterfawrypay/callback_result_stream");
 
   /// Init FawryPay SDK services.
   ///
@@ -123,42 +117,6 @@ class FlutterFawryPay extends FlutterFawryPayPlatform {
     );
   }
 
-  /// Initialize Card Tokenizer.
-  ///
-  /// Initialize the adding new card.
-  /// Returns `true` if it initialized fine.
-  /// Throws exception if not.
-  ///
-  /// [merchantID] sets the merchantID that you have received from Fawry.
-  /// [customerMobile] sets the user phone number.
-  /// [customerEmail] sets the user email.
-  /// [customerProfileId] sets an optional profile id (Only iOS).
-  /// [merchantRefNumber] sets an optional number consists of 16 random characters and numbers (only Android).
-  /// [language] sets the language of payment, whether English or Arabic, default English.
-  /// [environment] sets the environment of payment, whether Test or Live, default Test.
-  /// [customParam] sets a map of custom data you want to receive back with result data after payment.
-  Future<bool> initializeCardTokenizer({
-    required String merchantID,
-    required String customerMobile,
-    required String customerEmail,
-    String? customerProfileId,
-    String? merchantRefNumber,
-    Language language = Language.EN,
-    Environment environment = Environment.TEST,
-    Map<String, dynamic>? customParam,
-  }) async {
-    return await FlutterFawryPayPlatform.instance.initializeCardTokenizer(
-      merchantID: merchantID,
-      customerMobile: customerMobile,
-      customerEmail: customerEmail,
-      customerProfileId: customerProfileId,
-      merchantRefNumber: merchantRefNumber,
-      language: language,
-      environment: environment,
-      customParam: customParam,
-    );
-  }
-
   /// Start FawryPay SDK process.
   ///
   /// Start FawryPay SDK process, whether it was initialized for payment,
@@ -180,7 +138,8 @@ class FlutterFawryPay extends FlutterFawryPayPlatform {
   }
 
   /// Stream to return resulted data.
+  @override
   Stream callbackResultStream() {
-    return _eventChannelCallbackResult.receiveBroadcastStream();
+    return FlutterFawryPayWeb.callbackResultStream();
   }
 }

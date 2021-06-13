@@ -6,16 +6,18 @@
  */
 
 import 'dart:async';
+import 'dart:math';
 
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import 'enums/display_mode.dart';
-import 'enums/environment.dart';
-import 'enums/language.dart';
-import 'enums/style.dart';
 import 'method_channel_flutter_fawry_pay.dart';
 import 'models/fawry_item.dart';
 import 'models/fawry_response.dart';
+
+part 'enums/display_mode.dart';
+part 'enums/environment.dart';
+part 'enums/language.dart';
+part 'enums/style.dart';
 
 /// The interface that implementations of flutter_fawry_pay must implement.
 ///
@@ -62,7 +64,7 @@ abstract class FlutterFawryPayPlatform extends PlatformInterface {
   /// [email] sets the default email if you set `skipCustomerInput = true`.
   /// [webCustomerName] optional sets customer name (Only Web).
   /// [environment] sets the environment.
-  Future<bool?> init({
+  Future<bool> init({
     Style style = Style.STYLE1,
     bool enableLogging = false,
     bool enableMockups = false,
@@ -92,7 +94,7 @@ abstract class FlutterFawryPayPlatform extends PlatformInterface {
   /// [returnUrl] sets return url which will go back after payment completed (Only Web & Must include if using Cards).
   /// [authCaptureModePayment] sets auth capture mode payment (Only Web).
   /// [customParam] sets a map of custom data you want to receive back with result data after payment.
-  Future<bool?> initialize({
+  Future<bool> initialize({
     required String merchantID,
     required List<FawryItem> items,
     String? merchantRefNumber,
@@ -122,7 +124,7 @@ abstract class FlutterFawryPayPlatform extends PlatformInterface {
   /// [language] sets the language of payment, whether English or Arabic, default English.
   /// [environment] sets the environment of payment, whether Test or Live, default Test.
   /// [customParam] sets a map of custom data you want to receive back with result data after payment.
-  Future<bool?> initializeCardTokenizer({
+  Future<bool> initializeCardTokenizer({
     required String merchantID,
     required String customerMobile,
     required String customerEmail,
@@ -150,7 +152,7 @@ abstract class FlutterFawryPayPlatform extends PlatformInterface {
   ///
   /// Returns `true` if it was rest well.
   /// Throws exception if not.
-  Future<bool?> reset() async {
+  Future<bool> reset() async {
     throw UnimplementedError('reset() has not been implemented.');
   }
 
@@ -158,5 +160,16 @@ abstract class FlutterFawryPayPlatform extends PlatformInterface {
   Stream callbackResultStream() {
     throw UnimplementedError(
         'callbackResultStream() has not been implemented.');
+  }
+
+  String randomAlphaNumeric(int count) {
+    const String ALPHA_NUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    String key = "";
+    Random random = Random();
+    while (count-- != 0) {
+      int character = random.nextInt(ALPHA_NUMERIC_STRING.length - 1);
+      key += ALPHA_NUMERIC_STRING[character];
+    }
+    return key;
   }
 }

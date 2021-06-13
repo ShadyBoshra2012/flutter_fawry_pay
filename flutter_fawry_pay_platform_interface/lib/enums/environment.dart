@@ -5,6 +5,8 @@
  * Mostaql: https://mostaql.com/u/ShadyBoshra2012
  */
 
+part of 'package:flutter_fawry_pay_platform_interface/flutter_fawry_pay_platform_interface.dart';
+
 /// Enums for Environment configuration.
 ///
 /// [TEST] for test stage atfawry.fawrystaging endpoint.

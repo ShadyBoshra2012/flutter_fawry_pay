@@ -1,6 +1,6 @@
-name: flutter_fawry_pay
-description: This plugin is for FawryPay. It's implemented the native SDKs to work on Flutter environment.
-version: 0.0.5
+name: flutter_fawry_pay_web
+description: This plugin is for FawryPay for Web.
+version: 0.0.1
 homepage: https://github.com/ShadyBoshra2012/flutter_fawry_pay
 
 environment:
@@ -10,12 +10,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
 
   flutter_fawry_pay_platform_interface: ^0.0.3
 #  flutter_fawry_pay_platform_interface:
 #    path: ../flutter_fawry_pay_platform_interface
 
-  flutter_fawry_pay_web: ^0.0.1
+  js: ^0.6.3
 
 dev_dependencies:
   flutter_test:
@@ -32,10 +34,6 @@ flutter:
   # adding or updating assets for this project.
   plugin:
     platforms:
-      android:
-        package: com.shadyboshra2012.flutter_fawry_pay
-        pluginClass: FlutterFawryPayPlugin
-      ios:
-        pluginClass: FlutterFawryPayPlugin
       web:
-        default_package: flutter_fawry_pay_web
+        pluginClass: FlutterFawryPayWeb
+        fileName: flutter_fawry_pay_web.dart

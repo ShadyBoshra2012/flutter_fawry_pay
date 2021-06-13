@@ -9,17 +9,13 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
-import 'enums/display_mode.dart';
-import 'enums/environment.dart';
-import 'enums/language.dart';
-import 'enums/style.dart';
 import 'flutter_fawry_pay_platform_interface.dart';
 import 'models/fawry_item.dart';
 import 'models/fawry_response.dart';
 
 /// An implementation of [FlutterFawryPayPlatform] that uses method channels.
 class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
-  /// The channel name which it's the bridge between Dart and JAVA or SWIFT.
+  /// The channel name which it's the bridge between Dart and different platforms.
   static const String _CHANNEL_NAME = "shadyboshra2012/flutterfawrypay";
 
   /// Methods name which detect which it called from Flutter.
@@ -29,6 +25,13 @@ class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
       "initialize_card_tokenizer";
   static const String _METHOD_START_PAYMENT = "start_payment";
   static const String _METHOD_RESET = "reset";
+
+  /// Error codes returned to Flutter if there's an error.
+  static const String _ERROR_INIT = "1";
+  static const String _ERROR_INITIALIZE = "2";
+  static const String _ERROR_INITIALIZE_CARD_TOKENIZER = "3";
+  static const String _ERROR_START_PAYMENT = "4";
+  static const String _ERROR_RESET = "5";
 
   static const MethodChannel _channel = MethodChannel(_CHANNEL_NAME);
 
@@ -48,10 +51,10 @@ class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
   /// [username] sets the default username if you set `skipCustomerInput = true`,
   /// it should be a phone number.
   /// [email] sets the default email if you set `skipCustomerInput = true`.
-  /// [customerName] optional sets customer name (Only Web).
+  /// [webCustomerName] optional sets customer name (Only Web).
   /// [environment] sets the environment.
   @override
-  Future<bool?> init({
+  Future<bool> init({
     Style style = Style.STYLE1,
     bool enableLogging = false,
     bool enableMockups = false,
@@ -60,17 +63,31 @@ class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
     String? email,
     String? webCustomerName,
     Environment environment = Environment.TEST,
-  }) {
-    return _channel.invokeMethod(_METHOD_INIT, <String, dynamic>{
-      'style': style.toString(),
-      'enableLogging': enableLogging,
-      'enableMockups': enableMockups,
-      'skipCustomerInput': skipCustomerInput,
-      'username': username,
-      'email': email,
-      'webCustomerName': webCustomerName,
-      'environment': environment.toString(),
-    }).then((value) => value ?? false);
+  }) async {
+    // Check if skipCustomerInput is true, but username or email is equals null.
+    assert(
+        !skipCustomerInput ||
+            (skipCustomerInput && username != null && email != null),
+        "If skipCustomerInput is true, then you should set username and email.");
+
+    try {
+      return await _channel.invokeMethod(_METHOD_INIT, <String, dynamic>{
+        'style': style.toString(),
+        'enableLogging': enableLogging,
+        'enableMockups': enableMockups,
+        'skipCustomerInput': skipCustomerInput,
+        'username': username,
+        'email': email,
+        'webCustomerName': webCustomerName,
+        'environment': environment.toString(),
+      });
+    } on PlatformException catch (e) {
+      if (e.code == _ERROR_INIT)
+        throw "Error Occurred: Code: $_ERROR_INIT. Message: ${e.message}. Details: SDK Init Error";
+      throw "Error Occurred: Code: ${e.code}. Message: ${e.message}. Details: ${e.details}";
+    } catch (e) {
+      throw "Error Occurred: Message: $e";
+    }
   }
 
   /// Initialize FawryPay payment charge.
@@ -91,7 +108,7 @@ class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
   /// [authCaptureModePayment] sets auth capture mode payment (Only Web).
   /// [customParam] sets a map of custom data you want to receive back with result data after payment.
   @override
-  Future<bool?> initialize({
+  Future<bool> initialize({
     required String merchantID,
     required List<FawryItem> items,
     String? merchantRefNumber,
@@ -103,20 +120,28 @@ class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
     String? returnUrl,
     bool? authCaptureModePayment,
     Map<String, dynamic>? customParam,
-  }) {
-    return _channel.invokeMethod(_METHOD_INITIALIZE, <String, dynamic>{
-      'merchantID': merchantID,
-      'items': items.map((e) => e.toJSON()).toList(),
-      'merchantRefNumber': merchantRefNumber,
-      'customerProfileId': customerProfileId,
-      'language': language.toString(),
-      'environment': environment.toString(),
-      'webDisplayMode': webDisplayMode.toString(),
-      'paymentExpiry': paymentExpiry,
-      'returnUrl': returnUrl,
-      'authCaptureModePayment': authCaptureModePayment,
-      'customParam': customParam,
-    }).then((value) => value ?? false);
+  }) async {
+    try {
+      return await _channel.invokeMethod(_METHOD_INITIALIZE, <String, dynamic>{
+        'merchantID': merchantID,
+        'items': items.map((e) => e.toJSON()).toList(),
+        'merchantRefNumber': merchantRefNumber,
+        'customerProfileId': customerProfileId,
+        'language': language.toString(),
+        'environment': environment.toString(),
+        'webDisplayMode': webDisplayMode.toString(),
+        'paymentExpiry': paymentExpiry,
+        'returnUrl': returnUrl,
+        'authCaptureModePayment': authCaptureModePayment,
+        'customParam': customParam,
+      });
+    } on PlatformException catch (e) {
+      if (e.code == _ERROR_INITIALIZE)
+        throw "Error Occurred: Code: $_ERROR_INITIALIZE. Message: ${e.message}. Details: SDK Initialization Error";
+      throw "Error Occurred: Code: ${e.code}. Message: ${e.message}. Details: ${e.details}";
+    } catch (e) {
+      throw "Error Occurred: $e";
+    }
   }
 
   /// Initialize Card Tokenizer.
@@ -133,7 +158,7 @@ class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
   /// [language] sets the language of payment, whether English or Arabic, default English.
   /// [environment] sets the environment of payment, whether Test or Live, default Test.
   /// [customParam] sets a map of custom data you want to receive back with result data after payment.
-  Future<bool?> initializeCardTokenizer({
+  Future<bool> initializeCardTokenizer({
     required String merchantID,
     required String customerMobile,
     required String customerEmail,
@@ -142,18 +167,26 @@ class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
     Language language = Language.EN,
     Environment environment = Environment.TEST,
     Map<String, dynamic>? customParam,
-  }) {
-    return _channel
-        .invokeMethod(_METHOD_INITIALIZE_CARD_TOKENIZER, <String, dynamic>{
-      'merchantID': merchantID,
-      'customerMobile': customerMobile,
-      'customerEmail': customerEmail,
-      'customerProfileId': customerProfileId,
-      'merchantRefNumber': merchantRefNumber,
-      'language': language.toString(),
-      'environment': environment.toString(),
-      'customParam': customParam,
-    }).then((value) => value ?? false);
+  }) async {
+    try {
+      return await _channel
+          .invokeMethod(_METHOD_INITIALIZE_CARD_TOKENIZER, <String, dynamic>{
+        'merchantID': merchantID,
+        'customerMobile': customerMobile,
+        'customerEmail': customerEmail,
+        'customerProfileId': customerProfileId,
+        'merchantRefNumber': merchantRefNumber,
+        'language': language.toString(),
+        'environment': environment.toString(),
+        'customParam': customParam,
+      });
+    } on PlatformException catch (e) {
+      if (e.code == _ERROR_INITIALIZE_CARD_TOKENIZER)
+        throw "Error Occurred: Code: $_ERROR_INITIALIZE_CARD_TOKENIZER. Message: ${e.message}. Details: SDK Initialize Card Tokenizer Error";
+      throw "Error Occurred: Code: ${e.code}. Message: ${e.message}. Details: ${e.details}";
+    } catch (e) {
+      throw "Error Occurred: $e";
+    }
   }
 
   /// Start FawryPay SDK process.
@@ -164,9 +197,17 @@ class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
   /// Throws exception if not completed well.
   @override
   Future<FawryResponse> startProcess() async {
-    Map<dynamic, dynamic> data =
-        await (_channel.invokeMethod(_METHOD_START_PAYMENT));
-    return FawryResponse.fromMap(data);
+    try {
+      Map<dynamic, dynamic> data =
+          await (_channel.invokeMethod(_METHOD_START_PAYMENT));
+      return FawryResponse.fromMap(data);
+    } on PlatformException catch (e) {
+      if (e.code == _ERROR_START_PAYMENT)
+        throw "Error Occurred: Code: $_ERROR_START_PAYMENT. Message: ${e.message}. Details: SDK start process error";
+      throw "Error Occurred: Code: ${e.code}. Message: ${e.message}. Details: ${e.details}";
+    } catch (e) {
+      throw "Error Occurred: $e";
+    }
   }
 
   /// Reset FawryPay SDK Payment.
@@ -174,7 +215,15 @@ class MethodChannelFlutterFawryPay extends FlutterFawryPayPlatform {
   /// Returns `true` if it was rest well.
   /// Throws exception if not.
   @override
-  Future<bool?> reset() {
-    return _channel.invokeMethod(_METHOD_RESET).then((value) => value ?? false);
+  Future<bool> reset() async {
+    try {
+      return await _channel.invokeMethod(_METHOD_RESET);
+    } on PlatformException catch (e) {
+      if (e.code == _ERROR_RESET)
+        throw "Error Occurred: Code: $_ERROR_RESET. Message: ${e.message}. Details: SDK Reset SDK Error";
+      throw "Error Occurred: Code: ${e.code}. Message: ${e.message}. Details: ${e.details}";
+    } catch (e) {
+      throw "Error Occurred: $e";
+    }
   }
 }

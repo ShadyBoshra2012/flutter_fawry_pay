@@ -5,9 +5,11 @@
  * Mostaql: https://mostaql.com/u/ShadyBoshra2012
  */
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_fawry_pay/flutter_fawry_pay.dart';
-import 'package:flutter_fawry_pay_example/keys.dart';
+import 'package:flutter_fawry_pay_web/flutter_fawry_pay.dart';
+import 'package:flutter_fawry_pay_web_example/keys.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,10 +27,18 @@ class _MyAppState extends State<MyApp> {
   bool _reset = false;
   String _text = "";
 
+  late StreamSubscription _fawryCallbackResultStream;
+
   @override
   void initState() {
     super.initState();
     initFawryPay();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _fawryCallbackResultStream.cancel();
   }
 
   Future<void> initFawryPay() async {
@@ -40,7 +50,7 @@ class _MyAppState extends State<MyApp> {
         email: "abc@test.com",
       );
 
-      FlutterFawryPay.instance.callbackResultStream().listen((event) {
+      _fawryCallbackResultStream = FlutterFawryPay.instance.callbackResultStream().listen((event) {
         Map<dynamic, dynamic> data = event;
         FawryResponse response = FawryResponse.fromMap(data);
         setState(() => _text = response.toString());
@@ -78,6 +88,8 @@ class _MyAppState extends State<MyApp> {
               onPressed: () async {
                 _isInitPayment = await FlutterFawryPay.instance.initialize(
                   merchantID: Keys.merchantID,
+                  webDisplayMode: DisplayMode.SIDE_PAGE,
+                  returnUrl: "test.com",
                   items: [
                     FawryItem(sku: "1", description: "Item 1", qty: 1, price: 20.0),
                   ],
