@@ -7,13 +7,14 @@
 
 part of 'package:flutter_fawry_pay_web/flutter_fawry_pay.dart';
 
+/// The Fawry Button available to use.
 class FawryButton extends fawry_button_parent.FawryButton {
   final double height;
   final double width;
 
   const FawryButton({
     Key? key,
-    this.height = 50.0,
+    this.height = 36.0,
     this.width = 200.0,
   }) : super(
           key: key,

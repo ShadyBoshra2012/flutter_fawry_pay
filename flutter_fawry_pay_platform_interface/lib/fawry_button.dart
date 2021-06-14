@@ -8,6 +8,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+/// The Fawry Button available to use.
 class FawryButton extends StatelessWidget {
   static const String VIEW_TYPE = "FawryButton";
 

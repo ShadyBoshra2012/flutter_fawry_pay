@@ -44,6 +44,7 @@ class FlutterFawryPay extends FlutterFawryPayPlatform {
   /// Returns `true` if it initialized fine.
   /// Throws exception if not.
   ///
+  /// [merchantID] sets the merchantID that you have received from Fawry.
   /// [style] sets the style of SDK.
   /// [enableLogging] sets whether enable logs from SDK or not.
   /// [skipCustomerInput] sets whether you let user enter username and email,
@@ -53,9 +54,12 @@ class FlutterFawryPay extends FlutterFawryPayPlatform {
   /// it should be a phone number.
   /// [email] sets the default email if you set `skipCustomerInput = true`.
   /// [webCustomerName] optional sets customer name (Only Web).
-  /// [environment] sets the environment.
+  /// [language] sets the language of payment, whether English or Arabic, default English.
+  /// [environment] sets the environment of payment, whether Test or Live, default Test.
+  /// [webDisplayMode] sets display mode (Only Web).
   @override
   Future<bool> init({
+    required String merchantID,
     Style style = Style.STYLE1,
     bool enableLogging = false,
     bool enableMockups = false,
@@ -63,9 +67,12 @@ class FlutterFawryPay extends FlutterFawryPayPlatform {
     String? username,
     String? email,
     String? webCustomerName,
+    Language language = Language.EN,
     Environment environment = Environment.TEST,
+    DisplayMode webDisplayMode = DisplayMode.POPUP,
   }) async {
     return await FlutterFawryPayPlatform.instance.init(
+      merchantID: merchantID,
       style: style,
       enableLogging: enableLogging,
       enableMockups: enableMockups,
@@ -73,7 +80,9 @@ class FlutterFawryPay extends FlutterFawryPayPlatform {
       username: username,
       email: email,
       webCustomerName: webCustomerName,
+      language: language,
       environment: environment,
+      webDisplayMode: webDisplayMode,
     );
   }
 
@@ -83,39 +92,27 @@ class FlutterFawryPay extends FlutterFawryPayPlatform {
   /// Returns `true` if it initialized fine.
   /// Throws exception if not.
   ///
-  /// [merchantID] sets the merchantID that you have received from Fawry.
   /// [items] sets the list of items that the user will pay for.
   /// [merchantRefNumber] sets an optional number consists of 16 random characters and numbers.
   /// [customerProfileId] sets an optional profile id (Only Web).
-  /// [language] sets the language of payment, whether English or Arabic, default English.
-  /// [environment] sets the environment of payment, whether Test or Live, default Test.
-  /// [webDisplayMode] sets display mode (Only Web).
   /// [paymentExpiry] sets the time in which it will expire this payment (Only Web).
   /// [returnUrl] sets return url which will go back after payment completed (Only Web & Must include if using Cards).
   /// [authCaptureModePayment] sets auth capture mode payment (Only Web).
   /// [customParam] sets a map of custom data you want to receive back with result data after payment.
   @override
   Future<bool> initialize({
-    required String merchantID,
     required List<FawryItem> items,
     String? merchantRefNumber,
     String? customerProfileId,
-    Language language = Language.EN,
-    Environment environment = Environment.TEST,
-    DisplayMode webDisplayMode = DisplayMode.POPUP,
     int? paymentExpiry,
     String? returnUrl,
     bool? authCaptureModePayment,
     Map<String, dynamic>? customParam,
   }) async {
     return await FlutterFawryPayPlatform.instance.initialize(
-      merchantID: merchantID,
       items: items,
       merchantRefNumber: merchantRefNumber,
       customerProfileId: customerProfileId,
-      language: language,
-      environment: environment,
-      webDisplayMode: webDisplayMode,
       paymentExpiry: paymentExpiry,
       returnUrl: returnUrl,
       authCaptureModePayment: authCaptureModePayment,
@@ -129,32 +126,24 @@ class FlutterFawryPay extends FlutterFawryPayPlatform {
   /// Returns `true` if it initialized fine.
   /// Throws exception if not.
   ///
-  /// [merchantID] sets the merchantID that you have received from Fawry.
   /// [customerMobile] sets the user phone number.
   /// [customerEmail] sets the user email.
   /// [customerProfileId] sets an optional profile id (Only iOS).
   /// [merchantRefNumber] sets an optional number consists of 16 random characters and numbers (only Android).
-  /// [language] sets the language of payment, whether English or Arabic, default English.
-  /// [environment] sets the environment of payment, whether Test or Live, default Test.
   /// [customParam] sets a map of custom data you want to receive back with result data after payment.
+  @override
   Future<bool> initializeCardTokenizer({
-    required String merchantID,
     required String customerMobile,
     required String customerEmail,
     String? customerProfileId,
     String? merchantRefNumber,
-    Language language = Language.EN,
-    Environment environment = Environment.TEST,
     Map<String, dynamic>? customParam,
   }) async {
     return await FlutterFawryPayPlatform.instance.initializeCardTokenizer(
-      merchantID: merchantID,
       customerMobile: customerMobile,
       customerEmail: customerEmail,
       customerProfileId: customerProfileId,
       merchantRefNumber: merchantRefNumber,
-      language: language,
-      environment: environment,
       customParam: customParam,
     );
   }

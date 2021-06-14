@@ -75,6 +75,10 @@ public class FlutterFawryPayPlugin implements FlutterPlugin, MethodCallHandler, 
     /// Variable to send the result object when it need to be coded inside callbacks
     private static EventChannel.EventSink eventSink;
 
+    /// Variable to store static data.
+    private static String merchantID, endPointURL;
+    FawrySdk.Language language;
+
     /// Variable of callback SDK results.
     private static final FawrySdkCallback callback = new FawrySdkCallback() {
         @Override
@@ -252,19 +256,32 @@ public class FlutterFawryPayPlugin implements FlutterPlugin, MethodCallHandler, 
             case METHOD_INIT:
                 try {
                     // Get the args from Flutter.
+                    merchantID = call.argument("merchantID");
                     String styleString = call.argument("style");
                     boolean enableLogging = call.argument("enableLogging");
                     boolean enableMockups = call.argument("enableMockups");
                     boolean skipCustomerInput = call.argument("skipCustomerInput");
                     String username = call.argument("username");
                     String email = call.argument("email");
+                    String languageString = call.argument("language");
+                    String environment = call.argument("environment");
 
                     // Assert not null
                     assert styleString != null;
+                    assert languageString != null;
+                    assert environment != null;
 
                     // Set FawrySdk style
                     FawrySdk.Styles style = (styleString.equals("Style.STYLE1"))
                             ? FawrySdk.Styles.STYLE1 : FawrySdk.Styles.STYLE2;
+
+                    endPointURL = (environment.equals("Environment.LIVE"))
+                            ? "https://atfawry.com"
+                            : "https://atfawry.fawrystaging.com";
+
+                    // Set FawrySdk language
+                    language = (languageString.equals("Language.EN"))
+                            ? FawrySdk.Language.EN : FawrySdk.Language.AR;
 
                     // start FawryPay services
                     FawrySdk.init(style);
@@ -285,29 +302,15 @@ public class FlutterFawryPayPlugin implements FlutterPlugin, MethodCallHandler, 
             case METHOD_INITIALIZE:
                 try {
                     // Get the args from Flutter.
-                    String merchantID = call.argument("merchantID");
                     String merchantRefNumber = (call.argument("merchantRefNumber") != null)
                             ? call.argument("merchantRefNumber").toString()
                             : randomAlphaNumeric(16);
-                    String environment = call.argument("environment");
                     List<HashMap<String, Object>> items = call.argument("items");
-                    String languageString = call.argument("language");
                     HashMap<String, Object> customParam = call.argument("customParam");
 
                     // Assert not null
-                    assert merchantID != null;
                     assert merchantRefNumber != null;
-                    assert environment != null;
                     assert items != null;
-                    assert languageString != null;
-
-                    String serverUrl = (environment.equals("Environment.LIVE"))
-                            ? "https://atfawry.com"
-                            : "https://atfawry.fawrystaging.com";
-
-                    // Set FawrySdk language
-                    FawrySdk.Language language = (languageString.equals("Language.EN"))
-                            ? FawrySdk.Language.EN : FawrySdk.Language.AR;
 
                     List<PayableItem> cartItems = new ArrayList<>();
 
@@ -338,7 +341,7 @@ public class FlutterFawryPayPlugin implements FlutterPlugin, MethodCallHandler, 
                         cartItems.add(cartItem);
                     }
 
-                    FawrySdk.initialize(activity, serverUrl, callback, merchantID, merchantRefNumber,
+                    FawrySdk.initialize(activity, endPointURL, callback, merchantID, merchantRefNumber,
                             cartItems, language, PAYMENT_PLUGIN_REQUEST,
                             customParam, new UUID(1, 2));
 
@@ -357,31 +360,18 @@ public class FlutterFawryPayPlugin implements FlutterPlugin, MethodCallHandler, 
             case METHOD_INITIALIZE_CARD_TOKENIZER:
                 try {
                     // Get the args from Flutter.
-                    String merchantID = call.argument("merchantID");
                     String merchantRefNumber = (call.argument("merchantRefNumber") != null)
                             ? call.argument("merchantRefNumber").toString()
                             : randomAlphaNumeric(16);
-                    String environment = call.argument("environment");
                     String customerMobile = call.argument("customerMobile");
                     String customerEmail = call.argument("customerEmail");
-                    String languageString = call.argument("language");
                     HashMap<String, Object> customParam = call.argument("customParam");
 
                     // Assert not null
                     assert merchantID != null;
                     assert merchantRefNumber != null;
-                    assert environment != null;
-                    assert languageString != null;
 
-                    String serverUrl = (environment.equals("Environment.LIVE"))
-                            ? "https://atfawry.com"
-                            : "https://atfawry.fawrystaging.com";
-
-                    // Set FawrySdk language
-                    FawrySdk.Language language = (languageString.equals("Language.EN"))
-                            ? FawrySdk.Language.EN : FawrySdk.Language.AR;
-
-                    FawrySdk.initializeCardTokenizer(activity, serverUrl, callback, merchantID,
+                    FawrySdk.initializeCardTokenizer(activity, endPointURL, callback, merchantID,
                             merchantRefNumber, customerMobile, customerEmail, language,
                             CARD_TOKENIZER_REQUEST, customParam, new UUID(1, 2));
 

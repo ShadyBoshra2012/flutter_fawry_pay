@@ -39,7 +39,7 @@ class FlutterFawryPayWeb {
   static const String _METHOD_START_PAYMENT = "start_payment";
   static const String _METHOD_RESET = "reset";
 
-  String? _username, _email, _customerName, _endPointURL;
+  String? _merchantID, _username, _email, _customerName, _language, _endPointURL, _webDisplayMode;
 
   static void registerWith(Registrar registrar) {
     final MethodChannel channel = MethodChannel(
@@ -68,40 +68,46 @@ class FlutterFawryPayWeb {
       default:
         throw PlatformException(
           code: 'Unimplemented',
-          details:
-              'flutter_fawry_pay for web doesn\'t implement \'${call.method}\'',
+          details: 'flutter_fawry_pay for web doesn\'t implement \'${call.method}\'',
         );
     }
   }
 
+  /// Init FawryPay SDK services.
+  ///
+  /// This initialize the SDK for one time only and
+  /// also can change at anytime.
+  /// Set here some parameters to configure the SDK.
+  /// Returns `true` if it initialized fine.
+  /// Throws exception if not.
   bool _init(dynamic arguments) {
-    List<Node>? nodes = html.window.document.documentElement
-        ?.getElementsByClassName("fawry-plugin-script");
+    List<Node>? nodes = html.window.document.documentElement?.getElementsByClassName("fawry-plugin-script");
 
     if (nodes?.length == 1) return true;
 
+    _merchantID = arguments["merchantID"];
     _username = arguments["username"];
     _email = arguments["email"];
     _customerName = arguments["customerName"];
+    _language = arguments["language"].replaceAll("Language.", "").toLowerCase();
     if (arguments["environment"].contains("LIVE"))
       _endPointURL = "https://atfawry.com";
     else
       _endPointURL = "https://atfawry.fawrystaging.com";
+    _webDisplayMode = arguments["webDisplayMode"].replaceAll("DisplayMode.", "");
 
     LinkElement fawryStyleSheet = LinkElement()
       ..attributes = {
         "class": "fawry-charges-stylesheet",
         "rel": "stylesheet",
-        "href":
-            "$_endPointURL/atfawry/plugin/assets/payments/css/fawrypay-payments.css",
+        "href": "$_endPointURL/atfawry/plugin/assets/payments/css/fawrypay-payments.css",
       };
 
     ScriptElement fawryPluginScript = ScriptElement()
       ..attributes = {
         "class": "fawry-plugin-script",
         "type": "text/javascript",
-        "src":
-            "$_endPointURL/atfawry/plugin/assets/payments/js/fawrypay-payments.js",
+        "src": "$_endPointURL/atfawry/plugin/assets/payments/js/fawrypay-payments.js",
       };
 
     html.window.document.documentElement?.append(fawryStyleSheet);
@@ -110,20 +116,19 @@ class FlutterFawryPayWeb {
     return true;
   }
 
+  /// Initialize FawryPay payment charge.
+  ///
+  /// Initialize the payment charge by adding some parameters.
+  /// Returns `true` if it initialized fine.
+  /// Throws exception if not.
   bool _initialize(dynamic arguments) {
-    List<Node>? nodes = html.window.document.documentElement
-        ?.getElementsByClassName("fawry-charges-script");
+    List<Node>? nodes = html.window.document.documentElement?.getElementsByClassName("fawry-charges-script");
 
-    String merchantID = arguments["merchantID"];
     String merchantRefNumber = (arguments["merchantRefNumber"] != null)
         ? arguments["merchantRefNumber"].toString()
         : FlutterFawryPay.instance.randomAlphaNumeric(16);
     List items = arguments["items"];
     String? customerProfileId = arguments["customerProfileId"];
-    String language =
-        arguments["language"].replaceAll("Language.", "").toLowerCase();
-    String webDisplayMode =
-        arguments["webDisplayMode"].replaceAll("DisplayMode.", "");
     int? paymentExpiry = arguments["paymentExpiry"];
     String? returnUrl = arguments["returnUrl"];
     bool? authCaptureModePayment = arguments["authCaptureModePayment"];
@@ -149,8 +154,8 @@ class FlutterFawryPayWeb {
       
       async function checkout() {
         var configuration = {
-            locale : "$language",  //default en
-            mode: DISPLAY_MODE.$webDisplayMode,  //required, allowed values [POPUP, INSIDE_PAGE, SIDE_PAGE]
+            locale : "$_language",  //default en
+            mode: DISPLAY_MODE.$_webDisplayMode,  //required, allowed values [POPUP, INSIDE_PAGE, SIDE_PAGE]
             onSuccess : successCallBack,  //optional and not supported in SEPARATED display mode
             onFailure : failureCallBack,  //optional and not supported in SEPARATED display mode
         }; 
@@ -179,7 +184,7 @@ class FlutterFawryPayWeb {
       
       function buildChargeRequest() {
         const chargeRequest = {
-            merchantCode: '$merchantID',
+            merchantCode: '$_merchantID',
             merchantRefNum: '$merchantRefNumber',
             ${(_username != null) ? "customerMobile: '$_username'," : ""}
             ${(_email != null) ? "customerEmail: '$_email'," : ""}
@@ -230,14 +235,23 @@ class FlutterFawryPayWeb {
     return true;
   }
 
+  /// Start FawryPay SDK process.
+  ///
+  /// Start FawryPay SDK process, whether it was initialized for payment,
+  /// or initialized for card tokenizer.
+  /// Returns a `FawryResponse` type of the resulted data.
+  /// Throws exception if not completed well.
   Future<Map> _startProcess() async {
     var object = await promiseToFuture(checkout());
     return jsonDecode(object);
   }
 
+  /// Reset FawryPay SDK Payment.
+  ///
+  /// Returns `true` if it was rest well.
+  /// Throws exception if not.
   bool _reset() {
-    List<Node>? nodes = html.window.document.documentElement
-        ?.getElementsByClassName("fawry-charges-script");
+    List<Node>? nodes = html.window.document.documentElement?.getElementsByClassName("fawry-charges-script");
 
     ScriptElement script = ScriptElement()
       ..text = """
@@ -249,6 +263,7 @@ class FlutterFawryPayWeb {
     return true;
   }
 
+  /// Stream to return resulted data.
   static Stream callbackResultStream() {
     return html.window.onMessage.map((event) => event.data);
   }

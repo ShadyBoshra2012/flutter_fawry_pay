@@ -58,9 +58,9 @@ packages:
   flutter_fawry_pay_platform_interface:
     dependency: "direct main"
     description:
-      name: flutter_fawry_pay_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "../flutter_fawry_pay_platform_interface"
+      relative: true
+    source: path
     version: "0.0.3"
   flutter_test:
     dependency: "direct dev"

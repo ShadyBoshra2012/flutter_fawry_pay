@@ -54,6 +54,7 @@ abstract class FlutterFawryPayPlatform extends PlatformInterface {
   /// Returns `true` if it initialized fine.
   /// Throws exception if not.
   ///
+  /// [merchantID] sets the merchantID that you have received from Fawry.
   /// [style] sets the style of SDK.
   /// [enableLogging] sets whether enable logs from SDK or not.
   /// [skipCustomerInput] sets whether you let user enter username and email,
@@ -63,8 +64,11 @@ abstract class FlutterFawryPayPlatform extends PlatformInterface {
   /// it should be a phone number.
   /// [email] sets the default email if you set `skipCustomerInput = true`.
   /// [webCustomerName] optional sets customer name (Only Web).
-  /// [environment] sets the environment.
+  /// [language] sets the language of payment, whether English or Arabic, default English.
+  /// [environment] sets the environment of payment, whether Test or Live, default Test.
+  /// [webDisplayMode] sets display mode (Only Web).
   Future<bool> init({
+    required String merchantID,
     Style style = Style.STYLE1,
     bool enableLogging = false,
     bool enableMockups = false,
@@ -72,7 +76,9 @@ abstract class FlutterFawryPayPlatform extends PlatformInterface {
     String? username,
     String? email,
     String? webCustomerName,
+    Language language = Language.EN,
     Environment environment = Environment.TEST,
+    DisplayMode webDisplayMode = DisplayMode.POPUP,
   }) {
     throw UnimplementedError('init() has not been implemented.');
   }
@@ -83,25 +89,17 @@ abstract class FlutterFawryPayPlatform extends PlatformInterface {
   /// Returns `true` if it initialized fine.
   /// Throws exception if not.
   ///
-  /// [merchantID] sets the merchantID that you have received from Fawry.
   /// [items] sets the list of items that the user will pay for.
   /// [merchantRefNumber] sets an optional number consists of 16 random characters and numbers.
   /// [customerProfileId] sets an optional profile id (Only Web).
-  /// [language] sets the language of payment, whether English or Arabic, default English.
-  /// [environment] sets the environment of payment, whether Test or Live, default Test.
-  /// [webDisplayMode] sets display mode (Only Web).
   /// [paymentExpiry] sets the time in which it will expire this payment (Only Web).
   /// [returnUrl] sets return url which will go back after payment completed (Only Web & Must include if using Cards).
   /// [authCaptureModePayment] sets auth capture mode payment (Only Web).
   /// [customParam] sets a map of custom data you want to receive back with result data after payment.
   Future<bool> initialize({
-    required String merchantID,
     required List<FawryItem> items,
     String? merchantRefNumber,
     String? customerProfileId,
-    Language language = Language.EN,
-    Environment environment = Environment.TEST,
-    DisplayMode webDisplayMode = DisplayMode.POPUP,
     int? paymentExpiry,
     String? returnUrl,
     bool? authCaptureModePayment,
@@ -116,22 +114,16 @@ abstract class FlutterFawryPayPlatform extends PlatformInterface {
   /// Returns `true` if it initialized fine.
   /// Throws exception if not.
   ///
-  /// [merchantID] sets the merchantID that you have received from Fawry.
   /// [customerMobile] sets the user phone number.
   /// [customerEmail] sets the user email.
   /// [customerProfileId] sets an optional profile id (Only iOS).
   /// [merchantRefNumber] sets an optional number consists of 16 random characters and numbers (only Android).
-  /// [language] sets the language of payment, whether English or Arabic, default English.
-  /// [environment] sets the environment of payment, whether Test or Live, default Test.
   /// [customParam] sets a map of custom data you want to receive back with result data after payment.
   Future<bool> initializeCardTokenizer({
-    required String merchantID,
     required String customerMobile,
     required String customerEmail,
     String? customerProfileId,
     String? merchantRefNumber,
-    Language language = Language.EN,
-    Environment environment = Environment.TEST,
     Map<String, dynamic>? customParam,
   }) {
     throw UnimplementedError(

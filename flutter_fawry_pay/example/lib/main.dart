@@ -5,6 +5,8 @@
  * Mostaql: https://mostaql.com/u/ShadyBoshra2012
  */
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_fawry_pay/flutter_fawry_pay.dart';
 import 'package:flutter_fawry_pay_example/keys.dart';
@@ -25,22 +27,37 @@ class _MyAppState extends State<MyApp> {
   bool _reset = false;
   String _text = "";
 
+  late StreamSubscription _fawryCallbackResultStream;
+
   @override
   void initState() {
     super.initState();
     initFawryPay();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    _fawryCallbackResultStream.cancel();
+  }
+
   Future<void> initFawryPay() async {
     try {
       _isFawryPayInit = await FlutterFawryPay.instance.init(
+        merchantID: Keys.merchantID,
+        // Set the merchant ID here for one time only.
         style: Style.STYLE1,
-        skipCustomerInput: true, // If set to true, you must set username and email.
-        username: "01234567890", // Must be phone number.
+        skipCustomerInput: true,
+        // If set to true, you must set username and email.
+        username: "01234567890",
+        // Must be phone number.
         email: "abc@test.com",
+        webDisplayMode: DisplayMode.SIDE_PAGE,
+        // For web how you show the Fawry screen.
+        environment: Environment.TEST, // You should set environment here.
       );
 
-      FlutterFawryPay.instance.callbackResultStream().listen((event) {
+      _fawryCallbackResultStream = FlutterFawryPay.instance.callbackResultStream().listen((event) {
         Map<dynamic, dynamic> data = event;
         FawryResponse response = FawryResponse.fromMap(data);
         setState(() => _text = response.toString());
@@ -77,7 +94,7 @@ class _MyAppState extends State<MyApp> {
             ElevatedButton(
               onPressed: () async {
                 _isInitPayment = await FlutterFawryPay.instance.initialize(
-                  merchantID: Keys.merchantID,
+                  returnUrl: "test.com", // For Web use only.
                   items: [
                     FawryItem(sku: "1", description: "Item 1", qty: 1, price: 20.0),
                   ],
@@ -97,7 +114,6 @@ class _MyAppState extends State<MyApp> {
             ElevatedButton(
               onPressed: () async {
                 _isInitCardToken = await FlutterFawryPay.instance.initializeCardTokenizer(
-                  merchantID: Keys.merchantID,
                   customerMobile: "01234567890",
                   customerEmail: "abc@test.com",
                   customParam: {

@@ -7,6 +7,7 @@
 
 part of 'package:flutter_fawry_pay/flutter_fawry_pay.dart';
 
+/// The Fawry Button available to use.
 class FawryButton extends fawry_button_parent.FawryButton {
   final double height;
   final double width;
@@ -29,18 +30,10 @@ class FawryButton extends fawry_button_parent.FawryButton {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         // return widget on Android.
-        return Container(
-          height: this.height,
-          width: this.width,
-          child: androidView(creationParams),
-        );
+        return androidView(creationParams);
       case TargetPlatform.iOS:
         // return widget on iOS.
-        return Container(
-          height: this.height,
-          width: this.width,
-          child: iOSView(creationParams),
-        );
+        return iOSView(creationParams);
       default:
         throw UnsupportedError("Unsupported platform view");
     }
