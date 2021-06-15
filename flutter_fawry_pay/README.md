@@ -19,7 +19,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_fawry_pay: ^0.0.4
+  flutter_fawry_pay: ^0.0.6
 ```
 
 

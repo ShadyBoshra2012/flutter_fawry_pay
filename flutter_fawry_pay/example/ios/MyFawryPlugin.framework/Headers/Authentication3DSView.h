@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
+@interface Authentication3DSView : UIView<WKUIDelegate,WKNavigationDelegate>
 
-@interface Authentication3DSView : UIView<UIWebViewDelegate>
-
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (strong, nonatomic) IBOutlet WKWebView *webView;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 
 @property NSString* migsReturnURL;
 - (IBAction)cancelButtonAction:(UIButton *)sender;
-- (void) loadWebView:(UIWebView *)theWebView withURLString:(NSString *)urlString andPostDictionaryOrNil:(NSDictionary *)postDictionary;
+- (void) loadWebView:(WKWebView *)theWebView withURLString:(NSString *)urlString andPostDictionaryOrNil:(NSDictionary *)postDictionary;
 @property (weak, nonatomic) IBOutlet UIView *loadingView;
 
 @end

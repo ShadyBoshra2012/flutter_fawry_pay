@@ -11,7 +11,7 @@
 #import "ActionSheetPickerViewItemImpl.h"
 #import "MWalletValidationManager.h"
 #import "NSString+DeLocalizedNumberStrings.h"
-#import "MBProgressHUD.h"
+#import "FawryMBProgressHUD.h"
 #import "UIViewController+Authentication3DSView.h"
 #import "ActionSheetPickerViewCell.h"
 

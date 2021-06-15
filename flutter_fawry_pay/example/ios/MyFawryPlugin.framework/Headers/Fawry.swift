@@ -40,7 +40,12 @@ public class Fawry: NSObject {
     public var otherShippingAddressesList: NSArray?
     private var customerProfileId: String?
     public var skipCustomerInput : Bool? = false
-    
+    public var skipReceipt : Bool? = false
+    private var paymentMethodType: PaymentMethodType!
+    private var sdkPaymentTypesCompletionBlock: ((_ SupportedPaymentMethods: [PaymentMethodType]) -> Void)?
+    private var secureKey: String?
+    private var signature: String?
+    private var expiryHours: Int?
     
     var sdkTarget: SDKTarget?
 
@@ -68,11 +73,13 @@ public class Fawry: NSObject {
         self.customerName = nil
         self.customerBirthDate = nil
         self.skipCustomerInput = false
+        self.skipReceipt = false
+
     }
 
     public func initialize(
         serverURL: String,
-        styleParam: ThemeStyle,
+        styleParam: ThemeStyle?,
         merchantIDParam: String,
         merchantRefNum: String?,
         languageParam: String,
@@ -143,9 +150,247 @@ public class Fawry: NSObject {
         UserDefaults.standard.set(1, forKey: ModelRequestObjectsJsonKeys.currentStep)
     
     }
+    
+    public func initialize(
+        serverURL: String,
+        styleParam: ThemeStyle?,
+        merchantIDParam: String,
+        merchantRefNum: String?,
+        languageParam: String,
+        GUIDParam: String,
+        customeParameterParam: AnyObject?,
+        currancyParam: Currancy,
+        items: [Item],
+        orderExpiryInHours: Int?,
+        secureKey: String?,
+        signature: String?) {
+        self.sdkTarget = SDKTarget.fawryPayment
+
+        if serverURL.isEmpty {
+            print(Constants.serverURLCannotBeEmpty)
+            return
+        }
+        
+        if (!self.canOpenURL(string: serverURL))
+        {
+            print(Constants.invalidServerURL)
+            return
+        }
+        
+        if merchantIDParam.isEmpty {
+            print(Constants.merchantIDCannotBeEmpty)
+            return
+        }
+        
+        if languageParam.isEmpty {
+            print(Constants.LanguageCannotBeEmpty)
+            return
+        }
+        
+        if GUIDParam.isEmpty {
+            print(Constants.GUIDCannotBeEmpty)
+            return
+        }
+        
+        if items.count == 0 {
+            print(Constants.ItemsCannotBeEmpty)
+//            completionBlock(nil, .EmptyItemsList)
+            return
+        }
+        
+        if secureKey == nil && signature == nil {
+            print(Constants.secureKeyCannotBeEmpty)
+            return
+        }
+        
+//        if !self.isItemsContentValid(items: items) {
+//            print(Constants.ItemsCannotContainInvalidData)
+//            return
+//        }
+        
+        if(self.skipCustomerInput == true){
+            if(isValidParameters()){
+                self.handleSkipIntroParameters()
+            }else{
+                return
+            }
+        }
+        
+        
+        
+        self.sdkTarget = SDKTarget.fawryPayment
+        self.serverURL = serverURL
+        self.merchantID = merchantIDParam
+        self.merchantRefNum = merchantRefNum
+        self.language = languageParam
+        self.GUID = GUIDParam
+        self.themeStyle = styleParam
+        self.customParameters = customeParameterParam
+        self.currancy = currancyParam
+        CustomerDataManager.sharedInstance.items = items
+        self.secureKey = secureKey
+        self.expiryHours = orderExpiryInHours
+        self.signature = signature
+        UserDefaults.standard.set(1, forKey: ModelRequestObjectsJsonKeys.currentStep)
+    
+    }
+    
+    public func initialize(
+            serverURL: String,
+            styleParam: ThemeStyle?,
+            merchantIDParam: String,
+            merchantRefNum: String?,
+            languageParam: String,
+            GUIDParam: String,
+            customeParameterParam: AnyObject?,
+            currancyParam: Currancy,
+            items: [Item],
+            paymentMethodType : PaymentMethodType) {
+        
+            self.sdkTarget = SDKTarget.fawryPayment
+
+            if serverURL.isEmpty {
+                print(Constants.serverURLCannotBeEmpty)
+                return
+            }
+            
+            if (!self.canOpenURL(string: serverURL))
+            {
+                print(Constants.invalidServerURL)
+                return
+            }
+            
+            if merchantIDParam.isEmpty {
+                print(Constants.merchantIDCannotBeEmpty)
+                return
+            }
+            
+            if languageParam.isEmpty {
+                print(Constants.LanguageCannotBeEmpty)
+                return
+            }
+            
+            if GUIDParam.isEmpty {
+                print(Constants.GUIDCannotBeEmpty)
+                return
+            }
+            
+            if items.count == 0 {
+                print(Constants.ItemsCannotBeEmpty)
+                return
+            }
+            
+            
+            if(self.skipCustomerInput == true){
+                if(isValidParameters()){
+                    self.handleSkipIntroParameters()
+                }else{
+                    return
+                }
+            }
+            
+
+            self.sdkTarget = SDKTarget.fawryPayment
+            self.serverURL = serverURL
+            self.merchantID = merchantIDParam
+            self.merchantRefNum = merchantRefNum
+            self.language = languageParam
+            self.GUID = GUIDParam
+            self.themeStyle = styleParam
+            self.customParameters = customeParameterParam
+            self.currancy = currancyParam
+            CustomerDataManager.sharedInstance.items = items
+            self.paymentMethodType = paymentMethodType
+            CustomerDataManager.sharedInstance.themeStyle = styleParam
+
+            UserDefaults.standard.set(1, forKey: ModelRequestObjectsJsonKeys.currentStep)
+        
+        }
+    
+    public func initialize(
+            serverURL: String,
+            styleParam: ThemeStyle?,
+            merchantIDParam: String,
+            merchantRefNum: String?,
+            languageParam: String,
+            GUIDParam: String,
+            customeParameterParam: AnyObject?,
+            currancyParam: Currancy,
+            items: [Item],
+            paymentMethodType : PaymentMethodType,
+            orderExpiryInHours: Int?,
+            secureKey: String?,
+            signature: String?) {
+        
+            self.sdkTarget = SDKTarget.fawryPayment
+
+            if serverURL.isEmpty {
+                print(Constants.serverURLCannotBeEmpty)
+                return
+            }
+            
+            if (!self.canOpenURL(string: serverURL))
+            {
+                print(Constants.invalidServerURL)
+                return
+            }
+            
+            if merchantIDParam.isEmpty {
+                print(Constants.merchantIDCannotBeEmpty)
+                return
+            }
+            
+            if languageParam.isEmpty {
+                print(Constants.LanguageCannotBeEmpty)
+                return
+            }
+            
+            if GUIDParam.isEmpty {
+                print(Constants.GUIDCannotBeEmpty)
+                return
+            }
+            
+            if items.count == 0 {
+                print(Constants.ItemsCannotBeEmpty)
+                return
+            }
+            
+            if secureKey == nil && signature == nil {
+                print(Constants.secureKeyCannotBeEmpty)
+                return
+            }
+        
+            if(self.skipCustomerInput == true){
+                if(isValidParameters()){
+                    self.handleSkipIntroParameters()
+                }else{
+                    return
+                }
+            }
+            
+
+            self.sdkTarget = SDKTarget.fawryPayment
+            self.serverURL = serverURL
+            self.merchantID = merchantIDParam
+            self.merchantRefNum = merchantRefNum
+            self.language = languageParam
+            self.GUID = GUIDParam
+            self.themeStyle = styleParam
+            self.customParameters = customeParameterParam
+            self.currancy = currancyParam
+            CustomerDataManager.sharedInstance.items = items
+            self.paymentMethodType = paymentMethodType
+            CustomerDataManager.sharedInstance.themeStyle = styleParam
+            self.secureKey = secureKey
+            self.expiryHours = orderExpiryInHours
+            self.signature = signature
+            UserDefaults.standard.set(1, forKey: ModelRequestObjectsJsonKeys.currentStep)
+        
+        }
+    
     public func initializeCardTokenizer(
         serverURL: String,
-        styleParam: ThemeStyle,
+        styleParam: ThemeStyle?,
         merchantIDParam: String,
         languageParam: String,
         GUIDParam: String,
@@ -231,7 +476,12 @@ public class Fawry: NSObject {
         guard let currancy = self.currancy else { return }
         CustomerDataManager.sharedInstance.currancy = currancy.rawValue
         CustomerDataManager.sharedInstance.lang = self.language
-        
+        CustomerDataManager.sharedInstance.paymentMethodType = self.paymentMethodType
+        MerchantManager.sharedInstance.secureKey = self.secureKey
+        MerchantManager.sharedInstance.billExpiryHours = self.expiryHours
+        MerchantManager.sharedInstance.signature = self.signature
+        CustomerDataManager.sharedInstance.skipReceipt = self.skipReceipt
+
             
         self.sdkFinishedBlock = completionBlock
         
@@ -247,7 +497,7 @@ public class Fawry: NSObject {
                 
                 if (merchant != nil) {
                    MerchantManager.sharedInstance.merchantRefNum = self.merchantRefNum
-                        FinancialTrxManager.sharedInstance.addToReceipt(item: ReceiptItem(amount: (CustomerDataManager.sharedInstance.calculateTotalAmountForCustomerItems()), key: Constants.OrderAmount, reciptItemType: ReciptItemType.OrderAmount))
+                    FinancialTrxManager.sharedInstance.addToReceipt(item: ReceiptItem(amount: (CustomerDataManager.sharedInstance.calculateTotalAmountForCustomerItems()), key: Constants.OrderAmount, value: "", reciptItemType: ReciptItemType.OrderAmount))
                     
                         self.pushToNotificationViewControllerWithBaseViewController(baseViewController: onViewController)
 
@@ -280,6 +530,73 @@ public class Fawry: NSObject {
 
     }
 
+    public func getSupportedPaymentMethods(
+        onViewController: UIViewController ,
+        serverURL: String,
+        merchantIDParam: String,
+        languageParam: String,
+        completionBlock: @escaping (_ SupportedPaymentMethods: [PaymentMethodType]) -> Void){
+        
+        if serverURL.isEmpty {
+            print(Constants.serverURLCannotBeEmpty)
+            return
+        }
+        
+        if (!self.canOpenURL(string: serverURL))
+        {
+            print(Constants.invalidServerURL)
+            return
+        }
+        
+        if merchantIDParam.isEmpty {
+            print(Constants.merchantIDCannotBeEmpty)
+            return
+        }
+        
+        if languageParam.isEmpty {
+            print(Constants.LanguageCannotBeEmpty)
+            return
+        }
+        
+        CustomerDataManager.sharedInstance.lang = languageParam
+        self.sdkPaymentTypesCompletionBlock = completionBlock
+        
+        
+        ModelRequestObjectsJsonKeys.domainURL = serverURL
+        
+        MerchantManager.sharedInstance.getMerchantInfo(accountNumber: merchantIDParam) { (merchant, message) in
+            
+            if (merchant?.paymentMethods != nil) {
+                
+                var supportedArray : [PaymentMethodType] = [PaymentMethodType]()
+                if let paymentMethods = merchant?.paymentMethods{
+                    
+                    for paymentMethod in paymentMethods{
+                        
+                        switch paymentMethod.code {
+                        case PaymentMethodCode.Fawry.rawValue:
+                            supportedArray.append(PaymentMethodType.FAWRY_KIOSK)
+                            break
+                            
+                        case PaymentMethodCode.CreditCard.rawValue:
+                            supportedArray.append(PaymentMethodType.CREDIT_CARD)
+                            break
+                            
+                        default:
+                            break
+                        }
+                    }
+                }
+                self.sdkPaymentTypesCompletionBlock!(supportedArray)
+                
+            }else{
+                self.presnetErrorMessage(message: message!, Title: ValidationErrorTitle.connectionError.rawValue, onViewController: onViewController)
+            }
+        }
+        
+
+    }
+    
     public func paymentOperationSuccess(
         onViewController: UIViewController ,
         completionBlock: @escaping (_ transactionID: AnyObject?, _ FawryStatusCode: FawryStatusCode) -> Void){
@@ -302,6 +619,19 @@ public class Fawry: NSObject {
     
     public func applyFawryButtonStyleToButton(button: UIButton) {
         button.setBackgroundImage(UIImage(named: "@fawry", in: Bundle(for: MyFawryPlugin_RecepitViewController.self), compatibleWith: nil), for: .normal)
+        button.setTitle("", for: .normal)
+    }
+    public func applyFawryButtonStyleToButton(button: UIButton,buttonImage: UIImage) {
+        button.setBackgroundImage(buttonImage, for: .normal)
+        button.setTitle("", for: .normal)
+    }
+    public func applyFawryButtonStyleToCreditCardButton(button: UIButton) {
+        button.setBackgroundImage(UIImage(named: "creditCard", in: Bundle(for: MyFawryPlugin_RecepitViewController.self), compatibleWith: nil), for: .normal)
+        
+        button.setTitle("", for: .normal)
+    }
+    public func applyFawryButtonStyleToCreditCardButton(button: UIButton,buttonImage: UIImage) {
+        button.setBackgroundImage(buttonImage, for: .normal)
         button.setTitle("", for: .normal)
     }
     func updatePluginCompletionBlockParams(blockParams: (String, FawryStatusCode)) {
@@ -372,6 +702,7 @@ public class Fawry: NSObject {
         let vc = s.instantiateViewController(withIdentifier: "MyFawryNavigationViewController_Notification") as! MyFawryNavigationViewController_Notification
         
         OperationQueue.main.addOperation({
+            vc.modalPresentationStyle = .fullScreen
             baseViewController.present(vc, animated: true, completion: nil)
         })
         
@@ -386,6 +717,7 @@ public class Fawry: NSObject {
         
         
         OperationQueue.main.addOperation({
+            vc.modalPresentationStyle = .fullScreen
             baseViewController.present(vc, animated: true, completion: nil)
             (vc.viewControllers[0] as! MyFawryPlugin_CardTokenizerViewController).model = model
         })
@@ -480,4 +812,16 @@ public class Fawry: NSObject {
         return true
     }
     
+
+    class public func randomAlphaNumeric(count: Int) -> String {
+        let letters : NSString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let len = UInt32(letters.length)
+        var randomString = ""
+        for _ in 0 ..< count {
+            let rand = arc4random_uniform(len)
+            var nextChar = letters.character(at: Int(rand))
+            randomString += NSString(characters: &nextChar, length: 1) as String
+        }
+        return randomString
+    }
 }

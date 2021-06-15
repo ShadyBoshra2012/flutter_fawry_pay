@@ -15,6 +15,21 @@ extension UILabel{
         self.attributedText = NSAttributedString(string: self.text!, attributes: [NSAttributedStringKey.foregroundColor : UIColor.darkGray])
     }
     
+    func applyThemeStyleForLabel() {
+        //For cell titles
+        let color = CustomerDataManager.sharedInstance.themeStyle?.primaryColor
+        self.textColor = color ??  #colorLiteral(red: 0.07843137255, green: 0.3725490196, blue: 0.5294117647, alpha: 1)
+        //UIColor.init(red: 20, green: 95, blue: 135, alpha: 1)
+    }
+    
+    func applyThemeStyleForHeaderLabel() {
+        //For header title
+        let color = CustomerDataManager.sharedInstance.themeStyle?.primaryDarkColor
+        self.textColor = color ?? #colorLiteral(red: 0, green: 0.4705063105, blue: 0.5383622646, alpha: 1)
+//        UIColor.init(red: 44, green: 118, blue: 135, alpha: 1)
+        
+    }
+    
 }
 
 extension UITextField{
@@ -128,7 +143,52 @@ extension UIView {
         self.layer.shadowOffset = CGSize(width: 0, height: 0)
         self.layer.shadowRadius = 1
     }
+    
+    func applyThemeStyleForView() {
+        let color = CustomerDataManager.sharedInstance.themeStyle?.primaryColor
+        self.backgroundColor = color ??  #colorLiteral(red: 0.07843137255, green: 0.3725490196, blue: 0.5294117647, alpha: 1)
+        //UIColor.init(red: 255, green: 202, blue: 11, alpha: 1)
+    }
+    
+    func applyThemeStyleForViewSecondary() {
+        let color = CustomerDataManager.sharedInstance.themeStyle?.secondaryColor
+        self.backgroundColor = color ?? #colorLiteral(red: 1, green: 0.8, blue: 0.0431372549, alpha: 1)
+    }
+    
+    func applyThemeStyleForBorder() {
+        let color = CustomerDataManager.sharedInstance.themeStyle?.primaryColor
+        self.layer.borderColor = color?.cgColor ??  #colorLiteral(red: 0.07843137255, green: 0.3725490196, blue: 0.5294117647, alpha: 1).cgColor
+    }
+    
+    func applyThemeStyleForBorderSecondary() {
+        let color = CustomerDataManager.sharedInstance.themeStyle?.secondaryColor
+        self.layer.borderColor = color?.cgColor ??  #colorLiteral(red: 1, green: 0.8, blue: 0.0431372549, alpha: 1).cgColor
+    }
 }
+
+extension UINavigationBar {
+    
+    func applyThemeStyleForNavigation() {
+        let color = CustomerDataManager.sharedInstance.themeStyle?.primaryColor
+        self.barTintColor = color ?? #colorLiteral(red: 0.07843137255, green: 0.3725490196, blue: 0.5294117647, alpha: 1)
+        //UIColor.init(red: 44, green: 118, blue: 135, alpha: 1) //2C7687
+    }
+}
+
+extension UIButton {
+    
+    func applyThemeStyleForButton() {
+        let color = CustomerDataManager.sharedInstance.themeStyle?.secondaryColor
+        self.backgroundColor = color ?? #colorLiteral(red: 1, green: 0.8, blue: 0.0431372549, alpha: 1)
+        //UIColor.init(red: 255, green: 202, blue: 11, alpha: 1)
+        
+        let titleColor = CustomerDataManager.sharedInstance.themeStyle?.primaryColor
+       
+        self.setTitleColor(titleColor ?? #colorLiteral(red: 0.07450980392, green: 0.3568627451, blue: 0.4666666667, alpha: 1) , for: UIControlState.normal)
+        //UIColor.init(red: 19, green: 91, blue: 119, alpha: 1)
+    }
+}
+
 extension String {
     func chunkFormatted(withChunkSize chunkSize: Int = 4,
                         withSeparator separator: Character = " ") -> String {

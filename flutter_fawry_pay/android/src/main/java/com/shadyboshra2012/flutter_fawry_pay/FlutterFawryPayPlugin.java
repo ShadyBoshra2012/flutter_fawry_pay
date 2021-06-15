@@ -77,7 +77,7 @@ public class FlutterFawryPayPlugin implements FlutterPlugin, MethodCallHandler, 
 
     /// Variable to store static data.
     private static String merchantID, endPointURL;
-    FawrySdk.Language language;
+    private static FawrySdk.Language language;
 
     /// Variable of callback SDK results.
     private static final FawrySdkCallback callback = new FawrySdkCallback() {

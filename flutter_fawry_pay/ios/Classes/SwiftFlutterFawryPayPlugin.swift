@@ -28,6 +28,9 @@ public class SwiftFlutterFawryPayPlugin: NSObject, FlutterPlugin {
     /// Variable to send the result object when it need to be coded inside callbacks
     public static var eventSink : FlutterEventSink!
     
+    /// Variable to store static data.
+    private static var merchantID, language, endPointURL : String!
+    
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: CHANNEL_NAME, binaryMessenger: registrar.messenger())
         let instance = SwiftFlutterFawryPayPlugin()
@@ -86,15 +89,28 @@ public class SwiftFlutterFawryPayPlugin: NSObject, FlutterPlugin {
             let args = call.arguments as! [String:Any?]
             
             // Get the args from Flutter.
-            guard let _ = args["style"] as? String,
+            guard let merchantIDValue = args["merchantID"] as? String,
+                  let _ = args["style"] as? String,
                   let _ = args["enableLogging"] as? Bool,
                   let _ = args["enableMockups"] as? Bool,
                   let skipCustomerInput = args["skipCustomerInput"] as? Bool,
                   let username = args["username"] as? String,
-                  let email = args["email"] as? String
+                  let email = args["email"] as? String,
+                  let environment = args["environment"] as? String,
+                  let languageString = args["language"] as? String
             else {
                 return
             }
+            
+            SwiftFlutterFawryPayPlugin.merchantID = merchantIDValue
+            
+            
+            SwiftFlutterFawryPayPlugin.endPointURL = (environment == "Environment.LIVE")
+                ? "https://atfawry.com"
+                : "https://atfawry.fawrystaging.com";
+            
+            // Set FawrySdk language
+            SwiftFlutterFawryPayPlugin.language = (languageString == "Language.EN") ? "en" : "ar";
             
             fawry.skipCustomerInput = skipCustomerInput
             fawry.customerMobileNumber = username
@@ -108,10 +124,7 @@ public class SwiftFlutterFawryPayPlugin: NSObject, FlutterPlugin {
             let args = call.arguments as! [String:Any?]
             
             // Get the args from Flutter.
-            guard let merchantID = args["merchantID"] as? String,
-                  let environment = args["environment"] as? String,
-                  let items = args["items"] as? [[String:AnyObject?]],
-                  let languageString = args["language"] as? String
+            guard let items = args["items"] as? [[String:AnyObject?]]
             else {
                 return
             }
@@ -124,14 +137,6 @@ public class SwiftFlutterFawryPayPlugin: NSObject, FlutterPlugin {
                 }
                 return refNum
             }
-            
-            
-            let serverUrl = (environment == "Environment.LIVE")
-                ? "https://atfawry.com"
-                : "https://atfawry.fawrystaging.com";
-            
-            // Set FawrySdk language
-            let language = (languageString == "Language.EN") ? "en" : "ar";
             
             
             let cartItems = items.compactMap({
@@ -152,7 +157,7 @@ public class SwiftFlutterFawryPayPlugin: NSObject, FlutterPlugin {
             })
             
             fawry.initialize(
-                serverURL: serverUrl,
+                serverURL: SwiftFlutterFawryPayPlugin.endPointURL,
                 styleParam: ThemeStyle(
                     primaryColor: .red,
                     primaryDarkColor: .red,
@@ -160,9 +165,9 @@ public class SwiftFlutterFawryPayPlugin: NSObject, FlutterPlugin {
                     secondaryDarkColor: .red
                 ),
                 
-                merchantIDParam: merchantID,
+                merchantIDParam: SwiftFlutterFawryPayPlugin.merchantID,
                 merchantRefNum: merchantRefNumber,
-                languageParam: language,
+                languageParam: SwiftFlutterFawryPayPlugin.language,
                 GUIDParam: "#@DDFFEEER",
                 customeParameterParam: nil, //TODO: After first beta.
                 currancyParam: .EGP,
@@ -177,11 +182,8 @@ public class SwiftFlutterFawryPayPlugin: NSObject, FlutterPlugin {
             let args = call.arguments as! [String:Any?]
             
             // Get the args from Flutter.
-            guard let merchantID = args["merchantID"] as? String,
-                  let environment = args["environment"] as? String,
-                  let customerMobile = args["customerMobile"] as? String,
-                  let customerEmail = args["customerEmail"] as? String,
-                  let languageString = args["language"] as? String
+            guard let customerMobile = args["customerMobile"] as? String,
+                  let customerEmail = args["customerEmail"] as? String
             else {
                 return
             }
@@ -193,25 +195,17 @@ public class SwiftFlutterFawryPayPlugin: NSObject, FlutterPlugin {
                 return id
             }
             
-            
-            let serverUrl = (environment == "Environment.LIVE")
-                ? "https://atfawry.com"
-                : "https://atfawry.fawrystaging.com";
-            
-            // Set FawrySdk language
-            let language = (languageString == "Language.EN") ? "en" : "ar";
-            
             do{
                 try fawry.initializeCardTokenizer(
-                    serverURL: serverUrl,
+                    serverURL: SwiftFlutterFawryPayPlugin.endPointURL,
                     styleParam: ThemeStyle(
                         primaryColor: .red,
                         primaryDarkColor: .red,
                         secondaryColor: .red,
                         secondaryDarkColor: .red
                     ),
-                    merchantIDParam: merchantID,
-                    languageParam: language,
+                    merchantIDParam: SwiftFlutterFawryPayPlugin.merchantID,
+                    languageParam: SwiftFlutterFawryPayPlugin.language,
                     GUIDParam: "#@DDFFEEER",
                     customerMobileNumber: customerMobile,
                     customerEmailAddress: customerEmail,

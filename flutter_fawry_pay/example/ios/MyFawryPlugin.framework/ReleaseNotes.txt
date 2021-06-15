@@ -1,5 +1,70 @@
 "Fawry Payment Plugin SDK" - "iOS"
 Release Notes
+===========================================================================
+Version "3.10.10" : Released at "40-05-2021" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : handle expiry date issue
+
+===========================================================================
+Version "3.10.9" : Released at "18-05-2021" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : add SkipReceipt flag to user
+-Hamdy : Add *allowedPaymentMethod* key incase integrator choose preferred method    
+
+
+===========================================================================
+Version "3.10.8" : Released at "11-05-2021" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : adjust fees calculation.
+
+===========================================================================
+Version "3.10.4" : Released at "20-10-2020" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : Fix missing fees when pre-select default pay method.
+
+===========================================================================
+Version "3.10.3" : Released at "22-09-2020" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : New callback method for fetching supported payment methods.
+-Hamdy : New init method with default selected payment method.
+-Hamdy : Navigate to confirmation if selected payment method (Fawry_Kiosk).
+-Hamdy : Navigate to payment to enter card data without showing select payment method view if selected payment method (Credit_Card).
+-Hamdy : Customize app UI with 4 main colors and any client will override these colors and set his own colors.
+-Hamdy : Allow user to customize fawry button icon with image.
+
+
+
+
+
+===========================================================================
+Version "3.10.2" : Released at "15-09-2020" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : Replace UIWebView with WKWebView.
+
+===========================================================================
+Version "3.10.1" : Released at "16-07-2020" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : Force light mode in ios 13.
+
+===========================================================================
+Version "3.9.8" : Released at "10-06-2020" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : Promotion init (coupon validation,redeemtion - instant discount)
+
+
+===========================================================================
+Version "3.9.7" : Released at "10-06-2020" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
+===========================================================================
+FEATURES IN THIS RELEASE:
+-Hamdy : Fix present screen as full screen not as card mode in ios 13.
 
 ===========================================================================
 Version "3.9.6" : Released at "10-04-2020" by "Hamdy" - "ahmed.kamal@fawry.com" to "QC"
