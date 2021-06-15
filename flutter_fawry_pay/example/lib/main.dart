@@ -44,17 +44,18 @@ class _MyAppState extends State<MyApp> {
   Future<void> initFawryPay() async {
     try {
       _isFawryPayInit = await FlutterFawryPay.instance.init(
-        merchantID: Keys.merchantID,
         // Set the merchant ID here for one time only.
+        merchantID: Keys.merchantID,
         style: Style.STYLE1,
-        skipCustomerInput: true,
         // If set to true, you must set username and email.
+        skipCustomerInput: true,
+        // Must be a phone number.
         username: "01234567890",
-        // Must be phone number.
         email: "abc@test.com",
-        webDisplayMode: DisplayMode.SIDE_PAGE,
         // For web how you show the Fawry screen.
-        environment: Environment.TEST, // You should set environment here.
+        webDisplayMode: DisplayMode.SIDE_PAGE,
+        // You should set environment here.
+        environment: Environment.TEST,
       );
 
       _fawryCallbackResultStream = FlutterFawryPay.instance.callbackResultStream().listen((event) {

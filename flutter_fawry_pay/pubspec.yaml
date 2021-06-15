@@ -11,13 +11,13 @@ dependencies:
   flutter:
     sdk: flutter
 
-#  flutter_fawry_pay_platform_interface: ^0.0.3
-  flutter_fawry_pay_platform_interface:
-    path: ../flutter_fawry_pay_platform_interface
+  flutter_fawry_pay_platform_interface: ^0.0.4
+#  flutter_fawry_pay_platform_interface:
+#    path: ../flutter_fawry_pay_platform_interface
 
-#  flutter_fawry_pay_web: ^0.0.1
-  flutter_fawry_pay_web:
-    path: ../flutter_fawry_pay_web
+  flutter_fawry_pay_web: ^0.0.2
+#  flutter_fawry_pay_web:
+#    path: ../flutter_fawry_pay_web
 
 dev_dependencies:
   flutter_test:

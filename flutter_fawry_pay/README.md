@@ -76,13 +76,22 @@ Then, you need to initialize the SDK.
 
 ```dart
 FlutterFawryPay.instance.init(
-  style: Style.STYLE1,
-  skipCustomerInput: true, // If set to true, you must set username and email.
-  username: "01234567890", // Must be phone number.
-  email: "abc@test.com",
-  environment: Environment.TEST, // For web you should set environment here.
+    // Set the merchant ID here for one time only.
+    merchantID: Keys.merchantID,
+    style: Style.STYLE1,
+    // If set to true, you must set username and email.
+    skipCustomerInput: true,
+    // Must be a phone number.
+    username: "01234567890",
+    email: "abc@test.com",
+    // For web how you show the Fawry screen.
+    webDisplayMode: DisplayMode.SIDE_PAGE,
+    // You should set environment here.
+    environment: Environment.TEST, 
 );
 ```
+
+And when you are ready for production you have to set the environment to LIVE.
 
 Now, you can stream the result data that from SDK.
 
@@ -95,34 +104,24 @@ FlutterFawryPay.instance.callbackResultStream().listen((event) {
 
 Let's now make our first payment initialize, you must set your merchantID that token from FawryPay system, and set your FawryItems that the user will pay for.
 
-> Note that: there's error in native FawryPay SDK for android to retrieve again customParam.
+> Note that: there's error in native FawryPay SDK for Android and iOS to retrieve again customParam.
 
 ```dart
 FlutterFawryPay.instance.initialize(
-  merchantID: Keys.merchantID,
-  webDisplayMode: DisplayMode.SIDE_PAGE, // For web how you show the Fawry screen.
-  returnUrl: "test.com", // For web you MUST set the returnUrl.
-  items: [
+    returnUrl: "test.com", // For Web use only.
+    items: [
     FawryItem(sku: "1", description: "Item 1", qty: 1, price: 20.0),
-  ],
+    ],
+    customParam: {
+    "order_id": "123213",
+    "price": 231.0,
+    },
 );
 ```
 
-You can set some parameters like: `merchantRefNumber, language, environment, customParam`.
+You can set some parameters like: `merchantRefNumber, customParam`.
 
-And when you are ready for production you have to set the environment to Live.
-
-```dart
-FlutterFawryPay.instance.initialize(
-  environment: Environment.LIVE, // For Android and iOS.
-  merchantID: Keys.merchantID,
-  items: [
-    FawryItem(sku: "1", description: "Item 1", qty: 1, price: 20.0),
-  ],
-);
-```
-
-So, it was initialized well, how to start payment? You have TWO ways.
+So now, it was initialized well, how to start payment? You have TWO ways.
 
 ### First way: Native Fawry Button
 
@@ -151,7 +150,6 @@ There's a function in FawryPay is CardTokenizer (Android & iOS only, not for Web
 
 ```dart
 FlutterFawryPay.instance.initializeCardTokenizer(
-  merchantID: Keys.merchantID,
   customerMobile: "01234567890",
   customerEmail: "abc@test.com",
   customParam: {

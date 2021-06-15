@@ -13,9 +13,9 @@ dependencies:
   flutter_web_plugins:
     sdk: flutter
 
-#  flutter_fawry_pay_platform_interface: ^0.0.4
-  flutter_fawry_pay_platform_interface:
-    path: ../flutter_fawry_pay_platform_interface
+  flutter_fawry_pay_platform_interface: ^0.0.4
+#  flutter_fawry_pay_platform_interface:
+#    path: ../flutter_fawry_pay_platform_interface
 
   js: ^0.6.3
 

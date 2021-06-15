@@ -39,7 +39,13 @@ class FlutterFawryPayWeb {
   static const String _METHOD_START_PAYMENT = "start_payment";
   static const String _METHOD_RESET = "reset";
 
-  String? _merchantID, _username, _email, _customerName, _language, _endPointURL, _webDisplayMode;
+  String? _merchantID,
+      _username,
+      _email,
+      _customerName,
+      _language,
+      _endPointURL,
+      _webDisplayMode;
 
   static void registerWith(Registrar registrar) {
     final MethodChannel channel = MethodChannel(
@@ -68,7 +74,8 @@ class FlutterFawryPayWeb {
       default:
         throw PlatformException(
           code: 'Unimplemented',
-          details: 'flutter_fawry_pay for web doesn\'t implement \'${call.method}\'',
+          details:
+              'flutter_fawry_pay for web doesn\'t implement \'${call.method}\'',
         );
     }
   }
@@ -81,7 +88,8 @@ class FlutterFawryPayWeb {
   /// Returns `true` if it initialized fine.
   /// Throws exception if not.
   bool _init(dynamic arguments) {
-    List<Node>? nodes = html.window.document.documentElement?.getElementsByClassName("fawry-plugin-script");
+    List<Node>? nodes = html.window.document.documentElement
+        ?.getElementsByClassName("fawry-plugin-script");
 
     if (nodes?.length == 1) return true;
 
@@ -94,20 +102,23 @@ class FlutterFawryPayWeb {
       _endPointURL = "https://atfawry.com";
     else
       _endPointURL = "https://atfawry.fawrystaging.com";
-    _webDisplayMode = arguments["webDisplayMode"].replaceAll("DisplayMode.", "");
+    _webDisplayMode =
+        arguments["webDisplayMode"].replaceAll("DisplayMode.", "");
 
     LinkElement fawryStyleSheet = LinkElement()
       ..attributes = {
         "class": "fawry-charges-stylesheet",
         "rel": "stylesheet",
-        "href": "$_endPointURL/atfawry/plugin/assets/payments/css/fawrypay-payments.css",
+        "href":
+            "$_endPointURL/atfawry/plugin/assets/payments/css/fawrypay-payments.css",
       };
 
     ScriptElement fawryPluginScript = ScriptElement()
       ..attributes = {
         "class": "fawry-plugin-script",
         "type": "text/javascript",
-        "src": "$_endPointURL/atfawry/plugin/assets/payments/js/fawrypay-payments.js",
+        "src":
+            "$_endPointURL/atfawry/plugin/assets/payments/js/fawrypay-payments.js",
       };
 
     html.window.document.documentElement?.append(fawryStyleSheet);
@@ -122,7 +133,8 @@ class FlutterFawryPayWeb {
   /// Returns `true` if it initialized fine.
   /// Throws exception if not.
   bool _initialize(dynamic arguments) {
-    List<Node>? nodes = html.window.document.documentElement?.getElementsByClassName("fawry-charges-script");
+    List<Node>? nodes = html.window.document.documentElement
+        ?.getElementsByClassName("fawry-charges-script");
 
     String merchantRefNumber = (arguments["merchantRefNumber"] != null)
         ? arguments["merchantRefNumber"].toString()
@@ -251,7 +263,8 @@ class FlutterFawryPayWeb {
   /// Returns `true` if it was rest well.
   /// Throws exception if not.
   bool _reset() {
-    List<Node>? nodes = html.window.document.documentElement?.getElementsByClassName("fawry-charges-script");
+    List<Node>? nodes = html.window.document.documentElement
+        ?.getElementsByClassName("fawry-charges-script");
 
     ScriptElement script = ScriptElement()
       ..text = """
