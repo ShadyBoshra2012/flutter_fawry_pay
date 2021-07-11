@@ -1,3 +1,7 @@
+## 0.0.6+1
+
+- Fix Android file url.
+
 ## 0.0.6
 
 - **BREAKING**: init() method has added new required parameter (merchantID), now you can set it for one time.
